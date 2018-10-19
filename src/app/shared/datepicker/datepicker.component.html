@@ -1,0 +1,27 @@
+<input 
+  matInput
+  class="form-input-s"
+  [placeholder]="placeholder"
+  [name]="name"
+  [id]="id"
+  [matDatepicker]="picker"
+  [(ngModel)]="_input_value"
+  (keyup)="onChange($event)"
+  (dateChange)="onDatepickerChange($event)"
+  appDatepickerMmddyyyy
+  #input
+>
+<a 
+  class="datepicker-button input-group-addon default" 
+  role="button" 
+  aria-haspopup="true" 
+  tabindex="0"
+  (click)="toggleDatepicker()"
+  (keyup.enter)="toggleDatepicker()"
+  aria-labelledby="datepicker-bn-open-label-date"
+  #toggleButton
+>
+  <span class="acc-datepicker" title="Select date ..."></span>
+</a> 
+<mat-datepicker #picker></mat-datepicker>
+

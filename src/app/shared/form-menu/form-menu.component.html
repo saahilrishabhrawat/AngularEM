@@ -1,0 +1,160 @@
+<section class="area no-padding trim--white">
+  <div class="ogn__secondary-header-formlink ogn-container" [ngClass]="disabled ? 'navbar-disabled' : ''">
+    <div class="area no-padding  borderRadius">
+    </div>
+    <div class="ogn-flyout1">
+      <div class="ogn-flyout-content">
+        <nav class="ogn-nav" aria-label="Level 1 Navigation">
+          <div class="ogn-container">
+            <ul class="nav-list">
+
+              <li class="nav-list-item">
+                <a  class="nav-link nav-link--text-container" [tabindex]="disabled ? '-1' : '0'" [routerLink]="['/eligibility-profile-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]" routerLinkActive="routerLink">
+                 Profile Detail
+                </a>
+              </li>
+
+              <li class="nav-list-item has-children" [ngClass]="item2ClassName" aria-haspopup="true">
+                <a href="javascript:void(0)" class="nav-link nav-link--text-container" (click)="listItem2(isOpen=!isOpen)" (focusout)="listItem2
+(isOpen=false)" [tabindex]="disabled ? '-1' : '0'">
+                  Member
+                </a>
+                <ul class="nav-sublist" aria-hidden="true">
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container" [routerLink]="['/member-default-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]" routerLinkActive="routerLink">
+                      Member Detail
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container" [routerLink]="['/alternate-insurance-default-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]" routerLinkActive="routerLink">
+                      Alt. Insurance
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container"
+                     [routerLink]="['/care-assign-default-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]"  routerLinkActive="routerLink">
+                 Care Assignment
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#"class="nav-sublink nav-link--text-container" [routerLink]="['/coverage-default-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]" routerLinkActive="routerLink">
+                   Coverage
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#"class="nav-sublink nav-link--text-container" [routerLink]="['/health-default-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]" routerLinkActive="routerLink">
+                   Health
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container" [routerLink]="['/him-default-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]" routerLinkActive="routerLink">
+                   HIM
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container" [routerLink]="['/incident-default-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode}]" routerLinkActive="routerLink">
+                   Incident
+                    </a>
+                  </li>
+
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container"
+                     [routerLink]="['/override-default-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]"  routerLinkActive="routerLink">
+                   Override
+                    </a>
+                  </li>
+
+                </ul>
+              </li>
+
+              <li class="nav-list-item">
+                <a class="nav-link nav-link--text-container" [tabindex]="disabled ? '-1' : '0'" [routerLink]="['/group-default-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]"  routerLinkActive="routerLink">
+                 Group Detail
+                </a>
+              </li>
+
+              <li class="nav-list-item">
+                <a href="javascript:void(0)" class="nav-link nav-link--text-container" [tabindex]="disabled ? '-1' : '0'" [routerLink]="['/s-eligibility-queue',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]" routerLinkActive="routerLink">
+                 Eligibility Queue
+                </a>
+              </li>
+
+
+              <li class="nav-list-item has-children" [ngClass]="item5ClassName" aria-haspopup="true">
+                <a href="javascript:void(0)" class="nav-link nav-link--text-container" (click)="listItem5(isOpen=!isOpen)" (focusout)="listItem5
+    (isOpen=false)" [tabindex]="disabled ? '-1' : '0'">
+                  Error Tolerance
+                </a>
+                <ul class="nav-sublist" aria-hidden="true">
+                  <li class="nav-subitem">
+                    <a [routerLink]="['/error-tolerance-control',{cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode}]" class="nav-sublink nav-link--text-container" routerLinkActive="routerLink">
+                     Control
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container" [routerLink]="['/s-error-tolerance',{cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode}]" routerLinkActive="routerLink">
+                    Threshold
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-list-item has-children" [ngClass]="item6ClassName" aria-haspopup="true">
+                <a href="javascript:void(0)" class="nav-link nav-link--text-container" (click)="listItem6(isOpen=!isOpen)"
+                (focusout)="listItem6(isOpen=false)" [tabindex]="disabled ? '-1' : '0'">
+                  Quality
+                </a>
+                <ul class="nav-sublist" aria-hidden="true">
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container" [routerLink]="['/quality-default-detail',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]" routerLinkActive="routerLink">
+                      Quality Detail
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#"class="nav-sublink nav-link--text-container" routerLinkActive="routerLink">
+                     Health Report
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-list-item has-children" [ngClass]="item7ClassName" aria-haspopup="true">
+                <a href="javascript:void(0)" class="nav-link nav-link--text-container" (click)="listItem7(isOpen=!isOpen)"
+                (focusout)="listItem7(isOpen=false)" [tabindex]="disabled ? '-1' : '0'">
+                  Other
+                </a>
+                <ul class="nav-sublist" aria-hidden="true">
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container" [routerLink]="['/eligibility-governance-data-control',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]" routerLinkActive="routerLink">
+                    EGD Control
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container" [routerLink]="['/s-eligibility-request',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]" routerLinkActive="routerLink">
+                      Eligibility Request
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container" routerLinkActive="routerLink">
+                      Load Type
+                    </a>
+                  </li>
+                  <li class="nav-subitem">
+                    <a href="#" class="nav-sublink nav-link--text-container" routerLinkActive="routerLink">
+                    Rejection Report
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+            </ul>
+
+            <a id="end-of-ogn"></a>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+</section>
+

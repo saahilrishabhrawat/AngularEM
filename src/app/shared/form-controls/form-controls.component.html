@@ -1,0 +1,14 @@
+<div class="form-button-container">
+    <div class="row">
+        <div class="col-3">
+          <a href="javascript:void(0)" (click)="onPreviousRecordClick()" [hidden]="!recordsInStorage" class="btn1">Previous record</a>              
+        </div>    
+        <div class="col-6 text-center">
+          <a (click)="onCancelClick()" tabindex="0" [routerLink]="onCancelRoute" *ngIf="showCancel" class="btn btn--secondary saveCancelAlignment">Cancel</a>             
+          <a (click)="onSaveClick()"  tabindex="0" *ngIf="showSave" class="btn btn--primary saveCancelAlignment" scrollTopOnClick>Save changes</a>   
+        </div>    
+        <div class="col-3">
+          <a href="javascript:void(0)" (click)="onNextRecordClick()"  [hidden]="!recordsInStorage" class="btn nextButtonSytle">Next record</a>
+        </div>
+    </div>
+  </div>

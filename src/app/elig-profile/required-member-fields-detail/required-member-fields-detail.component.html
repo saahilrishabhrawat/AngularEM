@@ -1,0 +1,3280 @@
+<a id="top"></a>
+<div class="title">
+  <div id="end_of_global_nav" tabindex="-1"></div>
+  <section class="area no-padding trim--white ">
+    <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+      <div class="ogn__title__left">
+        <h1 class="h1">Required Member Fields Detail Page</h1>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+  <div>
+    <app-form-links></app-form-links>
+  </div>
+  <div class="form_background">
+    <div class="">
+      <app-form-menu></app-form-menu>
+      <section class="area no-padding trim--white">
+        <div class="ogn__secondary-form ogn-container">
+          <div class="content"></div>
+        </div>
+      </section>
+    </div>
+    <!--Form starts-->
+    <form [formGroup]="memberDtlForm">
+        <!-- [recordSessionStorageId]="'eligibilityProfile'" -->
+        <!-- [showSave]="!isView()" -->
+      <form-controls
+        [showCancel]="true"
+        (onSave)="submit()"
+        [onCancelRoute]="'/req-mbr-fields'"
+      > 
+      </form-controls>
+
+      <!-- <div class="errorDiv" *ngIf="submitted && this.overrideDtlForm.invalid">
+        <p class="errorDiv_text">{{errorDivMessage}}</p>
+      </div>
+      <div class="successDiv" *ngIf="isSuccess && !this.overrideDtlForm.invalid">
+        <p class="errorDiv_text">Your changes were successfully saved.</p>
+      </div> -->
+ 
+      <pcag-info
+        [platformId]="platformId"
+        [carrierId]="carrierId"
+        [accountId]="accountId"
+        [groupId]="groupId"
+      >
+      </pcag-info> 
+      
+      <div>
+        <app-form-section-heading></app-form-section-heading>
+        <div class="h2">Demographic Information</div>
+      </div>
+      <div class="typography form">
+        <!--Input Field Starts-->
+<!-- Test -->
+
+<div id= "demographicInformation">
+<!-- member ID length -->
+<div class="row">
+    <div class="form-group" >
+       <div class="left-control"> 
+           <label id=" rmfMemberIdLength_label" for=" rmfMemberIdLength">
+               <span>Member ID length</span>
+               
+           </label>
+           <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+              ngbTooltip="Tooltip Imagery may or may not reflect your current medications.">
+           </a>
+        </div>
+       <div class="right-control error_message" >
+           <input id=" rmfMemberIdLength" placeholder="##" type="text"  tabindex="0" class="form-input-xxxs" formControlName="rmfMemberIdLength" appNumeric maxlength="2">
+            <!-- <div *ngIf="submitted && this.profileDtlForm.get('epfLoadIdentifier').invalid">
+               <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfLoadIdentifier').errors.required">
+                   This field is required.
+               </p>
+               <p class="bold_error" *ngIf="submitted && !this.profileDtlForm.get('epfLoadIdentifier').errors.required && this.profileDtlForm.get('epfLoadIdentifier').invalid">
+                   {{ epfLoadIdentifierErrorMsg }}
+               </p>
+
+           </div> -->
+       </div>
+       <!-- <div class="right-control" *ngIf="isView()">
+           <p>
+               <label *ngIf="profileDtlForm.get('epfLoadIdentifier') != null">{{ profileDtlForm.get('epfLoadIdentifier').value }}</label>
+           </p>
+       </div> -->
+   </div>
+</div> 
+
+<!-- member id length -->
+
+
+
+
+<!-- First name -->
+
+<div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('rmfFirstName').invalid||this.memberDtlForm.get('rmfFirstNameVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfFirstName">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfFirstName').invalid||this.memberDtlForm.get('rmfFirstNameVal').invalid))}">First name</span>
+         
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfFirstName}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfFirstName').invalid||this.memberDtlForm.get('rmfFirstNameVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfFirstName" (change)="selectType($event,'rmfFirstName')" class="form-select-lg" formControlName="rmfFirstName">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfFirstName">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfFirstNameVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <input id="rmfFirstNameVal" type="text" placeholder="Name" tabindex="0" class="form-input-md" formControlName="rmfFirstNameVal"
+              appAlphanumspec maxlength="15">
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfFirstNameVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfFirstNameVal').errors.required && this.memberDtlForm.get('rmfFirstNameVal').invalid">
+                  {{ rmfFirstNameValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfFirstName').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfFirstName').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfFirstName') != null">{{ memberDtlForm.get('rmfFirstName').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfFirstName">{{ memberDtlForm.get('rmfFirstNameVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+<!-- First NAME -->
+
+
+<!-- middle Name -->
+
+<div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('rmfMiddleName').invalid||this.memberDtlForm.get('rmfMiddleNameVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfMiddleName" id="rmfMiddleName" >
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfMiddleName').invalid||this.memberDtlForm.get('rmfMiddleNameVal').invalid))}">Middle name</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfMiddleName}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfMiddleName').invalid||this.memberDtlForm.get('rmfMiddleNameVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfMiddleName" (change)="selectType($event,'rmfMiddleName')" class="form-select-lg" formControlName="rmfMiddleName">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+                
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfMiddleName">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfMiddleNameVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <input id="rmfMiddleNameVal" type="text" placeholder="MI" tabindex="0" class="form-input-xxxs" formControlName="rmfMiddleNameVal"
+              appAlphabets maxlength="1">
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfMiddleNameVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfMiddleNameVal').errors.required && this.memberDtlForm.get('rmfMiddleNameVal').invalid">
+                  {{ rmfMiddleNameValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfMiddleName').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfMiddleName').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfMiddleName') != null">{{ memberDtlForm.get('rmfMiddleName').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfMiddleName">{{ memberDtlForm.get('rmfMiddleNameVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+  <!-- sex -->
+
+  <div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfSexVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfSex">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfSex').invalid||this.memberDtlForm.get('rmfSexVal').invalid))}">Sex</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfSex}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfSex').invalid||this.memberDtlForm.get('rmfSexVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfSex" (change)="selectType($event,'rmfSex')" class="form-select-lg" formControlName="rmfSex">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfSex">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfSexVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <!-- <input id="rmfSexVal" type="text" placeholder="##" tabindex="0" class="form-input-xxxs" formControlName="rmfSexVal"
+                appNumeric maxlength="2"> -->
+				
+				<div class="field-block">
+                                <input type="radio" id="abc" aria-required="true" tabindex="0" formControlName="rmfSexVal"
+                                    value="F">
+                                <label class="field-label" for="abc">Female</label>
+                            </div>
+                            <div class="field-block">
+                                <input type="radio" id="abe" tabindex="0" formControlName="rmfSexVal" value="M">
+                                <label class="field-label" for="abe">Male</label>
+                            </div>
+				
+				
+				
+				
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfSexVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfSexVal').errors.required && this.memberDtlForm.get('rmfSexVal').invalid">
+                  {{ rmfSexValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfSex').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfSex').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfSex') != null">{{ memberDtlForm.get('rmfSex').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfSex">{{ memberDtlForm.get('rmfSexVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+  <!-- date of birth -->
+
+  <div class="row">
+      <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('rmfDateOfBirth').invalid||this.memberDtlForm.get('rmfDateOfBirthVal').invalid))}">
+        <div class="left-control">
+          <label for="rmfDateOfBirth">
+            <span [ngClass]="{'error': submitted && this.memberDtlForm.get('rmfDateOfBirth').invalid}">Date of birth </span>
+            
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+        </div>
+        <div class="right-control error_message" >
+          <div class="field-block">
+            <div [ngClass]="{'ssn':showrmfDateOfBirth}">
+              <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfDateOfBirth').invalid||this.memberDtlForm.get('rmfDateOfBirthVal').invalid))? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                <select tabindex="0" id="rmfDateOfBirth" (change)="selectType($event,'rmfDateOfBirth')" class="form-select-lg"
+                  formControlName="rmfDateOfBirth">
+                  <option value="">Select one</option>
+                  <option value="B">Bypass</option>
+                  <option value="F">Default, bypass</option>
+                  <option value="E">Default, input</option>
+                  <option value="D">Default, input(required)</option>
+                  <option value="I">Input</option>
+                  <option value="R">Required</option>
+                  <option value="L">Required, lock user</option>
+                  <option value="V">Validate country code</option>
+                  
+                </select>
+              </div>
+              <ng-container *ngIf="showrmfDateOfBirth">
+                <legend class="ssn_legend">Default/replacement value</legend>
+                <app-datepicker
+                  formControlName="rmfDateOfBirthVal"
+                >
+                </app-datepicker>
+
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfDateOfBirthVal').invalid &&  dateRequiredErrorFlag">
+                  <p class="bold_error">
+                    {{ fieldRequiredMsg }}
+                  </p>
+                </div>
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfDateOfBirthVal').invalid &&  !dateRequiredErrorFlag">
+                  <p class="bold_error">
+                    {{ dateErrorMsg }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="submitted && this.memberDtlForm.get('rmfDateOfBirth').invalid">
+            <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfDateOfBirth').errors.required">
+              This field is required.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- <div class="right-control view_message" >
+
+          <label class="view_message" *ngIf="memberDtlForm.get('rmfDateOfBirth') != null">{{ memberDtlForm.get('rmfDateOfBirth').value }}</label>
+
+          <label class="view_message" *ngIf="showrmfDateOfBirth">{{ rmfDateOfBirthValString }}</label>
+
+        </div> -->
+
+      </div>
+    </div>
+
+  
+     <!-- date of birth        -->
+
+ <!-- phone -->
+ <div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('rmfPhone').invalid||this.memberDtlForm.get('rmfPhoneVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfPhone">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfPhone').invalid||this.memberDtlForm.get('rmfPhoneVal').invalid))}">Phone</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfPhone}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfPhone').invalid||this.memberDtlForm.get('rmfPhoneVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfPhone" (change)="selectType($event,'rmfPhone')" class="form-select-lg" formControlName="rmfPhone">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfPhone">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfPhoneVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <input id="rmfPhoneVal" type="text" placeholder="xxx-xxx-xxxx" tabindex="0" class="form-input-s" formControlName="rmfPhoneVal"
+              appPhone maxlength="10">
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfPhoneVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfPhoneVal').errors.required && this.memberDtlForm.get('rmfPhoneVal').invalid">
+                  {{ rmfPhoneValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfPhone').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfPhone').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfPhone') != null">{{ memberDtlForm.get('rmfPhone').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfPhone">{{ memberDtlForm.get('rmfPhoneVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+  <!-- SSN -->
+  <div class="row">
+      <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('rmfSocialSecurityNbr').invalid||this.memberDtlForm.get('rmfSocSecNbrVal').invalid))}">
+        <div class="left-control">
+          <label for="rmfSocialSecurityNbr">
+            <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfSocialSecurityNbr').invalid||this.memberDtlForm.get('rmfSocSecNbrVal').invalid))}">SSN</span>
+            
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+        </div>
+        <div class="right-control error_message">
+          <div class="field-block">
+            <div [ngClass]="{'ssn':showrmfSocialSecurityNbr}">
+              <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfSocialSecurityNbr').invalid||this.memberDtlForm.get('rmfSocSecNbrVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                <select tabindex="0" id="rmfSocialSecurityNbr" (change)="selectType($event,'rmfSocialSecurityNbr')" class="form-select-lg" formControlName="rmfSocialSecurityNbr">
+                  <option value="">Select one</option>
+                  <option value="B">Bypass</option>
+                  <option value="F">Default, bypass</option>
+                  <option value="E">Default, input</option>
+                  <option value="D">Default, input(required)</option>
+                  <option value="I">Input</option>
+                  <option value="R">Required</option>
+                  <option value="L">Required, lock user</option>
+                  <option value="V">Validate country code</option>
+                </select>
+              </div>
+              <ng-container *ngIf="showrmfSocialSecurityNbr">
+                <legend class="ssn_legend">Default/replacement value</legend>
+                <!-- <app-lookup  formControlName="rmfSocSecNbrVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+                <input id="rmfSocSecNbrVal" type="text" placeholder="xxx-xx-xxxx" tabindex="0" class="form-input-s" formControlName="rmfSocSecNbrVal"
+                  appNumeric maxlength="11">
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfSocSecNbrVal').invalid">
+                  <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfSocSecNbrVal').errors.required && this.memberDtlForm.get('rmfSocSecNbrVal').invalid">
+                    {{ rmfSocSecNbrValErrorMsg }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="submitted && this.memberDtlForm.get('rmfSocialSecurityNbr').invalid">
+            <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfSocialSecurityNbr').errors?.required">
+              This field is required.
+            </p>
+          </div>
+        </div>
+        <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+          <label class="view_message" *ngIf="memberDtlForm.get('rmfSocialSecurityNbr') != null">{{ memberDtlForm.get('rmfSocialSecurityNbr').value }}</label>
+  
+          <label class="view_message" *ngIf="showrmfSocialSecurityNbr">{{ memberDtlForm.get('rmfSocSecNbrVal').value }}</label>
+  
+        </div> -->
+      </div>
+    </div>
+ 
+
+  <!-- email -->
+
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="email3" >
+          <span>E-mail</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        
+         
+              <div class= "select mrgin-right-10" >
+              <select id="email3" tabindex="0"   class="form-select-lg"
+                formControlName="rmfEmailAddress">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+  
+              </select>
+              </div>
+      </div>
+           
+            <!-- <ng-container >
+               <legend class="ssn_legend">Default/replacement value</legend> 
+               <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> 
+              <div >
+                 <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> 
+              </div>
+            </ng-container>
+          </div>
+        </div>
+         <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> 
+            <div>
+           <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> 
+        </div>
+      </div>
+  
+       <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div>  -->
+    </div>
+  </div>
+
+
+<!-- address1 -->
+<div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="add1">
+          <span >Address 1</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="add1"  class="form-select-lg"
+                formControlName="rmfAddress1">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+  
+              </select>
+              
+           </div>
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>
+
+  <!-- address2 -->
+
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="add2">
+          <span >Address 2</span>
+         
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="add2"  class="form-select-lg"
+                formControlName="rmfAddress2">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+  
+              </select>
+            </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>
+
+  <!-- address3 -->
+
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="add3">
+          <span> Address 3</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="add3"  class="form-select-lg"
+                formControlName="rmfAddress3">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+  
+              </select>
+            </div>
+              
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>
+
+  <!-- city -->
+
+  <div class="row">
+      <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfCityVal').invalid))}">
+        <div class="left-control">
+          <label for="rmfCity">
+            <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfCity').invalid||this.memberDtlForm.get('rmfCityVal').invalid))}">City</span>
+            
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+        </div>
+        <div class="right-control error_message">
+          <div class="field-block">
+            <div [ngClass]="{'ssn':showrmfCity}">
+              <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfCity').invalid||this.memberDtlForm.get('rmfCityVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                <select tabindex="0" id="rmfCity" (change)="selectType($event,'rmfCity')" class="form-select-lg" formControlName="rmfCity">
+                  <option value="">Select one</option>
+                  <option value="B">Bypass</option>
+                  <option value="F">Default, bypass</option>
+                  <option value="E">Default, input</option>
+                  <option value="D">Default, input(required)</option>
+                  <option value="I">Input</option>
+                  <option value="R">Required</option>
+                  <option value="L">Required, lock user</option>
+                  <option value="V">Validate country code</option>
+                </select>
+              </div>
+              <ng-container *ngIf="showrmfCity">
+                <legend class="ssn_legend">Default/replacement value</legend>
+                <!-- <app-lookup  formControlName="rmfCityVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+                <input id="rmfCityVal" type="text" placeholder="City" tabindex="0" class="form-input-md" formControlName="rmfCityVal"
+                appAlphanumspec maxlength="20">
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfCityVal').invalid">
+                  <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfCityVal').errors.required && this.memberDtlForm.get('rmfCityVal').invalid">
+                    {{ rmfCityValErrorMsg }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="submitted && this.memberDtlForm.get('rmfCity').invalid">
+            <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfCity').errors?.required">
+              This field is required.
+            </p>
+          </div>
+        </div>
+        <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+          <label class="view_message" *ngIf="memberDtlForm.get('rmfCity') != null">{{ memberDtlForm.get('rmfCity').value }}</label>
+  
+          <label class="view_message" *ngIf="showrmfCity">{{ memberDtlForm.get('rmfCityVal').value }}</label>
+  
+        </div> -->
+      </div>
+    </div>
+
+  <!-- state -->
+
+  <div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfStateVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfState">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfState').invalid||this.memberDtlForm.get('rmfStateVal').invalid))}">State</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfState}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfState').invalid||this.memberDtlForm.get('rmfStateVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfState" (change)="selectType($event,'rmfState')" class="form-select-lg" formControlName="rmfState">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfState">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfStateVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              
+			  
+			  <!-- <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="medicarecover"  class="form-select-xl"
+                formControlName="rmfStateVal">
+               
+                <option value="">select one</option>
+                <option value="3">Medicare Employer Drug Sub</option>
+                <option value="1">Medicare Part D</option>
+                <option value="2">Medicare Part D Wrap Coverage</option>
+                <option value="N">Not covered</option>
+                <option value="B">Part A</option>
+                <option value="M">Part A&B</option>
+                <option value="D">Part A&B Age 65</option>
+                <option value="R">Renal</option>
+                <option value="A">Secondary Part A</option>
+                <option value="U">Secondary , unknown</option>
+                <option value="W">Secondary,Working/TEFRA </option>
+                <option value="Y">Yes, undefined</option>
+                
+  
+  
+              </select>
+              
+            </div> -->
+				
+				
+				
+				
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfStateVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfStateVal').errors.required && this.memberDtlForm.get('rmfStateVal').invalid">
+                  {{ rmfStateValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfState').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfState').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfState') != null">{{ memberDtlForm.get('rmfState').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfState">{{ memberDtlForm.get('rmfStateVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+  <!-- zip1 -->
+  <div class="row">
+      <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfZip1Val').invalid))}">
+        <div class="left-control">
+          <label for="rmfZip1">
+            <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfZip1').invalid||this.memberDtlForm.get('rmfZip1Val').invalid))}">Zip 1</span>
+            
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+        </div>
+        <div class="right-control error_message">
+          <div class="field-block">
+            <div [ngClass]="{'ssn':showrmfZip1}">
+              <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfZip1').invalid||this.memberDtlForm.get('rmfZip1Val').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                <select tabindex="0" id="rmfZip1" (change)="selectType($event,'rmfZip1')" class="form-select-lg" formControlName="rmfZip1">
+                  <option value="">Select one</option>
+                  <option value="B">Bypass</option>
+                  <option value="F">Default, bypass</option>
+                  <option value="E">Default, input</option>
+                  <option value="D">Default, input(required)</option>
+                  <option value="I">Input</option>
+                  <option value="R">Required</option>
+                  <option value="L">Required, lock user</option>
+                  <option value="V">Validate country code</option>
+                </select>
+              </div>
+              <ng-container *ngIf="showrmfZip1">
+                <legend class="ssn_legend">Default/replacement value</legend>
+                <!-- <app-lookup  formControlName="rmfZip1Val" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+                <input id="rmfZip1Val" type="text" placeholder="Zip 1" tabindex="0" class="form-input-xxs" formControlName="rmfZip1Val"
+                  appNumeric maxlength="5">
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfZip1Val').invalid">
+                  <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfZip1Val').errors.required && this.memberDtlForm.get('rmfZip1Val').invalid">
+                    {{ rmfZip1ValErrorMsg }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="submitted && this.memberDtlForm.get('rmfZip1').invalid">
+            <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfZip1').errors?.required">
+              This field is required.
+            </p>
+          </div>
+        </div>
+        <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+          <label class="view_message" *ngIf="memberDtlForm.get('rmfZip1') != null">{{ memberDtlForm.get('rmfZip1').value }}</label>
+  
+          <label class="view_message" *ngIf="showrmfZip1">{{ memberDtlForm.get('rmfZip1Val').value }}</label>
+  
+        </div> -->
+      </div>
+    </div>
+
+  <!-- zip2 -->
+
+  <div class="row">
+      <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfZip2Val').invalid))}">
+        <div class="left-control">
+          <label for="rmfZip2">
+            <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfZip2').invalid||this.memberDtlForm.get('rmfZip2Val').invalid))}">Zip 2</span>
+            
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+        </div>
+        <div class="right-control error_message">
+          <div class="field-block">
+            <div [ngClass]="{'ssn':showrmfZip2}">
+              <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfZip2').invalid||this.memberDtlForm.get('rmfZip2Val').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                <select tabindex="0" id="rmfZip2" (change)="selectType($event,'rmfZip2')" class="form-select-lg" formControlName="rmfZip2">
+                  <option value="">Select one</option>
+                  <option value="B">Bypass</option>
+                  <option value="F">Default, bypass</option>
+                  <option value="E">Default, input</option>
+                  <option value="D">Default, input(required)</option>
+                  <option value="I">Input</option>
+                  <option value="R">Required</option>
+                  <option value="L">Required, lock user</option>
+                  <option value="V">Validate country code</option>
+                </select>
+              </div>
+              <ng-container *ngIf="showrmfZip2">
+                <legend class="ssn_legend">Default/replacement value</legend>
+                <!-- <app-lookup  formControlName="rmfZip2Val" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+                <input id="rmfZip2Val" type="text" placeholder="Zip 2" tabindex="0" class="form-input-xxs" formControlName="rmfZip2Val"
+                  appNumeric maxlength="4">
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfZip2Val').invalid">
+                  <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfZip2Val').errors.required && this.memberDtlForm.get('rmfZip2Val').invalid">
+                    {{ rmfZip2ValErrorMsg }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="submitted && this.memberDtlForm.get('rmfZip2').invalid">
+            <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfZip2').errors?.required">
+              This field is required.
+            </p>
+          </div>
+        </div>
+        <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+          <label class="view_message" *ngIf="memberDtlForm.get('rmfZip2') != null">{{ memberDtlForm.get('rmfZip2').value }}</label>
+  
+          <label class="view_message" *ngIf="showrmfZip2">{{ memberDtlForm.get('rmfZip2Val').value }}</label>
+  
+        </div> -->
+      </div>
+    </div>
+  <!-- zip3 -->
+  <div class="row">
+      <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfZip3Val').invalid))}">
+        <div class="left-control">
+          <label for="rmfZip3">
+            <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfZip3').invalid||this.memberDtlForm.get('rmfZip3Val').invalid))}">Zip 3</span>
+            
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+        </div>
+        <div class="right-control error_message">
+          <div class="field-block">
+            <div [ngClass]="{'ssn':showrmfZip3}">
+              <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfZip3').invalid||this.memberDtlForm.get('rmfZip3Val').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                <select tabindex="0" id="rmfZip3" (change)="selectType($event,'rmfZip3')" class="form-select-lg" formControlName="rmfZip3">
+                  <option value="">Select one</option>
+                  <option value="B">Bypass</option>
+                  <option value="F">Default, bypass</option>
+                  <option value="E">Default, input</option>
+                  <option value="D">Default, input(required)</option>
+                  <option value="I">Input</option>
+                  <option value="R">Required</option>
+                  <option value="L">Required, lock user</option>
+                  <option value="V">Validate country code</option>
+                </select>
+              </div>
+              <ng-container *ngIf="showrmfZip3">
+                <legend class="ssn_legend">Default/replacement value</legend>
+                <!-- <app-lookup  formControlName="rmfZip3Val" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+                <input id="rmfZip3Val" type="text" placeholder="" tabindex="0" class="form-input-xxxs" formControlName="rmfZip3Val"
+                  appNumeric maxlength="2">
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfZip3Val').invalid">
+                  <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfZip3Val').errors.required && this.memberDtlForm.get('rmfZip3Val').invalid">
+                    {{ rmfZip3ValErrorMsg }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="submitted && this.memberDtlForm.get('rmfZip3').invalid">
+            <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfZip3').errors?.required">
+              This field is required.
+            </p>
+          </div>
+        </div>
+        <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+          <label class="view_message" *ngIf="memberDtlForm.get('rmfZip3') != null">{{ memberDtlForm.get('rmfZip3').value }}</label>
+  
+          <label class="view_message" *ngIf="showrmfZip3">{{ memberDtlForm.get('rmfZip3Val').value }}</label>
+  
+        </div> -->
+      </div>
+    </div>
+
+  <!-- country -->
+
+  <div class="row">
+      <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfCountryVal').invalid))}">
+        <div class="left-control">
+          <label for="rmfCountry">
+            <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfCountry').invalid||this.memberDtlForm.get('rmfCountryVal').invalid))}">Country</span>
+            
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+        </div>
+        <div class="right-control error_message">
+          <div class="field-block">
+            <div [ngClass]="{'ssn':showrmfCountry}">
+              <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfCountry').invalid||this.memberDtlForm.get('rmfCountryVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                <select tabindex="0" id="rmfCountry" (change)="selectType($event,'rmfCountry')" class="form-select-lg" formControlName="rmfCountry">
+                  <option value="">Select one</option>
+                  <option value="B">Bypass</option>
+                  <option value="F">Default, bypass</option>
+                  <option value="E">Default, input</option>
+                  <option value="D">Default, input(required)</option>
+                  <option value="I">Input</option>
+                  <option value="R">Required</option>
+                  <option value="L">Required, lock user</option>
+                  <option value="V">Validate country code</option>
+                </select>
+              </div>
+              <ng-container *ngIf="showrmfCountry">
+                <legend class="ssn_legend">Default/replacement value</legend>
+                <!-- <app-lookup  formControlName="rmfCountryVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+                <input id="rmfCountryVal" type="text" placeholder="Code" tabindex="0" class="form-input-xxs" formControlName="rmfCountryVal"
+                  appNumeric maxlength="4">
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfCountryVal').invalid">
+                  <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfCountryVal').errors.required && this.memberDtlForm.get('rmfCountryVal').invalid">
+                    {{ rmfCountryValErrorMsg }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="submitted && this.memberDtlForm.get('rmfCountry').invalid">
+            <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfCountry').errors?.required">
+              This field is required.
+            </p>
+          </div>
+        </div>
+        <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+          <label class="view_message" *ngIf="memberDtlForm.get('rmfCountry') != null">{{ memberDtlForm.get('rmfCountry').value }}</label>
+  
+          <label class="view_message" *ngIf="showrmfCountry">{{ memberDtlForm.get('rmfCountryVal').value }}</label>
+  
+        </div> -->
+      </div>
+    </div>
+
+    <a id="memberInformation"></a>
+    <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+  </div>
+
+  <div>
+    <app-form-section-heading></app-form-section-heading>
+    <div class="h2">Member Information</div>
+  </div>
+  
+
+
+<!-- 1 -->
+
+<div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfPersonCodeVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfPersonCode">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfPersonCode').invalid||this.memberDtlForm.get('rmfPersonCodeVal').invalid))}">Person code</span>
+          <!-- <span class="required">*</span> -->
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfPersonCode}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfPersonCode').invalid||this.memberDtlForm.get('rmfPersonCodeVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfPersonCode" (change)="selectType($event,'rmfPersonCode')" class="form-select-lg" formControlName="rmfPersonCode">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfPersonCode">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfPersonCodeVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <input id="rmfPersonCodeVal" type="text" placeholder="Code" tabindex="0" class="form-input-xxs" formControlName="rmfPersonCodeVal"
+                appAlphanumeric maxlength="3">
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfPersonCodeVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfPersonCodeVal').errors.required && this.memberDtlForm.get('rmfPersonCodeVal').invalid">
+                  {{ rmfPersonCodeValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfPersonCode').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfPersonCode').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfPersonCode') != null">{{ memberDtlForm.get('rmfPersonCode').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfPersonCode">{{ memberDtlForm.get('rmfPersonCodeVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+  <!-- 2 -->
+
+  <div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfRelationshipVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfRelationship">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfRelationship').invalid||this.memberDtlForm.get('rmfRelationshipVal').invalid))}">Relationship code</span>
+         
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfRelationship}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfRelationship').invalid||this.memberDtlForm.get('rmfRelationshipVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfRelationship" (change)="selectType($event,'rmfRelationship')" class="form-select-lg" formControlName="rmfRelationship">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfRelationship">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfRelationshipVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              
+			  
+			  <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="medicarecover"  class="form-select-s"
+                formControlName="rmfRelationshipVal">
+               
+                <option value="">Select one</option>
+                <option value="1">Card holder</option>
+                <option value="3">Child</option>
+                <option value="4">Other</option>
+                <option value="2">Spouse</option>
+                <option value="0">Unspecified</option>
+                
+                
+  
+  
+              </select>
+              
+            </div>
+				
+				
+				
+				
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfRelationshipVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfRelationshipVal').errors.required && this.memberDtlForm.get('rmfRelationshipVal').invalid">
+                  {{ rmfRelationshipValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfRelationship').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfRelationship').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfRelationship') != null">{{ memberDtlForm.get('rmfRelationship').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfRelationship">{{ memberDtlForm.get('rmfRelationshipVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+
+  <!-- 3 -->
+  
+  <div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfTypeVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfType">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfType').invalid||this.memberDtlForm.get('rmfTypeVal').invalid))}">Member type</span>
+         
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfType}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfType').invalid||this.memberDtlForm.get('rmfTypeVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfType" (change)="selectType($event,'rmfType')" class="form-select-lg" formControlName="rmfType">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfType">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfTypeVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              
+			  
+			  <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="medicarecover"  class="form-select-md"
+                formControlName="rmfTypeVal">
+               
+                <option value="">Select one</option>
+                <option value="6">COBRA</option>
+                <option value="7">COBRA WAIT</option>
+                <option value="1">Dependent parent</option>
+                <option value="2">Disabled parent</option>
+                <option value="5">Non-student dependent</option>
+                <option value="3">Spousal equivalent</option>
+                <option value="4">Student</option>
+                
+                
+                
+  
+  
+              </select>
+              
+            </div>
+				
+				
+				
+				
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfTypeVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfTypeVal').errors.required && this.memberDtlForm.get('rmfTypeVal').invalid">
+                  {{ rmfTypeValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfType').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfType').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfType') != null">{{ memberDtlForm.get('rmfType').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfType">{{ memberDtlForm.get('rmfTypeVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+  <!-- 4 -->
+
+  
+  <div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfFamilyFlagVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfFamilyFlag">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfFamilyFlag').invalid||this.memberDtlForm.get('rmfFamilyFlagVal').invalid))}">Family flag</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfFamilyFlag}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfFamilyFlag').invalid||this.memberDtlForm.get('rmfFamilyFlagVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfFamilyFlag" (change)="selectType($event,'rmfFamilyFlag')" class="form-select-lg" formControlName="rmfFamilyFlag">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfFamilyFlag">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfFamilyFlagVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <!-- <input id="rmfFamilyFlagVal" type="text" placeholder="##" tabindex="0" class="form-input-xxxs" formControlName="rmfFamilyFlagVal"
+                appNumeric maxlength="2"> -->
+				
+				<div class="field-block">
+                                <input type="radio" id="abc" aria-required="true" tabindex="0" formControlName="rmfFamilyFlagVal"
+                                    value="Y">
+                                <label class="field-label" for="abc">Yes</label>
+                            </div>
+                            <div class="field-block">
+                                <input type="radio" id="abe" tabindex="0" formControlName="rmfFamilyFlagVal" value="N">
+                                <label class="field-label" for="abe">No</label>
+                            </div>
+				
+				
+				
+				
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfFamilyFlagVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfFamilyFlagVal').errors.required && this.memberDtlForm.get('rmfFamilyFlagVal').invalid">
+                  {{ rmfFamilyFlagValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfFamilyFlag').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfFamilyFlag').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfFamilyFlag') != null">{{ memberDtlForm.get('rmfFamilyFlag').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfFamilyFlag">{{ memberDtlForm.get('rmfFamilyFlagVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+
+  <!-- 5 -->
+  
+  <div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfFamilyTypeVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfFamilyType">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfFamilyType').invalid||this.memberDtlForm.get('rmfFamilyTypeVal').invalid))}">Family type</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfFamilyType}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfFamilyType').invalid||this.memberDtlForm.get('rmfFamilyTypeVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfFamilyType" (change)="selectType($event,'rmfFamilyType')" class="form-select-lg" formControlName="rmfFamilyType">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfFamilyType">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfFamilyTypeVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              
+			  
+			  <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="medicarecover"  class="form-select-xl"
+                formControlName="rmfFamilyTypeVal">
+               
+                <option value="">Select one</option>
+                <option value="2">Cardholder</option>
+                <option value="4">Cardholder & dependents</option>
+                <option value="3">Cardholder & spouse</option>
+                <option value="9">Cardholder + 1</option>
+                <option value="A">Cardholder + 2</option>
+                <option value="6">Dependents</option>
+                <option value="8">Family</option>
+                <option value="1">Member + 1</option>
+                <option value="5">spouse & dependents</option>
+                <option value="7">Spouse only</option>
+               
+                
+  
+  
+              </select>
+              
+            </div>
+				
+				
+				
+				
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfFamilyTypeVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfFamilyTypeVal').errors.required && this.memberDtlForm.get('rmfFamilyTypeVal').invalid">
+                  {{ rmfFamilyTypeValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfFamilyType').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfFamilyType').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfFamilyType') != null">{{ memberDtlForm.get('rmfFamilyType').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfFamilyType">{{ memberDtlForm.get('rmfFamilyTypeVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+
+  <!-- 6 -->
+
+  
+<div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfFamilyIdVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfFamilyId">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfFamilyId').invalid||this.memberDtlForm.get('rmfFamilyIdVal').invalid))}">Family ID</span>
+         
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfFamilyId}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfFamilyId').invalid||this.memberDtlForm.get('rmfFamilyIdVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfFamilyId" (change)="selectType($event,'rmfFamilyId')" class="form-select-lg" formControlName="rmfFamilyId">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfFamilyId">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfFamilyIdVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <input id="rmfFamilyIdVal" type="text" placeholder="Family ID" tabindex="0" class="form-input-md" formControlName="rmfFamilyIdVal"
+                appAlphanumeric maxlength="18">
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfFamilyIdVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfFamilyIdVal').errors.required && this.memberDtlForm.get('rmfFamilyIdVal').invalid">
+                  {{ rmfFamilyIdValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfFamilyId').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfFamilyId').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfFamilyId') != null">{{ memberDtlForm.get('rmfFamilyId').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfFamilyId">{{ memberDtlForm.get('rmfFamilyIdVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+  <!-- 7 -->
+ 
+<div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfMultiBirthVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfMultiBirth">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfMultiBirth').invalid||this.memberDtlForm.get('rmfMultiBirthVal').invalid))}">Multi birth code</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfMultiBirth}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfMultiBirth').invalid||this.memberDtlForm.get('rmfMultiBirthVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfMultiBirth" (change)="selectType($event,'rmfMultiBirth')" class="form-select-lg" formControlName="rmfMultiBirth">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfMultiBirth">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfMultiBirthVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <input id="rmfMultiBirthVal" type="text" placeholder="##" tabindex="0" class="form-input-xxxs" formControlName="rmfMultiBirthVal"
+                appNumeric maxlength="1">
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfMultiBirthVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfMultiBirthVal').errors.required && this.memberDtlForm.get('rmfMultiBirthVal').invalid">
+                  {{ rmfMultiBirthValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfMultiBirth').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfMultiBirth').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfMultiBirth') != null">{{ memberDtlForm.get('rmfMultiBirth').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfMultiBirth">{{ memberDtlForm.get('rmfMultiBirthVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="row">
+      <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('rmfOriginalFromDate').invalid||this.memberDtlForm.get('rmfOriginalFromDteVal').invalid))}">
+        <div class="left-control">
+          <label for="rmfOriginalFromDate">
+            <span [ngClass]="{'error': submitted && this.memberDtlForm.get('rmfOriginalFromDate').invalid}">Original from date </span>
+            
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+        </div>
+        <div class="right-control error_message" >
+          <div class="field-block">
+            <div [ngClass]="{'ssn':showrmfOriginalFromDate}">
+              <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfOriginalFromDate').invalid||this.memberDtlForm.get('rmfOriginalFromDteVal').invalid))? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                <select tabindex="0" id="rmfOriginalFromDate" (change)="selectType($event,'rmfOriginalFromDate')" class="form-select-lg"
+                  formControlName="rmfOriginalFromDate">
+                  <option value="">Select one</option>
+                  <option value="B">Bypass</option>
+                  <option value="F">Default, bypass</option>
+                  <option value="E">Default, input</option>
+                  <option value="D">Default, input(required)</option>
+                  <option value="I">Input</option>
+                  <option value="R">Required</option>
+                  <option value="L">Required, lock user</option>
+                  <option value="V">Validate country code</option>
+                  
+                </select>
+              </div>
+              <ng-container *ngIf="showrmfOriginalFromDate">
+                <legend class="ssn_legend">Default/replacement value</legend>
+                <app-datepicker
+                  formControlName="rmfOriginalFromDteVal"
+                >
+                </app-datepicker>
+
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfOriginalFromDteVal').invalid &&  dateRequiredErrorFlag">
+                  <p class="bold_error">
+                    {{ fieldRequiredMsg }}
+                  </p>
+                </div>
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfOriginalFromDteVal').invalid &&  !dateRequiredErrorFlag">
+                  <p class="bold_error">
+                    {{ dateErrorMsg }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="submitted && this.memberDtlForm.get('rmfOriginalFromDate').invalid">
+            <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfOriginalFromDate').errors.required">
+              This field is required.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- <div class="right-control view_message" >
+
+          <label class="view_message" *ngIf="memberDtlForm.get('rmfOriginalFromDate') != null">{{ memberDtlForm.get('rmfOriginalFromDate').value }}</label>
+
+          <label class="view_message" *ngIf="showrmfOriginalFromDate">{{ rmfOriginalFromDteValString }}</label>
+
+        </div> -->
+
+      </div>
+    </div>
+ 
+  <!-- 9 -->
+  <div class="row">
+      <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('rmfBenefitResetDate').invalid||this.memberDtlForm.get('rmfBenefitResetDteVal').invalid))}">
+        <div class="left-control">
+          <label for="rmfBenefitResetDate">
+            <span [ngClass]="{'error': submitted && this.memberDtlForm.get('rmfBenefitResetDate').invalid}">Benefit reset date </span>
+            
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+        </div>
+        <div class="right-control error_message" >
+          <div class="field-block">
+            <div [ngClass]="{'ssn':showrmfBenefitResetDate}">
+              <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfBenefitResetDate').invalid||this.memberDtlForm.get('rmfBenefitResetDteVal').invalid))? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                <select tabindex="0" id="rmfBenefitResetDate" (change)="selectType($event,'rmfBenefitResetDate')" class="form-select-lg"
+                  formControlName="rmfBenefitResetDate">
+                  <option value="">Select one</option>
+                  <option value="B">Bypass</option>
+                  <option value="F">Default, bypass</option>
+                  <option value="E">Default, input</option>
+                  <option value="D">Default, input(required)</option>
+                  <option value="I">Input</option>
+                  <option value="R">Required</option>
+                  <option value="L">Required, lock user</option>
+                  <option value="V">Validate country code</option>
+                  
+                </select>
+              </div>
+              <ng-container *ngIf="showrmfBenefitResetDate">
+                <legend class="ssn_legend">Default/replacement value</legend>
+                <app-datepicker
+                  formControlName="rmfBenefitResetDteVal"
+                >
+                </app-datepicker>
+
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfBenefitResetDteVal').invalid &&  dateRequiredErrorFlag">
+                  <p class="bold_error">
+                    {{ fieldRequiredMsg }}
+                  </p>
+                </div>
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfBenefitResetDteVal').invalid &&  !dateRequiredErrorFlag">
+                  <p class="bold_error">
+                    {{ dateErrorMsg }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="submitted && this.memberDtlForm.get('rmfBenefitResetDate').invalid">
+            <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfBenefitResetDate').errors.required">
+              This field is required.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- <div class="right-control view_message" >
+
+          <label class="view_message" *ngIf="memberDtlForm.get('rmfBenefitResetDate') != null">{{ memberDtlForm.get('rmfBenefitResetDate').value }}</label>
+
+          <label class="view_message" *ngIf="showrmfBenefitResetDate">{{ rmfBenefitResetDteValString }}</label>
+
+        </div> -->
+
+      </div>
+    </div>
+
+  <!-- 10 -->
+  
+<div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfMedicareHicVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfMedicareHic">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfMedicareHic').invalid||this.memberDtlForm.get('rmfMedicareHicVal').invalid))}">Medicare MBI/HICN</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfMedicareHic}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfMedicareHic').invalid||this.memberDtlForm.get('rmfMedicareHicVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfMedicareHic" (change)="selectType($event,'rmfMedicareHic')" class="form-select-lg" formControlName="rmfMedicareHic">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfMedicareHic">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfMedicareHicVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <input id="rmfMedicareHicVal" type="text" placeholder="MBI/HICN" tabindex="0" class="form-input-md" formControlName="rmfMedicareHicVal"
+                appAlphabets maxlength="11">
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfMedicareHicVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfMedicareHicVal').errors.required && this.memberDtlForm.get('rmfMedicareHicVal').invalid">
+                  {{ rmfMedicareHicValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfMedicareHic').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfMedicareHic').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfMedicareHic') != null">{{ memberDtlForm.get('rmfMedicareHic').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfMedicareHic">{{ memberDtlForm.get('rmfMedicareHicVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+
+  <!-- 11 -->
+  <div class="row">
+      <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('rmfMedicareFromDate').invalid||this.memberDtlForm.get('rmfMedicareFromDteVal').invalid))}">
+        <div class="left-control">
+          <label for="rmfMedicareFromDate">
+            <span [ngClass]="{'error': submitted && this.memberDtlForm.get('rmfMedicareFromDate').invalid}">Medicare from date </span>
+            
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+        </div>
+        <div class="right-control error_message" >
+          <div class="field-block">
+            <div [ngClass]="{'ssn':showrmfMedicareFromDate}">
+              <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfMedicareFromDate').invalid||this.memberDtlForm.get('rmfMedicareFromDteVal').invalid))? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                <select tabindex="0" id="rmfMedicareFromDate" (change)="selectType($event,'rmfMedicareFromDate')" class="form-select-lg"
+                  formControlName="rmfMedicareFromDate">
+                  <option value="">Select one</option>
+                  <option value="B">Bypass</option>
+                  <option value="F">Default, bypass</option>
+                  <option value="E">Default, input</option>
+                  <option value="D">Default, input(required)</option>
+                  <option value="I">Input</option>
+                  <option value="R">Required</option>
+                  <option value="L">Required, lock user</option>
+                  <option value="V">Validate country code</option>
+                  
+                </select>
+              </div>
+              <ng-container *ngIf="showrmfMedicareFromDate">
+                <legend class="ssn_legend">Default/replacement value</legend>
+                <app-datepicker
+                  formControlName="rmfMedicareFromDteVal"
+                >
+                </app-datepicker>
+
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfMedicareFromDteVal').invalid &&  dateRequiredErrorFlag">
+                  <p class="bold_error">
+                    {{ fieldRequiredMsg }}
+                  </p>
+                </div>
+                <div *ngIf="submitted && this.memberDtlForm.get('rmfMedicareFromDteVal').invalid &&  !dateRequiredErrorFlag">
+                  <p class="bold_error">
+                    {{ dateErrorMsg }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="submitted && this.memberDtlForm.get('rmfMedicareFromDate').invalid">
+            <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfMedicareFromDate').errors.required">
+              This field is required.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- <div class="right-control view_message" >
+
+          <label class="view_message" *ngIf="memberDtlForm.get('rmfMedicareFromDate') != null">{{ memberDtlForm.get('rmfMedicareFromDate').value }}</label>
+
+          <label class="view_message" *ngIf="showrmfMedicareFromDate">{{  rmfMedicareFromDteValString }}</label>
+
+        </div> -->
+
+      </div>
+    </div>
+  <!-- 12 -->
+  <div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfMedicareTypeVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfMedicareType">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfMedicareType').invalid||this.memberDtlForm.get('rmfMedicareTypeVal').invalid))}">Medicare coverage type</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfMedicareType}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfMedicareType').invalid||this.memberDtlForm.get('rmfMedicareTypeVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfMedicareType" (change)="selectType($event,'rmfMedicareType')" class="form-select-lg" formControlName="rmfMedicareType">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfMedicareType">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfMedicareTypeVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              
+			  
+			  <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="medicarecover"  class="form-select-xl"
+                formControlName="rmfMedicareTypeVal">
+               
+                <option value="">Select one</option>
+                <option value="3">Medicare Employer Drug Sub</option>
+                <option value="1">Medicare Part D</option>
+                <option value="2">Medicare Part D Wrap Coverage</option>
+                <option value="N">Not covered</option>
+                <option value="B">Part A</option>
+                <option value="M">Part A&B</option>
+                <option value="D">Part A&B Age 65</option>
+                <option value="R">Renal</option>
+                <option value="A">Secondary Part A</option>
+                <option value="U">Secondary, unknown</option>
+                <option value="W">Secondary, Working/TEFRA </option>
+                <option value="Y">Yes, undefined</option>
+                
+  
+  
+              </select>
+              
+            </div>
+				
+				
+				
+				
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfMedicareTypeVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfMedicareTypeVal').errors.required && this.memberDtlForm.get('rmfMedicareTypeVal').invalid">
+                  {{ rmfMedicareTypeValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfMedicareType').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfMedicareType').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfMedicareType') != null">{{ memberDtlForm.get('rmfMedicareType').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfMedicareType">{{ memberDtlForm.get('rmfMedicareTypeVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+  <!-- 13 -->
+
+  <div class="row">
+    <div class="form-group" >
+       <div class="left-control"> 
+           <label  for="rmfExternalProgram">
+               <span>Program</span>
+               
+           </label>
+           <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+              ngbTooltip="Tooltip Imagery may or may not reflect your current medications.">
+           </a>
+        </div>
+       <div class="right-control">
+           <input id="rmfExternalProgram" type="text"  tabindex="0" class="form-input-s" formControlName="rmfExternalProgram" appAlphanumallspec maxlength="10">
+            <!-- <div *ngIf="submitted && this.profileDtlForm.get('epfLoadIdentifier').invalid">
+               <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfLoadIdentifier').errors.required">
+                   This field is required.
+               </p>
+               <p class="bold_error" *ngIf="submitted && !this.profileDtlForm.get('epfLoadIdentifier').errors.required && this.profileDtlForm.get('epfLoadIdentifier').invalid">
+                   {{ epfLoadIdentifierErrorMsg }}
+               </p>
+
+           </div> -->
+       </div>
+       <!-- <div class="right-control" *ngIf="isView()">
+           <p>
+               <label *ngIf="profileDtlForm.get('epfLoadIdentifier') != null">{{ profileDtlForm.get('epfLoadIdentifier').value }}</label>
+           </p>
+       </div> -->
+   </div>
+</div> 
+<a id="eligibilityInformation"></a>
+<div>
+<app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+
+</div>
+<div>
+    <app-form-section-heading></app-form-section-heading>
+    <div class="h2">Eligibility Information</div>
+  </div>
+
+<!-- a -->
+<div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="plancode">
+          <span >Plan code</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="plancode"  class="form-select-lg"
+                formControlName="rmfPlanCode">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+
+  <!-- b -->
+
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="plandate">
+          <span >Plan from date</span>
+         
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="plandate"  class="form-select-lg"
+                formControlName="rmfEffDate">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>
+<!-- c -->
+
+<div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="cbrand">
+          <span >Copay brand</span>
+         
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+            <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="cbrand"  class="form-select-lg"
+                formControlName="rmfCopayBrand">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="Z">Required, confirm zero</option>
+                <option value="L">Required, lock user</option>
+  
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>
+
+  <!-- d -->
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="Copaygeneric">
+          <span>Copay generic</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="Copaygeneric"  class="form-select-lg"
+                formControlName="rmfCopayGeneric">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="Z">Required, confirm zero</option>
+                <option value="L">Required, lock user</option>
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>
+
+  <!-- e -->
+
+
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="c3">
+          <span >Copay 3</span>
+         
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="c3"  class="form-select-lg"
+                formControlName="rmfCopay3">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="Z">Required, confirm zero</option>
+                <option value="L">Required, lock user</option>
+  
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>
+
+  <!-- f -->
+
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for= "c4">
+          <span >Copay 4</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="c4"  class="form-select-lg"
+                formControlName="rmfCopay4">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="Z">Required, confirm zero</option>
+                <option value="L">Required, lock user</option>
+  
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>
+
+
+  <a id= "reportingInformation"></a>
+<div>
+  <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+</div>
+  <div>
+    <app-form-section-heading></app-form-section-heading>
+    <div class="h2">Reporting Information</div>
+  </div>
+
+
+  <!-- a1 -->
+ 
+<div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfDurKeyVal').invalid))}">
+      <div class="left-control">
+        <label for="rmfDurKey">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfDurKey').invalid||this.memberDtlForm.get('rmfDurKeyVal').invalid))}">DUR key</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfDurKey}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfDurKey').invalid||this.memberDtlForm.get('rmfDurKeyVal').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfDurKey" (change)="selectType($event,'rmfDurKey')" class="form-select-lg" formControlName="rmfDurKey">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfDurKey">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfDurKeyVal" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <input id="rmfDurKeyVal" type="text" placeholder="DUR key" tabindex="0" class="form-input-md" formControlName="rmfDurKeyVal"
+                appAlphanumeric maxlength="18">
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfDurKeyVal').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfDurKeyVal').errors.required && this.memberDtlForm.get('rmfDurKeyVal').invalid">
+                  {{ rmfDurKeyValErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.memberDtlForm.get('rmfDurKey').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfDurKey').errors?.required">
+            This field is required.
+          </p>
+        </div> -->
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfDurKey') != null">{{ memberDtlForm.get('rmfDurKey').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfDurKey">{{ memberDtlForm.get('rmfDurKeyVal').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+
+  <!-- a2 -->
+  <div class="row">
+    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDtlForm.get('').invalid||this.memberDtlForm.get('rmfProcessDurValue').invalid))}">
+      <div class="left-control">
+        <label for="rmfProcessDurSts">
+          <span [ngClass]="{'error':  (submitted && (this.memberDtlForm.get('rmfProcessDurSts').invalid||this.memberDtlForm.get('rmfProcessDurValue').invalid))}">DUR process flag</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div [ngClass]="{'ssn':showrmfProcessDurSts}">
+            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDtlForm.get('rmfProcessDurSts').invalid||this.memberDtlForm.get('rmfProcessDurValue').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select tabindex="0" id="rmfProcessDurSts" (change)="selectType($event,'rmfProcessDurSts')" class="form-select-lg" formControlName="rmfProcessDurSts">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="F">Default, bypass</option>
+                <option value="E">Default, input</option>
+                <option value="D">Default, input(required)</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+                <option value="V">Validate country code</option>
+              </select>
+            </div>
+            <ng-container *ngIf="showrmfProcessDurSts">
+              <legend class="ssn_legend">Default/replacement value</legend>
+              <!-- <app-lookup  formControlName="rmfProcessDurValue" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+              <!-- <input id="rmfProcessDurValue" type="text" placeholder="##" tabindex="0" class="form-input-xxxs" formControlName="rmfProcessDurValue"
+                appNumeric maxlength="2"> -->
+				
+				<div class="field-block">
+                                <input type="radio" id="abc" aria-required="true" tabindex="0" formControlName="rmfProcessDurValue"
+                                    value="Y">
+                                <label class="field-label" for="abc">Yes</label>
+                            </div>
+                            <div class="field-block">
+                                <input type="radio" id="abe" tabindex="0" formControlName="rmfProcessDurValue" value="N">
+                                <label class="field-label" for="abe">No</label>
+                            </div>
+				
+				
+				
+				
+              <div *ngIf="submitted && this.memberDtlForm.get('rmfProcessDurValue').invalid">
+                <p class="bold_error" *ngIf="submitted && !this.memberDtlForm.get('rmfProcessDurValue').errors.required && this.memberDtlForm.get('rmfProcessDurValue').invalid">
+                  {{ rmfProcessDurValueErrorMsg }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="submitted && this.memberDtlForm.get('rmfProcessDurSts').invalid">
+          <p class="bold_error" *ngIf="submitted && this.memberDtlForm.get('rmfProcessDurSts').errors?.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+
+        <label class="view_message" *ngIf="memberDtlForm.get('rmfProcessDurSts') != null">{{ memberDtlForm.get('rmfProcessDurSts').value }}</label>
+
+        <label class="view_message" *ngIf="showrmfProcessDurSts">{{ memberDtlForm.get('rmfProcessDurValue').value }}</label>
+
+      </div> -->
+    </div>
+  </div>
+
+  <!-- a3 -->
+
+
+<div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="cliprocode">
+          <span >Client product code</span>
+         
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="cliprocode"  class="form-select-lg"
+                formControlName="rmfClientProductCode">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+               
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+<!-- a4 -->
+
+<div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="crcode">
+          <span >Client rider code</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="crcode"  class="form-select-lg"
+                formControlName="rmfClientRiderCode">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+
+
+
+
+
+<a id="careAssignmentInformation"></a>
+
+
+
+
+<div>
+
+  <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+</div>
+
+
+
+
+
+  <div>
+    <app-form-section-heading></app-form-section-heading>
+    <div class="h2">Care Assignment Information</div>
+  </div>
+<!-- a1 -->
+<div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="carenetwork">
+          <span >Care network</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="carenetwork"  class="form-select-lg"
+                formControlName="rmfCareNetwork">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+
+
+<!-- a2 -->
+
+<div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="careplanoverride">
+          <span >Care plan override</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="careplanoverride"  class="form-select-lg"
+                formControlName="rmfCarePlanOverride">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+
+  <!-- a3 -->
+
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="Careplandate">
+          <span >Care plan O/R effective date</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="Careplandate"  class="form-select-lg"
+                formControlName="rmfCareplanOREffDate">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+
+  <!-- a4 -->
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="facility">
+          <span >Care facility</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="facility"  class="form-select-lg"
+                formControlName="rmfCareFacility">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+
+  <!-- a5 -->
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="carequalifier">
+          <span >Care qualifier</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="carequalifier"  class="form-select-lg"
+                formControlName="rmfCareQualifier">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+
+  <!-- a6 -->
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="primaryprovider">
+          <span >Primary provider</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="primaryprovider"  class="form-select-lg"
+                formControlName="rmfPrimaryProvider">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div> 
+  <a id="altInsuranceInformation"></a>
+  <div>
+  <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+</div>
+  <div>
+    <app-form-section-heading></app-form-section-heading>
+    <div class="h2">Alt. Insurance Information</div>
+  </div>
+
+  <!-- x -->
+
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="flag">
+          <span >Flag</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="flag"  class="form-select-lg"
+                formControlName="rmfAltInsuranceFlag">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+
+  <!-- y -->
+
+  <div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="id">
+          <span >ID</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="id"  class="form-select-lg"
+                formControlName="rmfAltInsuranceId">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+  
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+<!-- z -->
+
+<div class="row">
+    <div class="form-group" >
+      <div class="left-control">
+        <label for="code">
+          <span >Code</span>
+          
+        </label>
+        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                        Imagery may or may not reflect your current medications.">
+        </a>
+      </div>
+      <div class="right-control error_message">
+        <div class="field-block">
+          <div >
+              <div class= "select mrgin-right-10" >
+              <select tabindex="0" id="code"  class="form-select-lg"
+                formControlName="rmfAltInsuranceCode">
+                <option value="">Select one</option>
+                <option value="B">Bypass</option>
+                <option value="I">Input</option>
+                <option value="R">Required</option>
+                <option value="L">Required, lock user</option>
+              </select>
+              </div>
+           
+            <ng-container >
+              <!-- <legend class="ssn_legend">Default/replacement value</legend> -->
+              <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                <p class="bold_error">
+                  {{ fieldRequiredMsg }}
+                </p>
+              </div> -->
+              <div >
+                <!-- <p class="bold_error">
+                  {{ dateErrorMsg }}
+                </p> -->
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid"> -->
+            <div>
+          <!-- <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+            This field is required.
+          </p> -->
+        </div>
+      </div>
+  
+      <!-- <div class="right-control view_message" *ngIf="isView()">
+  
+        <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+  
+        <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+  
+      </div> -->
+    </div>
+  </div>  
+
+
+  <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--Input Field Ends-->
+        <div>
+          <app-form-section-footer></app-form-section-footer>
+        </div>
+         <form-controls
+        [showCancel]="true"
+        (onSave)="submit()"
+        [onCancelRoute]="'/req-mbr-fields'"
+      > 
+      </form-controls>
+      </div>
+      <div class="spacer"></div>
+    </form>
+    <!--Form ends-->
+  </div>
+  <!-- <div class="dateUserStampStyle">
+    Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+    <br>&nbsp;
+  </div> -->
+</div>
+
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+</style>

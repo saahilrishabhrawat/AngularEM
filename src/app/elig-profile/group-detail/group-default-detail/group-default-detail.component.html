@@ -1,0 +1,1181 @@
+<a id="top"></a>
+<div class="title">
+  <div id="end_of_global_nav" tabindex="-1"></div>
+  <section class="area no-padding trim--white ">
+    <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+      <div class="ogn__title__left">
+        <h1 class="h1">Group Default Detail</h1>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+  <div>
+    <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+  </div>
+  <div class="form_background">
+    <div class="">
+      <app-form-menu></app-form-menu>
+      <section class="area no-padding trim--white">
+        <div class="ogn__secondary-form ogn-container">
+          <div class="content"></div>
+        </div>
+      </section>
+    </div>
+    <form [formGroup]="formGroup" [hidden]="inProcess" (change)=refreshMessage()>
+      <form-controls [recordSessionStorageId]="'eligibilityProfile'" [showCancel]="true" [showSave]="!isView()" (onSave)="submit()"
+        [onCancelRoute]="'/s-active-eligibility-profile'">
+      </form-controls>
+      <a id="groupIndicators"></a>
+      <div class="errorDiv" *ngIf="submitted && this.formGroup.invalid">
+        <p class="errorDiv_text">{{errorMsg}}</p>
+      </div>
+      <div class="successDiv" *ngIf="isSuccess && !this.formGroup.invalid">
+        <p class="errorDiv_text">Your changes were successfully saved.</p>
+      </div>
+
+      <pcag-info [platformId]="platformId" [carrierId]="carrierId" [accountId]="accountId" [groupId]="groupId"></pcag-info>
+      <div class="typography form">
+        <div>
+          <app-form-section-heading></app-form-section-heading>
+          <div class="h2">Group Indicators</div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdGroupNameInd').invalid || this.formGroup.get('egdGroupName').invalid)}">
+            <div class="left-control">
+              <label for="egdGroupNameInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdGroupNameInd').invalid || this.formGroup.get('egdGroupName').invalid)}">Group name</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdGroupNameInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdGroupNameInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdGroupNameInd" (change)="selectType($event,'egdGroupNameInd')" class="form-select-lg" formControlName="egdGroupNameInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdGroupNameInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdGroupNameInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdGroupNameInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdGroupName" placeholder="Name" tabindex="0" class="form-input-lg ssn_input" formControlName="egdGroupName"
+                      maxlength="25" appUpper>
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdGroupName').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdGroupName').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdGroupNameInd') != null && !isDefault">{{ formGroup.get('egdGroupNameInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdGroupName') != null && !isDefault">{{ formGroup.get('egdGroupName').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdAddressInd').invalid || this.formGroup.get('addressGroup').invalid)}">
+            <div class="left-control">
+              <label for="egdAddressInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdAddressInd').invalid || this.formGroup.get('addressGroup').invalid)}">Address</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdAddressInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdAddressInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdAddressInd" (change)="selectType($event,'egdAddressInd')" class="form-select-lg" formControlName="egdAddressInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdAddressInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdAddressInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <div formGroupName="addressGroup">
+                    <ng-container *ngIf="showEgdAddressInd">
+                      <legend>Default/replacement value</legend>
+                      <input type="text" id="egdAddress1" placeholder="Address 1" tabindex="0" class="form-input-lg ssn_input" formControlName="egdAddress1"
+                        maxlength="25" appUpper>
+                    </ng-container>
+
+                    <ng-container *ngIf="showEgdAddressInd">
+                      <input type="text" id="egdAddress2" placeholder="Address 2" tabindex="0" class="form-input-md ssn_input next-line" formControlName="egdAddress2"
+                        maxlength="15" appUpper>
+                    </ng-container>
+
+                    <ng-container *ngIf="showEgdAddressInd">
+                      <input type="text" id="egdCity" placeholder="City" tabindex="0" class="form-input-md ssn_input next-line" formControlName="egdCity"
+                        maxlength="20" appUpper>
+                    </ng-container>
+
+                    <div class="select next-line margin-top-5" [ngStyle]="{'border-color' : (submitted && this.formGroup.get('addressGroup').invalid) ? '#E32315' : '#61c6e5' }"
+                      *ngIf="showEgdAddressInd">
+                      <select tabindex="0" id="egdState" class="form-select-lg" formControlName="egdState">
+                        <option value="" selected="selected">Select one</option>
+                        <option *ngFor="let item of stateList" [value]="item.staStateCode">{{item.staStateDescription}}</option>
+                      </select>
+                    </div>
+
+                    <ng-container *ngIf="showEgdAddressInd">
+                      <input type="text" id="egdZip" placeholder="Zip" tabindex="0" class="form-input-xxs ssn_input" formControlName="egdZip" maxlength="5"
+                        appNumeric>
+                    </ng-container>
+
+                    <ng-container *ngIf="showEgdAddressInd">
+                      <input type="text" id="egdZip2" tabindex="0" class="form-input-xxs ssn_input" formControlName="egdZip2" maxlength="4" appNumeric>
+                    </ng-container>
+
+                    <ng-container *ngIf="showEgdAddressInd">
+                      <input type="text" id="egdZip3" tabindex="0" class="form-input-xxxs ssn_input" formControlName="egdZip3" maxlength="2" appNumeric>
+                    </ng-container>
+
+                    <ng-container *ngIf="showEgdAddressInd">
+                      <input type="text" id="egdCountryCode" placeholder="Country" tabindex="0" class="form-input-xs ssn_input next-line" formControlName="egdCountryCode"
+                        maxlength="4" appUpper>
+                    </ng-container>
+                    <div *ngIf="submitted && this.formGroup.get('addressGroup').invalid">
+                      <p class="bold_error" *ngIf="submitted && this.formGroup.get('addressGroup').errors?.required">
+                        {{oneFieldRequiredMsg}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdAddressInd') != null && !isDefault">{{ formGroup.get('egdAddressInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('addressGroup').get('egdAddress1') != null && !isDefault">{{ formGroup.get('addressGroup').get('egdAddress1').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('addressGroup').get('egdAddress2') != null && !isDefault">{{ formGroup.get('addressGroup').get('egdAddress2').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('addressGroup').get('egdCity') != null && !isDefault">{{ formGroup.get('addressGroup').get('egdCity').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('addressGroup').get('egdState') != null && !isDefault">{{ formGroup.get('addressGroup').get('egdState').value }}</label>
+                <label *ngIf="formGroup.get('addressGroup').get('egdZip') != null && !isDefault">{{ formGroup.get('addressGroup').get('egdZip').value }}</label>
+                <label *ngIf="formGroup.get('addressGroup').get('egdZip2') != null && !isDefault">{{ formGroup.get('addressGroup').get('egdZip2').value }}</label>
+                <label *ngIf="formGroup.get('addressGroup').get('egdZip3') != null && !isDefault">{{ formGroup.get('addressGroup').get('egdZip3').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('addressGroup').get('egdCountryCode') != null && !isDefault">{{ formGroup.get('addressGroup').get('egdCountryCode').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdPhoneInd').invalid || this.formGroup.get('egdPhone').invalid)}">
+            <div class="left-control">
+              <label for="egdPhoneInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdPhoneInd').invalid || this.formGroup.get('egdPhone').invalid)}">Phone</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdPhoneInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdPhoneInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdPhoneInd" (change)="selectType($event,'egdPhoneInd')" class="form-select-lg" formControlName="egdPhoneInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdPhoneInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdPhoneInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdPhoneInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdPhone" placeholder="xxx-xxx-xxxx" tabindex="0" class="form-input-s ssn_input" formControlName="egdPhone"
+                      maxlength="12" appPhone>
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdPhone').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdPhone').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdPhone').errors?.invalid">
+                      {{invalidPhoneMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdPhoneInd') != null && !isDefault">{{ formGroup.get('egdPhoneInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdPhone') != null && !isDefault">{{ formGroup.get('egdPhone').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdContactInd').invalid || this.formGroup.get('egdContact').invalid)}">
+            <div class="left-control">
+              <label for="egdContactInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdContactInd').invalid || this.formGroup.get('egdContact').invalid)}">Contact</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdContactInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdContactInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdContactInd" (change)="selectType($event,'egdContactInd')" class="form-select-lg" formControlName="egdContactInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdContactInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdContactInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdContactInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdContact" placeholder="Name" tabindex="0" class="form-input-lg ssn_input" formControlName="egdContact"
+                      maxlength="25" appAlphaspec2>
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdContact').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdContact').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdContactInd') != null && !isDefault">{{ formGroup.get('egdContactInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdContact') != null && !isDefault">{{ formGroup.get('egdContact').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdRenewalDtInd').invalid || this.formGroup.get('egdRenewalDate').invalid)}">
+            <div class="left-control">
+              <label for="egdRenewalDtInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdRenewalDtInd').invalid || this.formGroup.get('egdRenewalDate').invalid)}">Renewal date</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdRenewalDtInd}">
+                  <div class="select">
+                    <select tabindex="0" id="egdRenewalDtInd" (change)="selectType($event,'egdRenewalDtInd')" class="form-select-lg" formControlName="egdRenewalDtInd"
+                      [ngStyle]="{'border' : (submitted && this.formGroup.get('egdRenewalDtInd').invalid) ? '1px solid #E32315' : ''}">
+                      <option value="">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdRenewalDtInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdRenewalDtInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdRenewalDtInd" class="form-group">
+                    <legend>Default/replacement value</legend>
+                    <app-datepicker formControlName="egdRenewalDate"></app-datepicker>
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdRenewalDate').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdRenewalDate').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                    <p class="bold_error" *ngIf="submitted && !this.formGroup.get('egdRenewalDate').errors?.required && this.formGroup.get('egdRenewalDate').invalid">
+                      {{invalidDateMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdRenewalDtInd') != null && !isDefault">{{ formGroup.get('egdRenewalDtInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdRenewalDate') != null && !isDefault">{{ formGroup.get('egdRenewalDate').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdSicCodeInd').invalid || this.formGroup.get('egdSicCode').invalid)}">
+            <div class="left-control">
+              <label for="egdSicCodeInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdSicCodeInd').invalid || this.formGroup.get('egdSicCode').invalid)}">SIC code</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdSicCodeInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdSicCodeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdSicCodeInd" (change)="selectType($event,'egdSicCodeInd')" class="form-select-lg" formControlName="egdSicCodeInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdSicCodeInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdSicCodeInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdSicCodeInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdSicCode" placeholder="Code" tabindex="0" class="form-input-xxs ssn_input" formControlName="egdSicCode"
+                      maxlength="4" appUpper>
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdSicCode').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdSicCode').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdSicCodeInd') != null && !isDefault">{{ formGroup.get('egdSicCodeInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdSicCode') != null && !isDefault">{{ formGroup.get('egdSicCode').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdContractDateInd').invalid || this.formGroup.get('egdContractDate').invalid)}">
+            <div class="left-control">
+              <label for="egdContractDateInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdContractDateInd').invalid || this.formGroup.get('egdContractDate').invalid)}">Contract date</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdContractDtInd}">
+                  <div class="select">
+                    <select tabindex="0" id="egdContractDateInd" (change)="selectType($event,'egdContractDateInd')" class="form-select-lg" formControlName="egdContractDateInd"
+                      [ngStyle]="{'border' : (submitted && this.formGroup.get('egdContractDateInd').invalid) ? '1px solid #E32315' : ''}">
+                      <option value="">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdContractDateInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdContractDateInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdContractDtInd" class="form-group">
+                    <legend>Default/replacement value</legend>
+                    <app-datepicker formControlName="egdContractDate"></app-datepicker>
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdContractDate').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdContractDate').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                    <p class="bold_error" *ngIf="submitted && !this.formGroup.get('egdContractDate').errors?.required && this.formGroup.get('egdContractDate').invalid">
+                      {{invalidDateMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdContractDateInd') != null && !isDefault">{{ formGroup.get('egdContractDateInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdContractDate') != null && !isDefault">{{ formGroup.get('egdContractDate').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdLanguageCodeInd').invalid || this.formGroup.get('egdLanguageCode').invalid)}">
+            <div class="left-control">
+              <label for="egdLanguageCodeInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdLanguageCodeInd').invalid || this.formGroup.get('egdLanguageCode').invalid)}">Language code</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdLanguageCodeInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdLanguageCodeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdLanguageCodeInd" (change)="selectType($event,'egdLanguageCodeInd')" class="form-select-lg" formControlName="egdLanguageCodeInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdLanguageCodeInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdLanguageCodeInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdLanguageCodeInd">
+                    <legend>Default/replacement value</legend>
+                    <select class="form-select-md select" tabindex="0" id="egdLanguageCode" formControlName="egdLanguageCode" [ngStyle]="{'border' : (submitted && showEmpCopayCategoryInd && this.formGroup.get('egdLanguageCode').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                      <option value="">Select one</option>
+                      <option *ngFor="let item of langCodeIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdLanguageCode').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdLanguageCode').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdLanguageCodeInd') != null && !isDefault">{{ formGroup.get('egdLanguageCodeInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdLanguageCode') != null && !isDefault">{{ formGroup.get('egdLanguageCode').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.formGroup.get('egdSuppressPlanMsgInd').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{'error': submitted && this.formGroup.get('egdSuppressPlanMsgInd').invalid}">Suppress plan message?</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control next-line" *ngIf="!isView()">
+              <div class="field-block">
+                <input type="radio" id="SupresPlanMsgY" aria-required="true" tabindex="0" value="Y" formControlName="egdSuppressPlanMsgInd">
+                <label class="field-label" for="SupresPlanMsgY">Yes</label>
+              </div>
+              <div class="field-block">
+                <input type="radio" id="SupresPlanMsgN" tabindex="0" value="N" formControlName="egdSuppressPlanMsgInd">
+                <label class="field-label" for="SupresPlanMsgN">No</label>
+              </div>
+              <div *ngIf="submitted && this.formGroup.get('egdSuppressPlanMsgInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdSuppressPlanMsgInd').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdSuppressPlanMsgInd') != null && !isDefault">{{ formGroup.get('egdSuppressPlanMsgInd').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <a id="groupEligIndicators"></a>
+        <div>
+          <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+        </div>
+
+        <div>
+          <div class="h2">Group Eligibility Indicators</div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdEffDateInd').invalid || this.formGroup.get('egdEffectiveDate').invalid)}">
+            <div class="left-control">
+              <label for="egdEffDateInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdEffDateInd').invalid || this.formGroup.get('egdEffectiveDate').invalid)}">Effective date</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdEffDateInd}">
+                  <div class="select">
+                    <select tabindex="0" id="egdEffDateInd" (change)="selectType($event,'egdEffDateInd')" class="form-select-lg" formControlName="egdEffDateInd"
+                      [ngStyle]="{'border' : (submitted && this.formGroup.get('egdEffDateInd').invalid) ? '1px solid #E32315' : ''}">
+                      <option value="">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdEffDateInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdEffDateInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdEffDateInd" class="form-group">
+                    <legend>Default/replacement value</legend>
+                    <app-datepicker formControlName="egdEffectiveDate"></app-datepicker>
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdEffectiveDate').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdEffectiveDate').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                    <p class="bold_error" *ngIf="submitted && !this.formGroup.get('egdEffectiveDate').errors?.required && this.formGroup.get('egdEffectiveDate').invalid">
+                      {{invalidDateMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdEffDateInd') != null && !isDefault">{{ formGroup.get('egdEffDateInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdEffectiveDate') != null && !isDefault">{{ formGroup.get('egdEffectiveDate').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdThruDateInd').invalid || 
+          this.formGroup.get('thruDateDaysGroup').errors?.onlyOneFieldMayEntered || 
+          this.formGroup.get('thruDateDaysGroup').errors?.required || 
+          this.formGroup.get('thruDateDaysGroup').get('egdThruDate').errors?.invalid || 
+          this.formGroup.get('thruDateDaysGroup').get('egdThruDays').errors?.invalid)}">
+            <div class="left-control">
+              <label for="egdThruDateInd">
+                <span>Thru date / days</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdThruDateInd}">
+                  <div class="select">
+                    <select tabindex="0" id="egdThruDateInd" (change)="selectType($event,'egdThruDateInd')" class="form-select-lg" formControlName="egdThruDateInd"
+                      [ngStyle]="{'border' : (submitted && this.formGroup.get('egdThruDateInd').invalid) ? '1px solid #E32315' : ''}">
+                      <option value="">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdThruDateInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdThruDateInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdThruDateInd" class="form-group" formGroupName="thruDateDaysGroup">
+                    <legend>Default/replacement value</legend>
+                    <app-datepicker formControlName="egdThruDate"></app-datepicker>
+                    <input type="text" id="egdThruDays" placeholder="Days" tabindex="0" class="form-input-xxs margin-left-15" formControlName="egdThruDays"
+                      maxlength="3" appNumeric style="margin-left: 65px!important;">
+                  </ng-container>
+
+                  <div *ngIf="submitted && this.formGroup.get('thruDateDaysGroup').invalid">
+                    <p class="bold_error" *ngIf="submitted && (this.formGroup.get('thruDateDaysGroup').errors?.required ||
+                                                              this.formGroup.get('thruDateDaysGroup').errors?.onlyOneFieldMayEntered || 
+                                                              this.formGroup.get('thruDateDaysGroup').get('egdThruDate').errors?.invalid ||
+                                                              this.formGroup.get('thruDateDaysGroup').get('egdThruDays').errors?.invalid)">
+                      {{thruDateDaysErrMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdThruDateInd') != null && !isDefault">{{ formGroup.get('egdThruDateInd').value }}</label>
+                <label *ngIf="formGroup.get('thruDateDaysGroup').get('egdThruDate') != null && !isDefault">{{ formGroup.get('thruDateDaysGroup').get('egdThruDate').value }}</label>
+                <label *ngIf="formGroup.get('thruDateDaysGroup').get('egdThruDays') != null && !isDefault">{{ formGroup.get('thruDateDaysGroup').get('egdThruDays').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdBrandCopayInd').invalid || this.formGroup.get('egdBrandCopay').invalid)}">
+            <div class="left-control">
+              <label for="egdBrandCopayInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdBrandCopayInd').invalid || this.formGroup.get('egdBrandCopay').invalid)}">Brand copay</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdBrandCopayInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdBrandCopayInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdBrandCopayInd" (change)="selectType($event,'egdBrandCopayInd')" class="form-select-lg" formControlName="egdBrandCopayInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdBrandCopayInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdBrandCopayInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdBrandCopayInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdBrandCopay" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="egdBrandCopay"
+                      maxlength="6" appMask="decimalThreePlaces">
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdBrandCopay').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdBrandCopay').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdBrandCopayInd') != null && !isDefault">{{ formGroup.get('egdBrandCopayInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdBrandCopay') != null && !isDefault">{{ formGroup.get('egdBrandCopay').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdGenericInd').invalid || this.formGroup.get('egdGenericCopay').invalid)}">
+            <div class="left-control">
+              <label for="egdGenericInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdGenericInd').invalid || this.formGroup.get('egdGenericCopay').invalid)}">Generic copay</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdGenericInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdGenericInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdGenericInd" (change)="selectType($event,'egdGenericInd')" class="form-select-lg" formControlName="egdGenericInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdGenericInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdGenericInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdGenericInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdGenericCopay" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="egdGenericCopay"
+                      maxlength="6" appMask="decimalThreePlaces">
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdGenericCopay').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdGenericCopay').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdGenericInd') != null && !isDefault">{{ formGroup.get('egdGenericInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdGenericCopay') != null && !isDefault">{{ formGroup.get('egdGenericCopay').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay3Ind').invalid || this.formGroup.get('egdCopay3').invalid)}">
+            <div class="left-control">
+              <label for="egdCopay3Ind">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay3Ind').invalid || this.formGroup.get('egdCopay3').invalid)}">Copay 3</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdCopay3Ind}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdCopay3Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdCopay3Ind" (change)="selectType($event,'egdCopay3Ind')" class="form-select-lg" formControlName="egdCopay3Ind">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay3Ind').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay3Ind').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdCopay3Ind">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdCopay3" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="egdCopay3"
+                      maxlength="6" appMask="decimalThreePlaces">
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay3').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay3').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay3Ind') != null && !isDefault">{{ formGroup.get('egdCopay3Ind').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay3') != null && !isDefault">{{ formGroup.get('egdCopay3').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay4Ind').invalid || this.formGroup.get('egdCopay4').invalid)}">
+            <div class="left-control">
+              <label for="egdCopay4Ind">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay4Ind').invalid || this.formGroup.get('egdCopay4').invalid)}">Copay 4</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdCopay4Ind}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdCopay4Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdCopay4Ind" (change)="selectType($event,'egdCopay4Ind')" class="form-select-lg" formControlName="egdCopay4Ind">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay4Ind').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay4Ind').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdCopay4Ind">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdCopay4" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="egdCopay4"
+                      maxlength="6" appMask="decimalThreePlaces">
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay4').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay4').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay4Ind') != null && !isDefault">{{ formGroup.get('egdCopay4Ind').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay4') != null && !isDefault">{{ formGroup.get('egdCopay4').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay5Ind').invalid || this.formGroup.get('egdCopay5').invalid)}">
+            <div class="left-control">
+              <label for="egdCopay5Ind">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay5Ind').invalid || this.formGroup.get('egdCopay5').invalid)}">Copay 5</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdCopay5Ind}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdCopay5Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdCopay5Ind" (change)="selectType($event,'egdCopay5Ind')" class="form-select-lg" formControlName="egdCopay5Ind">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay5Ind').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay5Ind').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdCopay5Ind">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdCopay5" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="egdCopay5"
+                      maxlength="6" appMask="decimalThreePlaces">
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay5').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay5').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay5Ind') != null && !isDefault">{{ formGroup.get('egdCopay5Ind').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay5') != null && !isDefault">{{ formGroup.get('egdCopay5').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay6Ind').invalid || this.formGroup.get('egdCopay6').invalid)}">
+            <div class="left-control">
+              <label for="egdCopay6Ind">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay6Ind').invalid || this.formGroup.get('egdCopay6').invalid)}">Copay 6</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdCopay6Ind}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdCopay6Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdCopay6Ind" (change)="selectType($event,'egdCopay6Ind')" class="form-select-lg" formControlName="egdCopay6Ind">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay6Ind').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay6Ind').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdCopay6Ind">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdCopay6" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="egdCopay6"
+                      maxlength="6" appMask="decimalThreePlaces">
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay6').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay6').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay6Ind') != null && !isDefault">{{ formGroup.get('egdCopay6Ind').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay6') != null && !isDefault">{{ formGroup.get('egdCopay6').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay7Ind').invalid || this.formGroup.get('egdCopay7').invalid)}">
+            <div class="left-control">
+              <label for="egdCopay7Ind">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay7Ind').invalid || this.formGroup.get('egdCopay7').invalid)}">Copay 7</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdCopay7Ind}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdCopay7Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdCopay7Ind" (change)="selectType($event,'egdCopay7Ind')" class="form-select-lg" formControlName="egdCopay7Ind">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay7Ind').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay7Ind').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdCopay7Ind">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdCopay7" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="egdCopay7"
+                      maxlength="6" appMask="decimalThreePlaces">
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay7').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay7').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay7Ind') != null && !isDefault">{{ formGroup.get('egdCopay7Ind').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay7') != null && !isDefault">{{ formGroup.get('egdCopay7').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay8Ind').invalid || this.formGroup.get('egdCopay8').invalid)}">
+            <div class="left-control">
+              <label for="egdCopay8Ind">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdCopay8Ind').invalid || this.formGroup.get('egdCopay8').invalid)}">Copay 8</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdCopay8Ind}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdCopay8Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdCopay8Ind" (change)="selectType($event,'egdCopay8Ind')" class="form-select-lg" formControlName="egdCopay8Ind">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay8Ind').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay8Ind').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdCopay8Ind">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdCopay8" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="egdCopay8"
+                      maxlength="6" appMask="decimalThreePlaces">
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdCopay8').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdCopay8').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay8Ind') != null && !isDefault">{{ formGroup.get('egdCopay8Ind').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdCopay8') != null && !isDefault">{{ formGroup.get('egdCopay8').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdBenefitCdInd').invalid || this.formGroup.get('egdBenefitCode1').invalid)}">
+            <div class="left-control">
+              <label for="egdBenefitCdInd">
+                <span [ngClass]="{'error': submitted && (this.formGroup.get('egdBenefitCdInd').invalid || this.formGroup.get('egdBenefitCode1').invalid)}">Benefit code</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdBenefitCdInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdBenefitCdInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdBenefitCdInd" (change)="selectType($event,'egdBenefitCdInd')" class="form-select-lg" formControlName="egdBenefitCdInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdBenefitCdInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdBenefitCdInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEgdBenefitCdInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="egdBenefitCode1" placeholder="Code" tabindex="0" class="form-input-s ssn_input" formControlName="egdBenefitCode1"
+                      maxlength="10" appUpper>
+                  </ng-container>
+                  <div *ngIf="submitted && this.formGroup.get('egdBenefitCode1').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdBenefitCode1').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdBenefitCdInd') != null && !isDefault">{{ formGroup.get('egdBenefitCdInd').value }}</label>
+                <label class="view_message" *ngIf="formGroup.get('egdBenefitCode1') != null && !isDefault">{{ formGroup.get('egdBenefitCode1').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.formGroup.get('egdPlanInd').invalid ||  
+          this.formGroup.get('planCodeDateGroup').errors?.required || 
+          this.formGroup.get('planCodeDateGroup').get('planCode').errors?.required || 
+          this.formGroup.get('planCodeDateGroup').get('planEffDate').errors?.required || 
+          this.formGroup.get('planCodeDateGroup').get('planCode').errors?.invalid || 
+          this.formGroup.get('planCodeDateGroup').get('planEffDate').errors?.invalid)}">
+            <div class="left-control">
+              <label for="egdPlanInd">
+                <span>Plan code / effective date</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEgdPlanInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.formGroup.get('egdPlanInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="egdPlanInd" (change)="selectType($event,'egdPlanInd')" class="form-select-lg" formControlName="egdPlanInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option *ngFor="let item of commonFieldIndicators" [value]="item.key">{{item.value}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('egdPlanInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdPlanInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <div *ngIf="showEgdPlanInd" class="form-group" formGroupName="planCodeDateGroup">
+                    <legend>Default/replacement value</legend>
+                    <div class="right-control">
+                      <div>
+                        <app-lookup formControlName="planCode" [appLookUpType]=appUpper style="margin-left: 20px"></app-lookup>
+                      </div>
+                      <div id="planDate">
+                        <app-datepicker formControlName="planEffDate" style="width: 170px;display: block;"></app-datepicker>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="submitted && this.formGroup.get('planCodeDateGroup').invalid">
+                    <p class="bold_error" *ngIf="submitted && (this.formGroup.get('planCodeDateGroup').errors?.required || 
+                                                               this.formGroup.get('planCodeDateGroup').get('planCode').errors?.required || 
+                                                               this.formGroup.get('planCodeDateGroup').get('planEffDate').errors?.required ||
+                                                               this.formGroup.get('planCodeDateGroup').get('planEffDate').errors?.invalid ||
+                                                               this.formGroup.get('planCodeDateGroup').get('planCode').errors?.invalid)">
+                      {{planCodeDateErrMsg}}
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdPlanInd') != null && !isDefault">{{ formGroup.get('egdPlanInd').value }}</label>
+                <label *ngIf="formGroup.get('planCodeDateGroup').get('planCode') != null && !isDefault">{{ formGroup.get('planCodeDateGroup').get('planCode').value }}</label>
+                <label *ngIf="formGroup.get('planCodeDateGroup').get('planEffDate') != null && !isDefault">{{ formGroup.get('planCodeDateGroup').get('planEffDate').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.formGroup.get('egdPlanEligValidation').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{'error': submitted && this.formGroup.get('egdPlanEligValidation').invalid}">Plan eligibility validation</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control next-line" *ngIf="!isView()">
+              <div class="field-block">
+                <input type="radio" id="planEligValidnY" aria-required="true" tabindex="0" value="Y" formControlName="egdPlanEligValidation">
+                <label class="field-label" for="planEligValidnY">Yes</label>
+              </div>
+              <div class="field-block">
+                <input type="radio" id="planEligValidnN" tabindex="0" value="N" formControlName="egdPlanEligValidation">
+                <label class="field-label" for="planEligValidnN">No</label>
+              </div>
+              <div *ngIf="submitted && this.formGroup.get('egdPlanEligValidation').invalid">
+                <p class="bold_error" *ngIf="submitted && this.formGroup.get('egdPlanEligValidation').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="formGroup.get('egdPlanEligValidation') != null && !isDefault">{{ formGroup.get('egdPlanEligValidation').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+        </div>
+
+      </div>
+      <form-controls [recordSessionStorageId]="'eligibilityProfile'" [showCancel]="true" [showSave]="!isView()" (onSave)="submit()"
+        [onCancelRoute]="'/s-active-eligibility-profile'">
+      </form-controls>
+      <div class="spacer"></div>
+    </form>
+    <div *ngIf="inProcess">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+  <div class="dateUserStampStyle" *ngIf="!inProcess">
+    Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+    <br>&nbsp;
+  </div>
+</div>
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+</style>

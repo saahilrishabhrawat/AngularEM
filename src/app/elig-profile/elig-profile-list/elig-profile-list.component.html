@@ -1,0 +1,199 @@
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+</style>
+
+<div style="background-color:white">
+  <div class="title">
+    <div id="end_of_global_nav" tabindex="-1"></div>
+    <section class="area no-padding trim--white ">
+      <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+        <div class="ogn__title__left">
+          <h1 class="h1">Eligibility Profile</h1>
+        </div>
+      </div>
+
+    </section>
+  </div>
+  <div class="example-container mat-elevation-z8" style="background-color:white">
+    <div *ngIf="!dataSource.data.length" class="loading-indicator-container">
+        <app-loading-indicator></app-loading-indicator>
+    </div>
+    <div [hidden]="!dataSource.data.length">
+      <div>
+        <div class="ogn__secondary-header-formlink ogn-container">
+          <div class="topright">
+            <a [routerLink]="['../eligibility-profile-detail',{ cid: '',aid:'',gid:'',pid:'',mode:'add' }]"  class="btn--icon add-profile-link"><i class="material-icons addcircle">add_circle</i>Add new profile</a>
+
+          </div>
+        </div>
+
+    <app-filter-panel
+      filterGroup="eligProfileList"
+      [filterPanelData]=
+       "[ {filterListName: 'Filter by Account ID',placeHolderText: 'Filter by Account ID', filterType: 'search', filterDefault: false, displayOrder: '2'},
+          {filterListName: 'Filter by Carrier ID', placeHolderText: 'Filter by Carrier ID', filterType: 'search', filterDefault: true, displayOrder: '1'},
+          {filterListName: 'Filter by Carrier List',placeHolderText: 'Filter by Carrier List', filterType: 'select', filterDefault: true, displayOrder: '4'},
+          {filterListName: 'Filter by Group ID',placeHolderText: 'Filter by Group ID', filterType: 'search', filterDefault: false, displayOrder: '3' },
+          {filterListName: 'Filter by Platform',placeHolderText: 'Filter by Platform', filterType: 'select', filterDefault: true, displayOrder: '5'},
+          {filterListName: 'Filter by Status',placeHolderText: 'Filter by Status', filterType: 'select', filterDefault: true, displayOrder: '6'}
+       ]"
+    >
+    </app-filter-panel>
+        <div style="height:10px;"></div>
+        <!-- ***************** filter end   ********************** -->
+        <!-- ***************** filter end   ********************** -->
+        <div class="datatable">
+          <!-- ****************** data table begin  ****************** -->
+          <mat-table #table [dataSource]="dataSource" matSort>
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()"
+                  class="mat-datatable-header-chkbox" [disableRipple]="true">
+                </mat-checkbox>
+                <span tabindex="0" class="clearAll" (click)="deselectAll()" (keyup.enter)="deselectAll()" *ngIf="selection.hasValue()" role="button">Clear All</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="selectRow($event)" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [disableRipple]="true">
+                </mat-checkbox>
+                <ng-template #popTemplate>
+                  <div *ngIf="selection.isSelected(row)">
+                    <a class="popoverheading">BULK EDIT({{this.selection.selected.length}} items)</a>
+                    <br>
+                    <!--
+                    <i class="material-icons iconPopover">camera_alt</i>
+                    <a class="popoverlink" href="#">Snapshot...</a>
+                    <br>
+                    -->
+                    <div *ngIf="bulkShowEdit()">
+                      <a class="popoverlink" (click)="bulkManage('edit', row)" href="javascript:void(0)">
+                        <i class="material-icons iconPopover">create</i>Edit...
+                      </a>
+                    </div>
+                    <div>
+                      <a class="popoverlink" (click)="bulkManage('view', row)" href="javascript:void(0)"> 
+                        <i class="material-icons iconPopover">search</i>View...
+                      </a>
+                    </div>
+                  </div>
+                  <div *ngIf="!selection.isSelected(row)">
+                    <!-- Alicia wanted this removed but brought back later so leave commented out
+                    <i class="material-icons iconPopover">camera_alt</i>
+                    <a class="popoverlink" href="#">Snapshot...</a>
+                    <br>
+                    -->
+                    <div *ngIf="ifActive(row)">
+                    <a class="popoverlink" [routerLink]="['../eligibility-profile-detail',{ cid: row.carCarrierId,aid:row.accountId,gid:row.groupId,pid:row.platformId,mode:'edit' }]" ><i class="material-icons iconPopover">create</i>Edit...</a>
+                    <br>
+                  </div>
+                    <a class="popoverlink" [routerLink]="['../eligibility-profile-detail',{ cid: row.carCarrierId,aid:row.accountId,gid:row.groupId,pid:row.platformId,mode:'view' }]"> <i class="material-icons iconPopover">search</i>View...</a>
+                    <br>
+                    
+                    <a class="popoverlink" (click)="openCopyModal(copyContent, row)"><i class="material-icons iconPopover">content_copy</i>Copy...</a>
+                    <br>
+                    <div *ngIf="ifActive(row)">
+                    <a class="popoverlink" (click)="openInactivateModal(inactivateContent, row)" ><i class="material-icons iconPopover">visibility_off</i>Inactivate</a>
+                    <br>
+                    </div>
+                   
+                  </div>
+                </ng-template>
+                <i class="material-icons gear" [ngbPopover]="popTemplate" placement="right" #p="ngbPopover" tabindex="0" popoverDirective>
+                settings</i>
+              </mat-cell>
+        </ng-container>
+        <div class="toprow">
+          <ng-container matColumnDef="carCarrierId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header > Carrier ID </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="carrier-id-font">
+              <a class="dtlink" [routerLink]="['../eligibility-profile-detail',{ cid: element.carCarrierId,aid:element.accountId,gid:element.groupId,pid:element.platformId,mode:'edit'}]">{{element.carCarrierId}}</a>
+            </mat-cell>
+          </ng-container>
+          <!-- Position Column -->
+          <ng-container matColumnDef="accountId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Account ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.accountId}} </mat-cell>
+          </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="groupId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Group ID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.groupId}} </mat-cell>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="lastLoad">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Last Load </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.lastLoad==this.defaultDate ? '' : element.lastLoad }} </mat-cell>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="count" >
+                <mat-header-cell *matHeaderCellDef mat-sort-header > <div class="align-column-header">Count </div></mat-header-cell>
+                <mat-cell *matCellDef="let element" > <div class="align-column">{{element.count }}</div></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="identifier">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Identifier </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.identifier }} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="version">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > <div>Version</div> </mat-header-cell>
+                <mat-cell *matCellDef="let element" > <div class="align-column">{{element.version }}</div> </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="reformat">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Reformat </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.reformat }} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="load">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > <div class="align-column-header-forLoad">Load </div></mat-header-cell>
+                <mat-cell *matCellDef="let element" > <div class="align-column">{{element.load }}</div></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="epfStatus">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > <div>Status </div></mat-header-cell>
+                <mat-cell *matCellDef="let element" > <div class="align-column">{{element.epfStatus }}</div></mat-cell>
+              </ng-container>
+
+            </div>
+            <!-- Removed from matrow :(click)="selection.toggle(row)"  -->
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{ 'highlight': selection.isSelected(row)}">
+            </mat-row>
+          </mat-table>
+        </div>
+        <!-- ******************  data table end   ****************** -->
+      </div>
+      <!-- ****************** pagination begin  ****************** -->
+      <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[10, 25, 50]" [showFirstLastButtons]="true">
+      </mat-paginator>
+      <!-- ****************** pagination end    ****************** -->
+    </div>
+  </div>
+</div>
+<ng-template #copyProfileModal>
+  <app-elig-profile-copy-modal [selectedRow]=selectedRow (closeCopyModal)="closeModal($event)"></app-elig-profile-copy-modal>
+</ng-template>
+
+<ng-template #inactivateProfileModal>
+  <app-elig-profile-inactivate-modal [selectedRow]=selectedRow (closeModal)="closeModal($event)"></app-elig-profile-inactivate-modal>
+</ng-template>

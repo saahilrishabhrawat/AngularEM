@@ -1,0 +1,936 @@
+<a id="top"></a>
+<div class="title">
+    <div id="end_of_global_nav" tabindex="-1"></div>
+    <section class="area no-padding trim--white ">
+        <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+            <div class="ogn__title__left">
+                <h1 class="h1">{{ screenTitle }}</h1>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+    <div>
+        <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+    </div>
+    <div class="form_background">
+        <div class="">
+            <app-form-menu [disabled]="mode === 'add'"></app-form-menu>
+            <section class="area no-padding trim--white">
+                <div class="ogn__secondary-form ogn-container">
+                    <div class="content"></div>
+                </div>
+            </section>
+        </div>
+        <form novalidate [formGroup]="profileDtlForm" [hidden]="isSaving">
+            <form-controls
+                [recordSessionStorageId]="'eligibilityProfile'"
+                [showCancel]="true"
+                [showSave]="!isView()"
+                (onSave)="submit()"
+                [onCancelRoute]="'/s-active-eligibility-profile'"
+            >
+            </form-controls>
+
+            <div class="errorDiv" *ngIf="submitted && this.profileDtlForm.invalid">
+                <p class="errorDiv_text">{{errorDivMessage}}</p>
+            </div>
+            <div class="errorDiv" *ngIf="inActiveStateError">
+                <p class="errorDiv_text">Inactive profiles cannot be edited. You are in view-only mode.
+                </p>
+            </div>
+            
+            <div class="successDiv" *ngIf="isUpdateSuccess && mode==='edit' && !this.profileDtlForm.invalid">
+                <p class="errorDiv_text">Your changes were successfully saved.</p>
+            </div>
+            <div class="successDiv" *ngIf="isCopySuccess">
+                <p class="errorDiv_text">Profile successfully copied</p>
+            </div>
+            <div class="successDiv" *ngIf="isAddSuccess">
+                <p class="errorDiv_text">Profile successfully added</p>
+            </div>
+
+
+            <pcag-info
+                [platformId]="platformId"
+                [carrierId]="carrierId"
+                [accountId]="accountId"
+                [groupId]="groupId"
+            >
+            </pcag-info>
+
+
+            <div id="stageLoadData">
+                <app-form-section-heading></app-form-section-heading>
+                <div class="h2">Stage Load Data</div>
+                <div class="container">
+
+                    <div class="table-row header">
+                        <div class="text">Stage Date</div>
+                        <div class="text">Input</div>
+                        <div class="num">Staged</div>
+                        <div class="text">Load Date</div>
+                        <div class="num">Loaded</div>
+                        <div class="num">Rejected</div>
+                    </div>
+
+                    <div class="table-row" *ngIf="mode!=='add' && showCurrentStageData">
+                        <div class="text">{{ epfCurrentStageDt | date: 'MM/dd/yyyy' }}</div>
+                        <div class="text">{{ epfCurrentInput }}</div>
+                        <div class="num">{{ epfCurrentStaged }}</div>
+                        <div class="text">{{ epfCurrentLoadDate | date: 'MM/dd/yyyy'}}</div>
+                        <div class="num">{{ epfCurrentLoaded}}</div>
+                        <div class="num">{{ epfCurrentRejected }}</div>
+                    </div>
+
+                    <div class="table-row" *ngIf="mode!=='add' && showPreviousStageData">
+                        <div class="text">{{ epfPreviousStageDt | date: 'MM/dd/yyyy' }}</div>
+                        <div class="text">{{ epfPreviousInput }}</div>
+                        <div class="num">{{ epfPreviousStaged  }}</div>
+                        <div class="text">{{ epfPreviousLoadDt | date: 'MM/dd/yyyy'}}</div>
+                        <div class="num">{{ epfPreviousLoaded}}</div>
+                        <div class="num">{{ epfPreviousRejected }}</div>
+                    </div>
+
+                    <div class="table-row" *ngIf="mode!=='add' && showPriorStageData">
+                        <div class="text">{{ epfPriorStageDate | date: 'MM/dd/yyyy' }}</div>
+                        <div class="text">{{ epfPriorInput }}</div>
+                        <div class="num">{{ epfPriorStaged }}</div>
+                        <div class="text">{{ epfPriorLoadDate | date: 'MM/dd/yyyy' }}</div>
+                        <div class="num">{{ epfPriorLoaded}}</div>
+                        <div class="num">{{ epfPriorRejected }}</div>
+                    </div>
+
+                    <div class="table-row" *ngIf="mode!=='add' && showNoStageData">
+                        <div class="text">No stage data available</div>
+                    </div>
+
+
+
+                </div>
+                <a id="profileInformation"></a>
+                <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+            </div>
+            <div>
+                <app-form-section-heading></app-form-section-heading>
+                <div class="h2">Profile Information</div>
+            </div>
+            <!-- Start from here -->
+            <div class="typography form">
+                <!-- select -->
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfReformatVersion').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_version" id="form_label_version">
+                                <span [ngClass]="{'error': submitted && this.profileDtlForm.get('epfReformatVersion').invalid}">Version</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Version') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.profileDtlForm.get('epfReformatVersion').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select tabindex="0" id="form_select_mbmrLoadTyp" class="form-select-lg" formControlName="epfReformatVersion">
+                                        <option value="">Select one</option>
+                                        <!-- <option *ngFor="let formatVersion of epfReformatVersionData" value="formatVersion.versionCode">{{formatVersion.versionName}}</option> -->
+                                        <option value="23">Version 2.3</option>
+                                        <option value="24">Version 2.4</option>
+                                        <option value="24B">Version 2.4B - Workman's Comp</option>
+                                        <option value="26">Version 2.6</option>
+                                        <option value="40">Version 4.0</option>
+                                        <option value="50">Version 5.0</option>
+                                        <option value="61">Version 6.1</option>
+                                        <option value="62">Version 6.2</option>
+                                        <option value="71">Version 7.1</option>
+                                        <option value="71W">Version 7.1W - Workman's Comp</option>
+                                        <option value="80">Version 8.0</option>
+                                        <option value="80W">Version 8.0W - Workman's Comp</option>
+                                        <option value="80X">Version 8.0X - Workman's Comp</option>
+                                        <option value="81">Version 8.1</option>
+                                        <option value="81W">Version 8.1W - Workman's Comp</option>
+                                        <option value="82">Version 8.2</option>
+                                        <option value="82W">Version 8.2W - Workman's Comp</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfReformatVersion').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfReformatVersion').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfReformatVersion') != null">{{ profileDtlForm.get('epfReformatVersion').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfLoadIdentifier').invalid}">
+                        <div class="left-control">
+                            <label id="epfLoadIdentifier_label" for="epfLoadIdentifier">
+                                <span>Identifier</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Identifier') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <input id="epfLoadIdentifier" type="text" placeholder="Name" tabindex="0" class="form-input-s" formControlName="epfLoadIdentifier"
+                                appAlphanumeric maxlength="9" class="error_message form-input-s">
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfLoadIdentifier').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfLoadIdentifier').errors.required">
+                                    This field is required.
+                                </p>
+                                <p class="bold_error" *ngIf="submitted && !this.profileDtlForm.get('epfLoadIdentifier').errors.required && this.profileDtlForm.get('epfLoadIdentifier').invalid">
+                                    {{ epfLoadIdentifierErrorMsg }}
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfLoadIdentifier') != null">{{ profileDtlForm.get('epfLoadIdentifier').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfReformatPgm').invalid}">
+                        <div class="left-control">
+                            <label id="epfReformatPgmLbl" for="epfReformatPgm">
+                                <span>Reformat program</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Reformat program') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <input id="epfReformatPgm" type="text" placeholder="Name" tabindex="0" class="form-input-s  error_message" formControlName="epfReformatPgm"
+                                 maxlength="10" appAlphanumspec>
+                            <div *ngIf="this.profileDtlForm.get('epfReformatPgm').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfReformatPgm').errors.required">
+                                    This field is required.
+                                </p>
+                                <p class="bold_error" *ngIf="submitted &&  !this.profileDtlForm.get('epfReformatPgm').errors.required && this.profileDtlForm.get('epfReformatPgm').invalid">
+                                    {{ epfReformatPgmErrorMsg }}
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfReformatPgm') != null">{{ profileDtlForm.get('epfReformatPgm').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfLibraryName').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_libName" for="form_input_libName">
+                                <span>Library name</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                              ngbTooltip="{{ tooltipMap.get('Library name') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <input id="form_input_libName" type="text" placeholder="Name" tabindex="0" class="form-input-s error_message" formControlName="epfLibraryName"
+                                 maxlength="10" appAlphanumspec>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfLibraryName').invalid">
+                                <p class="bold_error" *ngIf="this.profileDtlForm.get('epfLibraryName').errors.required">
+                                    This field is required.
+                                </p>
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfLibraryName').invalid && !this.profileDtlForm.get('epfLibraryName').errors.required">
+                                    {{epfLibraryNameErrorMsg}}
+                                </p>
+
+                            </div>
+
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfLibraryName') != null">{{ profileDtlForm.get('epfLibraryName').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="left-control">
+                            <label>
+                                <span>Status</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                            ngbTooltip="{{ tooltipMap.get('Status') }}">
+                            </a>
+                        </div>
+                        <div class="right-control">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfStatus') != null">{{ profileDtlForm.get('epfStatus').value }}</label>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- profile information end -->
+
+                <!-- load information start here -->
+
+                <a id="loadInformation"></a>
+                <div>
+                    <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+                </div>
+                <div>
+                    <app-form-section-heading></app-form-section-heading>
+                    <div class="h2">Load Information</div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfStageGroupsInd').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_stgGrp" for="form_select_stgGrp">
+                                <span>Stage groups</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Stage groups') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.profileDtlForm.get('epfStageGroupsInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select required="required" tabindex="0" id="form_select_stgGrp" class="form-select-xl" formControlName="epfStageGroupsInd">
+                                        <option value="">Select one</option>
+                                        <option value="0">Groups are not staged</option>
+                                        <option value="1">Groups staged from member</option>
+                                        <option value="2">Separate group file/tape</option>
+                                        <option value="3">Tape (group/member sequence)</option>
+                                        <option value="4">Tape (member/group sequence)</option>
+                                        <option value="5">From member, use required fields</option>
+                                        <option value="6">Group file, use required fields</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfStageGroupsInd').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfStageGroupsInd').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfStageGroupsInd') != null">{{ profileDtlForm.get('epfStageGroupsInd').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfLoadType').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_mbmrLoadTyp" for="form_select_mbmrLoadTyp">
+                                <span>Member load type</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Member load type') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block ">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.profileDtlForm.get('epfLoadType').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select required="required" tabindex="0" id="form_select_mbmrLoadTyp" class="form-select-md" formControlName="epfLoadType">
+                                        <option value="">Select one</option>
+                                        <option value="E">Auto term, refresh</option>
+                                        <option value="R">Refresh</option>
+                                        <option value="T">Update, auto term</option>
+                                        <option value="U">Update</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfLoadType').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfLoadType').errors.required">
+                                    This field is required.
+                                </p>
+                                <p class="bold_error" *ngIf="submitted && !this.profileDtlForm.get('epfLoadType').errors.required && this.profileDtlForm.get('epfLoadType').invalid">
+                                    {{ epfLoadTypeErrorMsg }}
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfLoadType') != null">{{ profileDtlForm.get('epfLoadType').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfGroupListName').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_elgLst" for="form_input_lookup">
+                                <span>C/A/G eligibility list</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('C/A/G eligibility list') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <app-elig-profile-lookup formControlName="epfGroupListName" modalName="app-elig-profile-grouplist-pg1-modal"></app-elig-profile-lookup>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfGroupListName').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfGroupListName').invalid">
+                                    {{epfGroupListNameErrorMsg }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfGroupListName') != null">{{ profileDtlForm.get('epfGroupListName').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="left-control" [ngClass]="{'error': submitted && (this.profileDtlForm.get('epfMbrMediaRecordLen').invalid || this.profileDtlForm.get('epfMbrFileName').invalid)}">
+                            <label id="form_label_mbmrFilNam" for="form_input_mbmrFilNam">
+                                <span>Member file name&nbsp;</span>
+                            </label>
+                            <label id="form_label_mbmrFillen" for="form_input_mbmrFillen">
+                                <span>/&nbsp;length</span>
+                                <span class="required">*</span>
+                            </label>
+
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Member file name') }}">
+                            </a>
+                        </div>
+                        <div class="right-control" *ngIf="!isView()">
+                            <div [ngClass]="{'error': submitted && this.profileDtlForm.get('epfMbrFileName').invalid}">
+                                <input id="form_input_mbmrFilNam" type="text" placeholder="File name" tabindex="0" class="form-input-s mrgin-right-10" formControlName="epfMbrFileName"
+                                    appAlphanumeric maxlength="10">
+                                <div *ngIf="submitted && this.profileDtlForm.get('epfMbrFileName').invalid" class="adjacentDiv">
+                                    <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfMbrFileName').invalid">
+                                        {{ epfMbrFileNameErrorMsg }}
+                                    </p>
+                                </div>
+                                <div *ngIf="submitted && this.profileDtlForm.get('epfMbrMediaRecordLen').invalid" class="adjacentDiv">
+
+                                    <p class="bold_error error" *ngIf="submitted && this.profileDtlForm.get('epfMbrMediaRecordLen').invalid">
+                                        {{epfMbrMediaRecordLenErrorMsg}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div [ngClass]="{'error': submitted && this.profileDtlForm.get('epfMbrMediaRecordLen').invalid}" >
+                                <input id="form_input_mbmrFillen" type="text" placeholder="Length" tabindex="0" class="form-input-xs" formControlName="epfMbrMediaRecordLen"
+                                    appNumeric maxlength="5">
+
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfMbrFileName') != null">{{ profileDtlForm.get('epfMbrFileName').value }}&nbsp;</label>
+                                <label *ngIf="profileDtlForm.get('epfMbrMediaRecordLen') != null">/&nbsp;{{ profileDtlForm.get('epfMbrMediaRecordLen').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfRejection').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_rejPerctg" for="form_input_rejPerctg">
+                                <span>Rejection percentage</span>
+
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Rejection percentage') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <input id="form_input_rejPerctg" type="text" placeholder="%" tabindex="0" class="form-input-xxs" formControlName="epfRejection"
+                                appNumeric maxlength="3">
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfRejection').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfRejection').invalid">
+                                    {{epfRejectionErrorMsg}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfRejection') != null">{{ profileDtlForm.get('epfRejection').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfTermThresholdTba').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_termThrPrcntg" for="form_input_termThrPrcntg">
+                                <span>Term threshold percentage</span>
+
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Term threshold percentage') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <input id="form_input_termThrPrcntg" type="text" placeholder="%" tabindex="0" class="form-input-xxs" formControlName="epfTermThresholdTba"
+                                appNumeric maxlength="3">
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfTermThresholdTba').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfTermThresholdTba').invalid">
+                                    {{epfTermThresholdTbaErrorMsg}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfTermThresholdTba') != null">{{ profileDtlForm.get('epfTermThresholdTba').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfTermDaysQualifier').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_termdayQlfr" for="form_input_termdayQlfr">
+                                <span>Term days qualifier</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Term days qualifier') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.profileDtlForm.get('epfTermDaysQualifier').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select tabindex="0" id="form_input_termdayQlfr" class="form-select-xl" formControlName="epfTermDaysQualifier">
+                                        <option value="">Select one</option>
+                                        <option value="A">Days</option>
+                                        <option value="B">End of week, Monday</option>
+                                        <option value="C">End of week, Tuesday</option>
+                                        <option value="D">End of week, Wednesday</option>
+                                        <option value="E">End of week, Thursday</option>
+                                        <option value="F">End of week, Friday</option>
+                                        <option value="G">End of week, Saturday</option>
+                                        <option value="H">End of week, Sunday</option>
+                                        <option value="I">End of month</option>
+                                        <option value="J">End of previous month</option>
+                                        <option value="K">End of quarter (calendar year)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfTermDaysQualifier').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfTermDaysQualifier').errors.required">This field is required.
+                                </p>
+                                <p class="bold_error" *ngIf="submitted && !this.profileDtlForm.get('epfTermDaysQualifier').errors.required && this.profileDtlForm.get('epfTermDaysQualifier').invalid">
+                                    {{epfTermDaysQualifierErrorMsg}}
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfTermDaysQualifier') != null">{{ profileDtlForm.get('epfTermDaysQualifier').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfTermNbrOfDays').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_termday" for="form_input_termday">
+                                <span>Term days</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Term days') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <input id="form_input_termday" type="text" placeholder="Days" tabindex="0" class="form-input-xxs" formControlName="epfTermNbrOfDays"
+                                appNumeric maxlength="4"
+                                (keyup)="limitTermDaysValue($event)">
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfTermNbrOfDays').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfTermNbrOfDays').invalid">
+                                    {{epfTermNbrOfDaysErrorMsg}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfTermNbrOfDays') != null">{{ profileDtlForm.get('epfTermNbrOfDays').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfGroupLoadType').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_grpLoadTyp" for="form_input_grpLoadTyp">
+                                <span>Group load type</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Group load type') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.profileDtlForm.get('epfGroupLoadType').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select id="form_input_grpLoadTyp" tabindex="0" class="form-select-s" formControlName="epfGroupLoadType">
+                                        <option value="">Select one</option>
+                                        <option value="R">Refresh</option>
+                                        <option value="U">Update</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfGroupLoadType').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfGroupLoadType').invalid">
+                                    {{epfGroupLoadTypeErrorMsg}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfGroupLoadType') != null">{{ profileDtlForm.get('epfGroupLoadType').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="left-control" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfGrpFileName').invalid}">
+                            <label id="form_label_grpfilnam" for="form_input_grpfilnam">
+                                <span>Group file name&nbsp;</span>
+                            </label>
+                            <label id="form_label_grpfillen" for="form_input_grpfillen">
+                                <span>/&nbsp;length</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Group file name') }}">
+                            </a>
+                        </div>
+                        <div class="right-control" *ngIf="!isView()">
+                            <div [ngClass]="{'error': submitted && this.profileDtlForm.get('epfGrpFileName').invalid}">
+                                <input id="form_input_grpfilnam" type="text" placeholder="File name" tabindex="0" class="form-input-s mrgin-right-10" formControlName="epfGrpFileName"
+                                    appAlphanumeric maxlength="10">
+                                <div *ngIf="submitted && this.profileDtlForm.get('epfGrpFileName').invalid" class="adjacentDiv">
+                                    <p class="bold_error error" *ngIf="submitted && this.profileDtlForm.get('epfGrpFileName').invalid">
+                                        {{ epfGrpFileNameErrorMsg }}
+                                    </p>
+                                </div>
+                                <div *ngIf="submitted && this.profileDtlForm.get('epfGrpMediaRecordLen').invalid" class="adjacentDiv">
+
+                                    <p class="bold_error error" *ngIf="submitted && this.profileDtlForm.get('epfGrpMediaRecordLen').invalid">
+                                        {{epfGrpMediaRecordLenErrorMsg}}
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div [ngClass]="{'error': submitted && this.profileDtlForm.get('epfGrpMediaRecordLen').invalid}" >
+                                <input id="form_input_grpfillen" type="text" placeholder="Length" tabindex="0" class="form-input-xs" formControlName="epfGrpMediaRecordLen"
+                                    appNumeric maxlength="5">
+
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfGrpFileName') != null">{{ profileDtlForm.get('epfGrpFileName').value }}&nbsp;</label>
+                                <label *ngIf="profileDtlForm.get('epfGrpMediaRecordLen') != null">/&nbsp;{{ profileDtlForm.get('epfGrpMediaRecordLen').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfGroupRefreshRej').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_referrprnctg" for="form_input_referrprnctg">
+                                <span>Group refresh error percentage</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Group refresh error percentage') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <input id="form_input_referrprnctg" type="text" placeholder="%" tabindex="0" class="form-input-xxs" formControlName="epfGroupRefreshRej"
+                                appNumeric maxlength="3">
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfGroupRefreshRej').invalid">
+
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfGroupRefreshRej').invalid">
+                                    {{epfGroupRefreshRejErrorMsg}}
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfGroupRefreshRej') != null">{{ profileDtlForm.get('epfGroupRefreshRej').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfTermedMembersRpt').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_termMbmrRpt" for="form_input_termMbmrRpt">
+                                <span>Termed members report</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Termed members report') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select form-select-lg" [ngStyle]="{'border' : (submitted && this.profileDtlForm.get('epfTermedMembersRpt').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select required="required" tabindex="0" id="form_input_termMbmrRpt" class="form-select-lg" formControlName="epfTermedMembersRpt">
+                                        <option value="">Select one</option>
+                                        <option value="N">No</option>
+                                        <option value="Y">Yes, group</option>
+                                        <option value="1">Yes, carrier</option>
+                                        <option value="2">Yes, account</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfTermedMembersRpt').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfTermedMembersRpt').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfTermedMembersRpt') != null">{{ profileDtlForm.get('epfTermedMembersRpt').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfTermCareAssignment').invalid}">
+                        <div class="left-control">
+                            <label>
+                                <span>Term care assignment</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Term care assignment') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <input type="radio"  id="radio1" aria-required="true" tabindex="0" formControlName="epfTermCareAssignment" value="Y"
+                                required="false">
+                                <label class="field-label" for="radio1">Yes</label>
+                            </div>
+                            <div class="field-block">
+                                <input type="radio" id="radio2" tabindex="0" formControlName="epfTermCareAssignment" value="N"
+                                required="false">
+                                <label class="field-label" for="radio2">No</label>
+                            </div>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfTermCareAssignment').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfTermCareAssignment').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfTermCareAssignment') != null">{{ profileDtlForm.get('epfTermCareAssignment').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="left-control">
+                            <label>
+                                <span>Error hold</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Error hold') }}">
+                            </a>
+                        </div>
+                        <div class="right-control" *ngIf="!isView()">
+                            <div class="field-block">
+                                <input type="radio"  id="form_radio_errholdY" aria-required="true" tabindex="0" formControlName="epfSuspendProcessing"
+                                    value="Y" required="false">
+                                <label class="field-label" for="form_radio_errholdY">Yes</label>
+                            </div>
+                            <div class="field-block">
+                                <input type="radio" id="form_radio_errholdN" tabindex="0" formControlName="epfSuspendProcessing" value="N"
+                                required="false">
+                                <label class="field-label" for="form_radio_errholdN">No</label>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfSuspendProcessing') != null">{{ profileDtlForm.get('epfSuspendProcessing').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfRejectionLookup').invalid}">
+                        <div class="left-control">
+                            <label>
+                                <span>Rejection lookup</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Rejection lookup') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <input type="radio" id="form_radio_rjctlkpY" aria-required="true" tabindex="0" formControlName="epfRejectionLookup"
+                                    value="Y">
+                                <label class="field-label" for="form_radio_rjctlkpY">Yes</label>
+                            </div>
+                            <div class="field-block">
+                                <input type="radio" id="form_radio_rjctlkpN" tabindex="0" formControlName="epfRejectionLookup" value="N">
+                                <label class="field-label" for="form_radio_rjctlkpN">No</label>
+                            </div>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfRejectionLookup').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfRejectionLookup').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfRejectionLookup') != null">{{ profileDtlForm.get('epfRejectionLookup').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="left-control">
+                            <label>
+                                <span>Partial error detail</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Partial error detail') }}">
+                            </a>
+                        </div>
+                        <div class="right-control" *ngIf="!isView()">
+                            <div class="field-block">
+                                <input type="radio" id="form_radio_partlerrdtlY" aria-required="true" tabindex="0" formControlName="epfPrintMbrGrpErrors"
+                                    value="Y" required="false">
+                                <label class="field-label" for="form_radio_partlerrdtlY">Yes</label>
+                            </div>
+                            <div class="field-block">
+                                <input type="radio" id="form_radio_partlerrdtlN" tabindex="0" formControlName="epfPrintMbrGrpErrors" value="N" required="false">
+                                <label class="field-label" for="form_radio_partlerrdtlN">No</label>
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfPrintMbrGrpErrors') != null">{{ profileDtlForm.get('epfPrintMbrGrpErrors').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Categories Member Default -->
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.profileDtlForm.get('epfPostProcessProgram').invalid}">
+                        <div class="left-control">
+                            <label id="form_label_pstldprcs" for="form_input_pstldprcs">
+                                <span>Post load process</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip"
+                               ngbTooltip="{{ tooltipMap.get('Post load process') }}">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <input id="form_input_pstldprcs" type="text" placeholder="Name" tabindex="0" class="form-input-s" formControlName="epfPostProcessProgram"
+                                 maxlength="10" appAlphanumspec>
+                            <div *ngIf="submitted && this.profileDtlForm.get('epfPostProcessProgram').invalid">
+
+                                <p class="bold_error" *ngIf="submitted && this.profileDtlForm.get('epfPostProcessProgram').invalid">
+                                    {{epfPostProcessProgramErrorMsg}}
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="right-control" *ngIf="isView()">
+                            <p>
+                                <label *ngIf="profileDtlForm.get('epfPostProcessProgram') != null">{{ profileDtlForm.get('epfPostProcessProgram').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- load information end here -->
+
+                <div>
+                    <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+
+                </div>
+                <!-- End here-->
+                <form-controls
+                    [recordSessionStorageId]="'eligibilityProfile'"
+                    [showCancel]="true"
+                    [showSave]="!isView()"
+                    (onSave)="submit()"
+                    [onCancelRoute]="'/s-active-eligibility-profile'"
+                >
+                </form-controls>
+
+            </div>
+            <div class="spacer"></div>
+        </form>
+        <div *ngIf="isSaving">
+            <app-loading-indicator></app-loading-indicator>
+        </div>
+    </div>
+    <div class="dateUserStampStyle">
+        Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+        <br>&nbsp;
+    </div>
+</div>
+<ng-template #addNewProfileModal>
+  <app-elig-profile-add-modal (closeModal)="closeModal($event)"></app-elig-profile-add-modal>
+</ng-template>
+
+ <ng-template #groupListPg1Modal>
+  <app-elig-profile-grouplist-pg1-modal (closeModal)="closeModal($event)"></app-elig-profile-grouplist-pg1-modal>
+</ng-template>
+
+<ng-template #groupListPg2Modal>
+    <app-elig-profile-grouplist-pg2-modal (closeModal)="closeModal($event)"></app-elig-profile-grouplist-pg2-modal>
+  </ng-template>
+<style>
+    @font-face {
+        font-family: 'frutiger-bold';
+        src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+        url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+    }
+
+
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+</style>

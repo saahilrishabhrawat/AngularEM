@@ -1,0 +1,379 @@
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+</style>
+<a id="top"></a>
+<div class="title">
+  <div id="end_of_global_nav" tabindex="-1"></div>
+  <section class="area no-padding trim--white ">
+    <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+      <div class="ogn__title__left">
+        <h1 class="h1">Eligibility Queue Detail</h1>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+  <div>
+    <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+  </div>
+  <div class="form_background">
+    <div class="">
+      <app-form-menu></app-form-menu>
+      <section class="area no-padding trim--white">
+        <div class="ogn__secondary-form ogn-container">
+          <div class="content"></div>
+        </div>
+      </section>
+    </div>
+    <!--Form starts-->
+    <form [formGroup]="eligQueueDetailForm"  [hidden]="inProcess">
+        <form-controls
+            [recordSessionStorageId]="'eligibilityProfile'"
+            [showCancel]="true"
+            [showSave]="!isView()"
+            (onSave)="submit()"
+            [onCancelRoute]="'/s-active-eligibility-profile'"
+        >
+        </form-controls>
+
+      <div class="errorDiv" *ngIf="submitted && this.eligQueueDetailForm.invalid ">
+        <p class="errorDiv_text">{{errorDivMessage}}</p>
+      </div>
+      <div class="successDiv" *ngIf="submitted && this.eligQueueDetailForm.valid && isSuccess">
+        <p class="errorDiv_text">Your changes were successfully saved.</p>
+      </div>
+
+      <pcag-info
+      [platformId]="platformId"
+      [carrierId]="carrierId"
+      [accountId]="accountId"
+      [groupId]="groupId"
+    >
+    </pcag-info>
+      <div class="form">
+        <div class="row">
+          <div class="form-group col-xs-12 col-md-12">
+            <div class="left-control">
+              <label>
+
+                <span>Report name</span>
+
+              </label>
+            </div>
+            <div class="right-control">
+              <label>{{reportName}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <app-form-section-heading></app-form-section-heading>
+        <div class="h2">Queue Details</div>
+      </div>
+      <div class="typography form">
+        <!--Input Field Starts-->
+      <div class="row">
+        <div class="form-group" [ngClass]="{'error': submitted && this.eligQueueDetailForm.get('eqdOutputQueueName').invalid}">
+            <div class="left-control">
+                <label id="eqdOutputQueueName_label" for="eqdOutputQueueName">
+                    <span>Output queue name</span>
+                    <span class="required">*</span>
+                </label>
+                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                Imagery may or may not reflect your current medications.">
+                </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+                <input id="eqdOutputQueueName" type="text" placeholder="Name" tabindex="0" class="form-input-s" formControlName="eqdOutputQueueName"
+                     maxlength="10" appUpper>
+                <div *ngIf="submitted && this.eligQueueDetailForm.get('eqdOutputQueueName').invalid">
+                    <p class="bold_error" *ngIf="this.eligQueueDetailForm.get('eqdOutputQueueName').errors.required">
+                        This field is required.
+                    </p>
+                    <p class="bold_error" *ngIf="submitted && !this.eligQueueDetailForm.get('eqdOutputQueueName').errors.required && this.eligQueueDetailForm.get('eqdOutputQueueName').invalid">
+                        {{ eqdOutputQueueNameErrorMsg }}
+                    </p>
+
+                </div>
+            </div>
+            <div class="right-control" *ngIf="isView()">
+                <p>
+                    <label *ngIf="eligQueueDetailForm.get('eqdOutputQueueName') != null">{{ eligQueueDetailForm.get('eqdOutputQueueName').value }}</label>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group" [ngClass]="{'error': submitted && this.eligQueueDetailForm.get('eqdOutputQueueLibrary').invalid}">
+          <div class="left-control">
+              <label id="eqdOutputQueueLibrary_label" for="eqdOutputQueueLibrary">
+                  <span>Output queue library</span>
+                  <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+              Imagery may or may not reflect your current medications.">
+              </a>
+      </div>
+          <div class="right-control error_message" *ngIf="!isView()">
+              <input id="eqdOutputQueueLibrary" type="text" placeholder="Library" tabindex="0" class="form-input-s" formControlName="eqdOutputQueueLibrary"
+                   maxlength="10" appUpper>
+              <div *ngIf="submitted && this.eligQueueDetailForm.get('eqdOutputQueueLibrary').invalid">
+                  <p class="bold_error" *ngIf="this.eligQueueDetailForm.get('eqdOutputQueueLibrary').errors.required">
+                      This field is required.
+                  </p>
+                  <p class="bold_error" *ngIf="submitted && !this.eligQueueDetailForm.get('eqdOutputQueueLibrary').errors.required && this.eligQueueDetailForm.get('eqdOutputQueueLibrary').invalid">
+                      {{ eqdOutputQueueLibraryErrorMsg }}
+                  </p>
+
+              </div>
+          </div>
+          <div class="right-control" *ngIf="isView()">
+              <p>
+                  <label *ngIf="eligQueueDetailForm.get('eqdOutputQueueLibrary') != null">{{ eligQueueDetailForm.get('eqdOutputQueueLibrary').value }}</label>
+              </p>
+          </div>
+      </div>
+  </div>
+
+    <div class="row">
+      <div class="form-group" [ngClass]="{'error': submitted && this.eligQueueDetailForm.get('eqdNumberOfCopies').invalid}">
+          <div class="left-control">
+              <label id="eqdNumberOfCopies_label" for="eqdNumberOfCopies">
+                  <span>Number of copies</span>
+                  <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+              Imagery may or may not reflect your current medications.">
+              </a>
+          </div>
+          <div class="right-control error_message" *ngIf="!isView()">
+              <input id="eqdNumberOfCopies" type="text" placeholder="##" tabindex="0" class="form-input-xxxs" formControlName="eqdNumberOfCopies"
+              appNumeric maxlength="2" >
+              <div *ngIf="submitted && this.eligQueueDetailForm.get('eqdNumberOfCopies').invalid">
+                  <p class="bold_error" *ngIf="this.eligQueueDetailForm.get('eqdNumberOfCopies').errors.required">
+                      This field is required.
+                  </p>
+                  <p class="bold_error" *ngIf="!this.eligQueueDetailForm.get('eqdNumberOfCopies').errors.required">
+                      {{ eqdNumberOfCopiesErrorMsg }}
+                  </p>
+
+              </div>
+          </div>
+          <div class="right-control" *ngIf="isView()">
+              <p>
+                  <label *ngIf="eligQueueDetailForm.get('eqdNumberOfCopies') != null">{{ eligQueueDetailForm.get('eqdNumberOfCopies').value }}</label>
+              </p>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group" [ngClass]="{'error': submitted && this.eligQueueDetailForm.get('eqdSaveSpoolFile').invalid}">
+        <div class="left-control">
+            <label id="eqdSaveSpoolFile_label" for="eqdSaveSpoolFile">
+                <span>Save spool file?</span>
+                <span class="required">*</span>
+            </label>
+            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+            Imagery may or may not reflect your current medications.">
+            </a>
+        </div>
+        <div class="right-control error_message" *ngIf="!isView()">
+          <div class="field-block">
+            <input type="radio" required="" id="eqdSaveSpoolFileYes" aria-required="true" tabindex="0" value="*YES" formControlName="eqdSaveSpoolFile">
+            <label class="field-label" for="eqdSaveSpoolFileYes">Yes</label>
+          </div>
+          <div class="field-block">
+            <input type="radio" id="eqdSaveSpoolFileNo" tabindex="0" value="*NO" formControlName="eqdSaveSpoolFile">
+            <label class="field-label" for="eqdSaveSpoolFileNo">No</label>
+          </div>
+
+          <div *ngIf="submitted && this.eligQueueDetailForm.get('eqdSaveSpoolFile').invalid">
+            <p class="bold_error" *ngIf="this.eligQueueDetailForm.get('eqdSaveSpoolFile').errors.required">
+                This field is required.
+              <!-- {{fieldRequiredMsg}} -->
+            </p>
+          </div>
+        </div>
+        <div class="right-control view_message" *ngIf="isView()">
+          <p>
+            <label class="view_message" *ngIf="eligQueueDetailForm.get('eqdSaveSpoolFile') != null">{{ eligQueueDetailForm.get('eqdSaveSpoolFile').value }}</label>
+          </p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="form-group" [ngClass]="{'error': submitted && this.eligQueueDetailForm.get('eqdHoldSpoolFile').invalid}">
+      <div class="left-control">
+          <label id="eqdHoldSpoolFile_label" for="eqdHoldSpoolFile">
+              <span>Hold spool file?</span>
+              <span class="required">*</span>
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+      </div>
+      <div class="right-control error_message" *ngIf="!isView()">
+        <div class="field-block">
+          <input type="radio"  id="eqdHoldSpoolFileYes" aria-required="true" tabindex="0" value="*YES" formControlName="eqdHoldSpoolFile">
+          <label class="field-label" for="eqdHoldSpoolFileYes">Yes</label>
+        </div>
+        <div class="field-block">
+          <input type="radio" required="" id="eqdHoldSpoolFileNo" aria-required="true" tabindex="0" value="*NO" formControlName="eqdHoldSpoolFile">
+          <label class="field-label" for="eqdHoldSpoolFileNo">No</label>
+        </div>
+        <div *ngIf="submitted && this.eligQueueDetailForm.get('eqdHoldSpoolFile').invalid">
+          <p class="bold_error" *ngIf="this.eligQueueDetailForm.get('eqdHoldSpoolFile').errors.required">
+            This field is required.
+          </p>
+        </div>
+      </div>
+      <div class="right-control view_message" *ngIf="isView()">
+        <p>
+          <label class="view_message" *ngIf="eligQueueDetailForm.get('eqdHoldSpoolFile') != null">{{ eligQueueDetailForm.get('eqdHoldSpoolFile').value }}</label>
+        </p>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group" [ngClass]="{'error': submitted && this.eligQueueDetailForm.get('eqdSpoolFileName').invalid}">
+      <div class="left-control">
+          <label id="eqdSpoolFileName_label" for="eqdSpoolFileName">
+              <span>Spool file name</span>
+              <span class="required">*</span>
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+      </div>
+      <div class="right-control error_message" *ngIf="!isView()">
+          <input id="eqdSpoolFileName" type="text" placeholder="File name" tabindex="0" class="form-input-s" formControlName="eqdSpoolFileName"
+              maxlength="10" appUpper>
+          <div *ngIf="submitted && this.eligQueueDetailForm.get('eqdSpoolFileName').invalid">
+              <p class="bold_error" *ngIf="this.eligQueueDetailForm.get('eqdSpoolFileName').errors.required">
+                  This field is required.
+              </p>
+              <!-- <p class="bold_error" *ngIf="submitted && !this.eligQueueDetailForm.get('eqdSpoolFileName').errors.required && this.eligQueueDetailForm.get('eqdSpoolFileName').invalid">
+                  {{ eqdSpoolFileNameErrorMsg }}
+              </p> -->
+
+          </div>
+      </div>
+      <div class="right-control" *ngIf="isView()">
+          <p>
+              <label *ngIf="eligQueueDetailForm.get('eqdSpoolFileName') != null">{{ eligQueueDetailForm.get('eqdSpoolFileName').value }}</label>
+          </p>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group" [ngClass]="{'error': submitted && this.eligQueueDetailForm.get('eqdDistributionUserId').invalid}">
+      <div class="left-control">
+          <label id="eqdDistributionUserId_label" for="eqdDistributionUserId">
+              <span>Distribution User ID</span>
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+      </div>
+      <div class="right-control error_message" *ngIf="!isView()">
+          <input id="eqdDistributionUserId" type="text" placeholder="User ID" tabindex="0" class="form-input-s" formControlName="eqdDistributionUserId"
+          appUpper maxlength="8" (keydown)="updateValueAndValidity()" (keyup)="updateValueAndValidity()">
+          <div *ngIf="submitted && this.eligQueueDetailForm.get('eqdDistributionUserId').invalid">
+              <p class="bold_error" *ngIf="this.eligQueueDetailForm.get('eqdDistributionUserId').errors.required">
+                  This field is required.
+              </p>
+              <!-- <p class="bold_error" *ngIf="submitted && !this.eligQueueDetailForm.get('eqdDistributionUserId').errors.required && this.eligQueueDetailForm.get('eqdDistributionUserId').invalid">
+                  {{ eqdDistributionUserIdErrorMsg }}
+              </p> -->
+
+          </div>
+      </div>
+      <div class="right-control" *ngIf="isView()">
+          <p>
+              <label *ngIf="eligQueueDetailForm.get('eqdDistributionUserId') != null">{{ eligQueueDetailForm.get('eqdDistributionUserId').value }}</label>
+          </p>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group" [ngClass]="{'error': submitted && this.eligQueueDetailForm.get('eqdSystemId').invalid}">
+      <div class="left-control">
+          <label id="eqdSystemId_label" for="eqdSystemId">
+              <span>System ID</span>
+          </label>
+          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+          </a>
+      </div>
+      <div class="right-control error_message" *ngIf="!isView()">
+          <input id="eqdSystemId" type="text" placeholder="System ID" tabindex="0" class="form-input-s" formControlName="eqdSystemId"
+          appUpper maxlength="8" (keydown)="updateValueAndValidity()" (keyup)="updateValueAndValidity()">
+          <div *ngIf="submitted && this.eligQueueDetailForm.get('eqdSystemId').invalid">
+              <p class="bold_error" *ngIf="this.eligQueueDetailForm.get('eqdSystemId').errors.required">
+                  This field is required.
+              </p>
+              <!-- <p class="bold_error" *ngIf="!this.eligQueueDetailForm.get('eqdSystemId').errors.required && this.eligQueueDetailForm.get('eqdSystemId').invalid">
+                  {{ eqdSystemIdErrorMsg }}
+              </p> -->
+
+          </div>
+      </div>
+      <div class="right-control" *ngIf="isView()">
+          <p>
+              <label *ngIf="eligQueueDetailForm.get('eqdSystemId') != null">{{ eligQueueDetailForm.get('eqdSystemId').value }}</label>
+          </p>
+      </div>
+  </div>
+</div>
+
+
+
+        <div>
+          <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+        </div>
+        <form-controls
+            [recordSessionStorageId]="'eligibilityProfile'"
+            [showCancel]="true"
+            [showSave]="!isView()"
+            (onSave)="submit()"
+            [onCancelRoute]="'/s-active-eligibility-profile'"
+        >
+        </form-controls>
+      </div>
+      <div class="spacer"></div>
+    </form>
+    <div *ngIf="inProcess">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+    <!--Form ends-->
+  </div>
+  <div class="dateUserStampStyle" *ngIf="!(inProcess)">
+    Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp;
+    Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp;
+    User:&nbsp;&nbsp;{{changeUser}}
+    <br>&nbsp;
+  </div>
+</div>

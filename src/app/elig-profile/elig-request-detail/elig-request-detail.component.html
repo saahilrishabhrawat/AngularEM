@@ -1,0 +1,372 @@
+<a id="top"></a>
+<div class="title">
+    <div id="end_of_global_nav" tabindex="-1"></div>
+    <section class="area no-padding trim--white ">
+        <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+            <div class="ogn__title__left">
+                <h1 class="h1">Eligibility Request Detail</h1>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+
+        <div>
+             <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+        </div>
+   
+    <div class="form_background">
+        <div>
+            <app-form-menu></app-form-menu>
+            <section class="area no-padding trim--white">
+                <div class="ogn__secondary-form ogn-container">
+                    <div class="content"></div>
+                </div>
+            </section>
+        </div>
+        <form novalidate [formGroup]="eligibilityRequestDtlForm">
+                <form-controls
+                    [recordSessionStorageId]="'eligibilityProfile'"
+                    [showCancel]="true"
+                    [showSave]="!isView()"                    
+                    [onCancelRoute]="'/s-active-eligibility-profile'"
+                >
+                </form-controls> 
+    
+                <pcag-info
+                    [platformId]="platformId"
+                    [carrierId]="carrierId"
+                    [accountId]="accountId"
+                    [groupId]="groupId"
+                >
+                </pcag-info>
+    
+                <div>
+                    <app-form-section-heading></app-form-section-heading>
+                    <div class="h2">Request Information</div>
+                </div>
+                <!-- Start from here -->
+                <div class="typography form">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_trackingID" id="form_label_trackingID">
+                                    <span>Tracking ID</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdTrackingId') != null">{{ eligibilityRequestDtlForm.get('erdTrackingId').value }}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="form-group">
+                                <div class="left-control">
+                                    <label for="form_select_numberOfMemberRecords" id="form_label_numberOfMemberRecords">
+                                        <span>Number of member records</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                      Imagery may or may not reflect your current medications.">
+                                    </a>
+                                </div>
+                                <div class="right-control view_message" *ngIf="isView()">
+                                    <p>
+                                        <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdNbrOfMemberRecords') != null">{{ eligibilityRequestDtlForm.get('erdNbrOfMemberRecords').value }}</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_memberFileName" id="form_label_memberFileName">
+                                    <span>Member file name</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdMemberFileName') != null">{{ eligibilityRequestDtlForm.get('erdMemberFileName').value }}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_memberFileLibrary" id="form_label_memberFileLibrary">
+                                    <span>Member file library</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdMemberFileLibrary') != null">{{ eligibilityRequestDtlForm.get('erdMemberFileLibrary').value }}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_numberOfGroupRecords" id="form_label_numberOfGroupRecords">
+                                    <span>Number of group records</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdNbrOfGroupRecords') != null">{{ eligibilityRequestDtlForm.get('erdNbrOfGroupRecords').value }}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="form-group">
+                                <div class="left-control">
+                                    <label for="form_select_groupFileName" id="form_label_groupFileName">
+                                        <span>Group file name</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                      Imagery may or may not reflect your current medications.">
+                                    </a>
+                                </div>
+                                <div class="right-control view_message" *ngIf="isView()">
+                                    <p>
+                                        <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdGroupFileName') != null">{{ eligibilityRequestDtlForm.get('erdGroupFileName').value }}</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    
+                    <div class="row">
+                            <div class="form-group">
+                                <div class="left-control">
+                                    <label for="form_select_groupFileLibrary" id="form_label_groupFileLibrary">
+                                        <span>Group file library</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                        Imagery may or may not reflect your current medications.">
+                                    </a>
+                                </div>
+                                <div class="right-control view_message" *ngIf="isView()">
+                                    <p>
+                                        <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdGroupFileLibrary') != null">{{ eligibilityRequestDtlForm.get('erdGroupFileLibrary').value }}</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_futureDate" id="form_label_futureDate">
+                                    <span>Future date</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdFutureDate') != null">{{ eligibilityRequestDtlForm.get('erdFutureDate').value }}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_fileType" id="form_label_fileType">
+                                    <span>File type</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdFileType') != null">{{ eligibilityRequestDtlForm.get('erdFileType').value }}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_mediaType" id="form_label_mediaType">
+                                    <span>Media type</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdMediaType') != null">{{ eligibilityRequestDtlForm.get('erdMediaType').value }}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_loadType" id="form_label_loadType">
+                                    <span>Load type</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdLoadType') != null">{{ eligibilityRequestDtlForm.get('erdLoadType').value }}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_explicitTermCount" id="form_label_explicitTermCount">
+                                    <span>Explicit term count</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdCalcExplicitTrmMbr') != null">{{ eligibilityRequestDtlForm.get('erdCalcExplicitTrmMbr').value }}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_specialInstruction" id="form_label_specialInstruction">
+                                    <span>Special instruction</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <!-- <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdShortInstruction') != null">{{ eligibilityRequestDtlForm.get('erdShortInstruction').value }}</label>
+                                </p>
+                            </div> -->
+                            <div class="wrap-text" *ngIf="isView() && eligibilityRequestDtlForm.get('erdShortInstruction') != null">                                   
+                                    {{ eligibilityRequestDtlForm.get('erdShortInstruction').value }}                                   
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="left-control">
+                                <label for="form_select_notes" id="form_label_notes">
+                                    <span>Notes</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                </a>
+                            </div>
+                            <!-- <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="eligibilityRequestDtlForm.get('erdNotes') != null">{{ eligibilityRequestDtlForm.get('erdNotes').value }}</label>
+                                </p>
+                            </div> -->
+                            <div class="wrap-text" *ngIf="isView() && eligibilityRequestDtlForm.get('erdNotes') != null">                                   
+                                        {{ eligibilityRequestDtlForm.get('erdNotes').value }}                                   
+                            </div> 
+                        </div>
+                    </div>
+
+
+                    <div>
+                            <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+                        </div>
+                        <!-- End here-->
+                        <form-controls
+                            [recordSessionStorageId]="'eligibilityProfile'"
+                            [showCancel]="true"
+                            [showSave]="!isView()"                            
+                            [onCancelRoute]="'/s-active-eligibility-profile'"
+                        >
+                        </form-controls>
+                    </div>
+                    <div class="spacer"></div>
+        
+                </form>
+
+            </div>
+            <div class="dateUserStampStyle">
+                Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+                <br>&nbsp;
+            </div>
+        </div>
+
+<style>
+@font-face {
+font-family: 'frutiger-bold';
+src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+}
+
+@font-face {
+font-family: 'frutiger-roman';
+font-style: normal;
+font-weight: 400;
+src: url('../../assets/fonts/optum/frutiger-roman.eot');
+/* IE9 Compat Modes */
+src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+}
+</style>

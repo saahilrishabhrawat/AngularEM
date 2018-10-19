@@ -1,0 +1,48 @@
+.ogn__secondary-header-formlink {
+    -ms-flex-align: center;
+    align-items: center;    
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: end;
+    justify-content: flex-end;  
+    padding: 12px 0px; 
+    max-width:1138px;
+    height:48px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.topright{
+    position: absolute;
+    top: 8px;
+    right: 0px;  
+    font-size: 16px;
+}
+.addcircle{
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 21px;  /* Preferred icon size */
+    display: inline-block;
+    color: #316BBE;
+    margin-top: -2px;
+    margin-right: 8px;
+  }
+
+a:hover > .addcircle {
+    color: #316BBE;
+}
+
+a {
+    text-decoration: none !important;
+}
+a:hover {
+    text-decoration: underline !important;;
+}
+
+.btn--icon {
+    padding-left: 0px;
+}
+
+i {
+    vertical-align: middle;
+}    

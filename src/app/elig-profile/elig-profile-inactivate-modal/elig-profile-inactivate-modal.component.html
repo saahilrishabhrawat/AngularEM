@@ -1,0 +1,47 @@
+<div class="modal-window" > 
+  <!--**********  Begin modal header *********-->
+ <div class="modal-header">
+   <div class="h2">Inactivate Eligibility Profile </div>
+   <a (click)="closeModalWindow()" class="btn btn--close">
+     <span class="sr-only">Close</span>
+   </a>
+ </div>
+ <!--********* Begin modal body **********-->
+ <div *ngIf="isSaving">
+    <app-loading-indicator></app-loading-indicator>
+</div>
+  <div class="errorDiv" *ngIf="submitted && !isValid">
+    <p class="errorDiv_text">{{ errorMsg }}</p>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+        <div class="col-sm-2 col-font">Platform</div>
+        <div class="col-sm-10 col-font-bold">{{ platformText}}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 col-font">Carrier</div>
+        <div class="col-sm-10 col-font-bold">{{ carrierText}}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 col-font">Account</div>
+        <div class="col-sm-10 col-font-bold">{{ accountText}}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 col-font">Group</div>
+        <div class="col-sm-10 col-font-bold">{{ groupText}}</div>
+    </div>
+    <div class="row shortBar"></div>
+     
+    <div class="row">
+        <div class="col-sm-12 has-padding h3">Are you sure you wish to inactivate this profile?</div>
+    </div>
+    
+    <div align="center">
+      <a (click)="closeModalWindow()" class="btn btn--secondary spaceBetweenSaveCancel cancelAlignment"> Cancel</a>
+      <a class="btn btn--primary saveAlignment" (click)="submit()" tabindex="0">Inactivate profile</a>
+    </div>
+</div> 
+<!--********* End modal body **********-->
+
+ 
+</div>

@@ -1,0 +1,39 @@
+<div class="filterBox" (mouseenter) ="mouseEnter() "  (mouseleave) ="mouseLeave()">
+    <button class="close-button" (click)="removeFilter(this.placeHolderText)"  [style.visibility]="showCloseBtn"></button>
+        <!-- <app-datepicker #dateFilter
+        placeholder="{{this.placeHolderText}}"
+        id="{{this.placeHolderText}}" 
+        name="{{this.placeHolderText}}"
+        >
+        </app-datepicker>  -->
+        <input 
+  matInput
+  class="form-input-md"
+  placeholder="{{this.placeHolderText}}"
+  name="{{this.placeHolderText}}"
+  id="{{this.placeHolderText}}"
+  [matDatepicker]="picker"
+  [(ngModel)]="_input_value"
+  (keyup)="onChange($event)"
+  (dateChange)="onDatepickerChange($event)"
+  appDatepickerMmddyyyy
+  #input
+>
+<a 
+  class="datepicker-button input-group-addon default" 
+  role="button" 
+  aria-haspopup="true" 
+  tabindex="0"
+  (click)="toggleDatepicker()"
+  (keyup.enter)="toggleDatepicker()"
+  aria-labelledby="datepicker-bn-open-label-date"
+  #toggleButton
+>
+  <span class="acc-datepicker" title="Select date ..."></span>
+</a> 
+<mat-datepicker #picker></mat-datepicker>
+
+
+  </div>
+  
+  

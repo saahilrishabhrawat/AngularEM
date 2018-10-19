@@ -1,0 +1,186 @@
+
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+</style>
+
+<a id="top"></a>
+<div class="title">
+  <div id="end_of_global_nav" tabindex="-1"></div>
+  <section class="area no-padding trim--white ">
+    <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+      <div class="ogn__title__left">
+        <h1 class="h1">Error Tolerance Threshold</h1>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+
+  <div>
+    <app-form-links></app-form-links>
+  </div>
+
+  <div class="form_background">
+
+    <div>
+      <app-form-menu></app-form-menu>
+      <section class="area no-padding trim--white">
+        <div class="ogn__secondary-form ogn-container">
+          <div class="content"></div>
+        </div>
+      </section>
+    </div>
+    <div [hidden]="loadingData">
+        <form-controls
+          [recordSessionStorageId]="'eligibilityProfile'"
+          [showSave]="false"
+          [showCancel]="true"
+          [onCancelRoute]="'/s-active-eligibility-profile'"
+        >
+        </form-controls>
+
+        <div class="errorDiv" *ngIf="errorToleranceControlDoesntExist">
+          <div class="errorDiv_text">
+            An Error Tolerance Control entry must be created before managing Error Tolerance Thresholds.
+            <br>
+            <a class="btn btn--secondary" tabindex="0" [routerLink]="['/error-tolerance-control', { cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,mode:this.mode }]">
+              Create Error Tolerance Control
+            </a>
+          </div>
+        </div>
+        
+        <pcag-info
+          [platformId]="platformId"
+          [carrierId]="carrierId"
+          [accountId]="accountId"
+          [groupId]="groupId"
+        >
+        </pcag-info>
+
+        <div>
+            <app-form-section-heading></app-form-section-heading>
+        </div>
+
+        <div *ngIf="!errorToleranceControlDoesntExist">
+
+          <div class="row filterContainer">
+            <div [ngClass]="isView() ? 'col-12' : 'col-7'">
+              <app-filter-panel
+                [filterPanelData]="[
+                          {filterListName: 'Filter by field ID', placeHolderText: 'Filter by field ID...', filterType: 'search', filterDefault: true, displayOrder: '1'}
+                  ]"
+              >
+              </app-filter-panel>
+            </div>
+
+            <div class="col-5 add-new-container-outer row align-items-center" *ngIf="!isView()">
+              <button class="btn btn--secondary addNewButton" [routerLink]="['/error-tolerance-threshold',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,field:'',mode:'add' }]">Add New Threshold</button>
+            </div>
+
+          </div>
+
+          <div class="datatable">
+              <!-- ****************** data table begin  ****************** -->
+              <mat-table #table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="gear">
+                  <mat-header-cell *matHeaderCellDef>
+                      <span></span>
+                    </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <ng-template #popTemplate>
+                      <div>
+                        <div *ngIf="!isView()">
+                          <a class="popoverlink" [routerLink]="['/error-tolerance-threshold',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,field:row.ecdFileIdFieldNumber,mode:'edit' }]">
+                            <i class="material-icons iconPopover">create</i>Edit...
+                          </a>
+                        </div>
+                        <div>
+                          <a class="popoverlink" [routerLink]="['/error-tolerance-threshold',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,field:row.ecdFileIdFieldNumber,mode:'view' }]">
+                            <i class="material-icons iconPopover">search</i>View...
+                          </a>
+                        </div>
+                        <div *ngIf="!isView()">
+                          <a class="popoverlink" (click)="openDeleteErrorToleranceThresholdModal(row)" (keyup.enter)="openDeleteErrorToleranceThresholdModal(row)" href="javascript:void(0);">
+                            <i class="material-icons iconPopover">delete</i>Delete...
+                          </a>
+                        </div>
+                      </div>
+                    </ng-template>
+                    <i class="material-icons gear" [ngbPopover]="popTemplate" placement="right" #p="ngbPopover" tabindex="0" popoverDirective>
+                      settings</i>
+                  </mat-cell>
+                </ng-container>
+
+                <div class="toprow">
+                  <ng-container matColumnDef="ecdFileIdFieldNumber">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header >Field ID</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <a class="dtlink" [routerLink]="['/error-tolerance-threshold',{ cid: this.carrierId,aid:this.accountId,gid:this.groupId,pid:this.platformId,field:element.ecdFileIdFieldNumber,mode:(isView() ? 'view' : 'edit')}]">{{element.ecdFileIdFieldNumber}}</a>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="ecdFieldName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="text-left">Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="text-left">{{element.ecdFieldName}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="ecdToleranceChkActive">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="text-left">Enabled</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="text-left">{{element.ecdToleranceChkActive}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="ecdTolerancePercentage">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="text-left">Percentage</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="text-left">{{element.ecdTolerancePercentage}}</mat-cell>
+                  </ng-container>
+
+
+                </div>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+              <div class="no-records-message" *ngIf="(dataSource.data.length === 0 || dataSource.filteredData.length === 0) && !loadingData">
+                No records found
+              </div>
+            </div>
+            <!-- ******************  data table end   ****************** -->
+          <!-- ****************** pagination begin  ****************** -->
+          <mat-paginator [pageSize]="10" [hidePageSize]="true" [showFirstLastButtons]="true">
+          </mat-paginator>
+        </div>
+        <!-- ****************** pagination end    ****************** -->
+        <!--First section of C/A/G closed here-->
+        <form-controls
+          [recordSessionStorageId]="'eligibilityProfile'"
+          [showSave]="false"
+          [showCancel]="true"
+          [onCancelRoute]="'/s-active-eligibility-profile'"
+        >
+        </form-controls>
+    </div>
+    <div *ngIf="loadingData">
+        <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+</div>
+<div class="dateUserStampStyle">
+  <br>&nbsp;
+</div>
+
+<ng-template #deleteErrorToleranceThresholdModal>
+  <app-delete-error-tolerance-threshold-modal [selectedRow]="selectedRow" (closeModal)="closeModal($event)"></app-delete-error-tolerance-threshold-modal>
+</ng-template>

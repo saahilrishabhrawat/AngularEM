@@ -1,0 +1,33 @@
+<div class="modal-window" > 
+    <div class="modal-header">
+      <div class="h2">Delete Required Member Fields</div>
+      <a (click)="closeModalWindow()" (keyup.enter)="closeModalWindow()" tabindex="0" class="btn btn--close">
+        <span class="sr-only">Close</span>
+      </a>
+    </div>
+  
+    <div class="modal-body">
+      <div class="row">
+          <div class="col-sm-2 col-font">Carrier</div>
+          <div class="col-sm-10 col-font-bold">{{selectedRow.rmfCarrierId}}</div>
+      </div>
+      <div class="row">
+          <div class="col-sm-2 col-font">Account</div>
+          <div class="col-sm-10 col-font-bold">{{selectedRow.rmfAccountId}}</div>
+      </div>
+      <div class="row">
+          <div class="col-sm-2 col-font">Group</div>
+          <div class="col-sm-10 col-font-bold">{{selectedRow.rmfGroupId}}</div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 has-padding h3">Are you sure you wish to delete this required member fields entry?</div>
+    </div>
+  
+    <div align="center">
+      <a class="btn btn--secondary spaceBetweenSaveCancel cancelAlignment" (click)="closeModalWindow()" (keyup.enter)="closeModalWindow()" tabindex="0"> Cancel</a>
+      <a class="btn btn--primary saveAlignment" (click)="delete()" (keyup.enter)="delete()" tabindex="0">Delete</a>
+    </div>
+  
+  </div>

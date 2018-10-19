@@ -1,0 +1,140 @@
+<div class="ogn ogn--multi bank">
+    <div class="ogn-flyout">
+        <div class="ogn-flyout-content">
+            <nav class="ogn-property-header" aria-label="Level 1 Navigation">
+                <div id="lvl1" class="ogn-container ogn-large">
+                    <ul class="property-header__properties">
+                        <li>
+                            <a *ngIf="!isMobileUser" (click)="showEligMenu2 = false" (click)="noCss(show=true)"[routerLink]="['dashboard']" routerLinkActive="routerLink">Home</a>
+                        </li>
+                        <a>
+                        <li class={{isActive}}>
+                            <a href="javascript:void(0)" *ngIf="!isMobileUser" (click)="showEligMenu2 = true" (click)="showMenuCss(show=true)" >Eligibility</a>
+                        </li>
+                    </a>
+                        <li> </li>
+                    </ul>
+                </div>
+                
+            </nav>
+            <nav class="ogn-nav" id="site_nav_menu" aria-label="Level 2 Navigation">
+                 <div *ngIf="showEligMenu2" class="ogn-container">
+                      <ul class="nav-list">
+        
+  
+                          <li class={{carrierClass}} aria-haspopup="true">
+                                <a tabindex="0" href="javascript:void(0)" (click)="carrierList(isOpen=!isOpen)" (blur)="carrierList(isOpen=false)"  class="nav-link nav-link--text-container">
+                                    Carrier
+                                </a>
+                                <ul class="nav-sublist" aria-hidden="true">
+                                    <li class="nav-subitem">
+                                        <a tabindex="0" href="javascript:void(0)"  class="nav-sublink nav-sublink--text-container">
+                                            Add new
+                                        </a>
+                                    </li>
+                                    <li class="nav-subitem">
+                                          <a href="javascript:void(0)"  class="nav-sublink nav-sublink--text-container" tabindex="0">
+                                            View Existing
+                                          </a>
+                                      </li>
+                                </ul>
+                            </li>
+
+  
+                            <li class={{accountClass}} aria-haspopup="true">
+                                    <a  (click)=" accountList(isOpen=!isOpen)" (focusout)="accountList(isOpen=false)" href="javascript:void(0)" class="nav-link nav-link--text-container">
+                                  Account
+                                    </a>
+                                    <ul class="nav-sublist" aria-hidden="true">
+                                        <li class="nav-subitem">
+                                            <a href="#" class="nav-sublink nav-sublink--text-container">
+                                          Add new
+                                            </a>
+                                        </li>
+                                        <li class="nav-subitem">
+                                              <a href="#" class="nav-sublink nav-sublink--text-container">
+                                          View Existing
+                                              </a>
+                                          </li>
+                                    </ul>
+                                </li>
+  
+
+                                <li class={{groupClass}} aria-haspopup="true">
+                                        <a  (click)=" groupList(isOpen=!isOpen)" (focusout)="groupList(isOpen=false)" href="javascript:void(0)" class="nav-link nav-link--text-container">
+                                           Group
+                                        </a>
+                                        <ul class="nav-sublist" aria-hidden="true">
+                                            <li class="nav-subitem">
+                                                <a href="#" class="nav-sublink nav-sublink--text-container">
+                                                    Add new
+                                                </a>
+                                            </li>
+                                            <li class="nav-subitem">
+                                                  <a href="#" class="nav-sublink nav-sublink--text-container">
+                                                     View Existing
+                                                  </a>
+                                              </li>
+                                        </ul>
+                                    </li>
+  
+                                    <li class={{memberClass}} aria-haspopup="true">
+                                            <a  (click)=" memberList(isOpen=!isOpen)" (focusout)="memberList(isOpen=false)" href="javascript:void(0)" class="nav-link nav-link--text-container">
+                                           Member
+                                            </a>
+                                            <ul class="nav-sublist" aria-hidden="true">
+                                                <li class="nav-subitem">
+                                                    <a href="#" class="nav-sublink nav-sublink--text-container">
+                                                      Add new
+                                                    </a>
+                                                </li>
+                                                <li class="nav-subitem">
+                                                      <a href="#" class="nav-sublink nav-sublink--text-container">
+                                                       View Existing
+                                                      </a>
+                                                  </li>
+                                            </ul>
+                                        </li>
+  
+                                        <li class={{profileClass}} aria-haspopup="true">
+                                                <a  (click)=" profileList(isOpen=!isOpen)" (focusout)="profileList(isOpen=false)" href="javascript:void(0)" class="nav-link nav-link--text-container">
+                                                   Profile
+                                                </a>
+                                                <ul class="nav-sublist" aria-hidden="true">
+                                                    <li class="nav-subitem">
+                                                        <a href="#" class="nav-sublink nav-sublink--text-container" [routerLink]="['../eligibility-profile-detail',{ cid: '',aid:'',gid:'',pid:'',mode:'add' }]">
+                                                          Add New
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-subitem">
+                                                        <a href="#" class="nav-sublink nav-sublink--text-container" [routerLink]="['s-active-eligibility-profile']" routerLinkActive="routerLink">View Existing</a>
+                                                    </li>
+                                                    <li class="nav-subitem">
+                                                        <a class="nav-sublink nav-sublink--text-container" [routerLink]="['s-required-member']" routerLinkActive="routerLink">Required member</a>
+                                                    </li>
+                                                    
+                                                </ul>
+                                            </li>
+
+                                            <li class={{crfClass}} aria-haspopup="true">
+                                                    <a  (click)=" crfList(isOpen=!isOpen)" (focusout)="crfList(isOpen=false)" href="javascript:void(0)" class="nav-link nav-link--text-container">
+                                                       Cross-Ref Lists
+                                                    </a>
+                                                    <ul class="nav-sublist" aria-hidden="true">
+                                                        <li class="nav-subitem">
+                                                            <a href="#" class="nav-sublink nav-sublink--text-container">
+                                                              Item1 
+                                                            </a>
+                                                        </li> 
+                                                        <li class="nav-subitem">
+                                                            <a href="#" class="nav-sublink nav-sublink--text-container" [routerLink]="['styleguide']" routerLinkActive="routerLink">Style Guide</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                      </ul>
+                      <a id="end-of-ogn"></a>
+                  </div>
+              </nav>
+          </div>
+      </div>
+  </div>

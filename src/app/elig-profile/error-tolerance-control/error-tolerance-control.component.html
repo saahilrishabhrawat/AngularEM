@@ -1,0 +1,463 @@
+<a id="top"></a>
+<div class="title">
+  <div id="end_of_global_nav" tabindex="-1"></div>
+  <section class="area no-padding trim--white">
+    <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+      <div class="ogn__title__left">
+        <h1 class="h1">{{ screenTitle }}</h1>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+  <div>
+    <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+  </div>
+  <div class="form_background">
+    <div class="">
+      <app-form-menu></app-form-menu>
+      <section class="area no-padding trim--white">
+        <div class="ogn__secondary-form ogn-container">
+          <div class="content"></div>
+        </div>
+      </section>
+    </div>
+    <form novalidate [formGroup]="errToleranceFormGroup" [hidden]="inProcess" (change)="refreshMessage()">
+      <form-controls
+        [recordSessionStorageId]="'eligibilityProfile'"
+        [showCancel]="true"
+        [showSave]="!isView()"
+        (onSave)="submit()"
+        [onCancelRoute]="'/s-active-eligibility-profile'"
+      >
+      </form-controls>
+      <a id="generalParam"></a>
+      <div class="errorDiv" *ngIf="submitted && this.errToleranceFormGroup.invalid">
+        <p class="errorDiv_text">{{errorMsg}}</p>
+      </div>
+      <div class="successDiv" *ngIf="isSuccess && !this.errToleranceFormGroup.invalid">
+        <p class="errorDiv_text">{{saveMsg}}</p>
+      </div>
+
+      <pcag-info [platformId]="this.errToleranceFormGroup.get('platformId').value" [carrierId]="this.errToleranceFormGroup.get('carCarrierId').value"
+        [accountId]="this.errToleranceFormGroup.get('accountId').value" [groupId]="this.errToleranceFormGroup.get('groupId').value"></pcag-info>
+      <div>
+        <app-form-section-heading></app-form-section-heading>
+        <div class="h2">General Parameters</div>
+      </div>
+      <!-- Start from here -->
+      <div class="typography form">
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.errToleranceFormGroup.get('eccAlwaysSuspAftrStaging').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{'error': submitted && this.errToleranceFormGroup.get('eccAlwaysSuspAftrStaging').invalid}">Always suspend after staging?</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control next-line" *ngIf="!isView()">
+              <div class="field-block">
+                <input type="radio" id="AlwaysSuspendAftrStangingY" aria-required="true" tabindex="0" value="Y" formControlName="eccAlwaysSuspAftrStaging">
+                <label class="field-label" for="AlwaysSuspendAftrStangingY">Yes</label>
+              </div>
+              <div class="field-block">
+                <input type="radio" id="AlwaysSuspendAftrStangingN" tabindex="0" value="N" formControlName="eccAlwaysSuspAftrStaging">
+                <label class="field-label" for="AlwaysSuspendAftrStangingN">No</label>
+              </div>
+              <div *ngIf="submitted && this.errToleranceFormGroup.get('eccAlwaysSuspAftrStaging').invalid">
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get('eccAlwaysSuspAftrStaging').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="errToleranceFormGroup.get('eccAlwaysSuspAftrStaging') != null">{{ errToleranceFormGroup.get('eccAlwaysSuspAftrStaging').value}}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class=" row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccPrimaryEligAnalyst').invalid}">
+            <div class="left-control">
+              <label for="form_select_version" id="form_label_version">
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccPrimaryEligAnalyst').invalid}">Eligibility Analyst User ID</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <input id="eccPrimaryEligAnalyst" type="text" placeholder="User ID" tabindex="0" class="form-input-s
+                  error_message" formControlName="eccPrimaryEligAnalyst" maxlength="10" appUpper>
+              <div *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPrimaryEligAnalyst').invalid">
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPrimaryEligAnalyst').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control" *ngIf="isView()">
+              <p>
+                <label *ngIf="errToleranceFormGroup.get( 'eccPrimaryEligAnalyst') !=null">{{ errToleranceFormGroup.get('eccPrimaryEligAnalyst').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccSecondryEligAnalyst').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccSecondryEligAnalyst').invalid}">Specialist User ID</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div>
+                <input type="text" id="eccSecondryEligAnalyst" placeholder="User ID" tabindex="0" class="form-input-s" formControlName="eccSecondryEligAnalyst"
+                  maxlength="10" appUpper>
+              </div>
+            </div>
+            <div class="right-control" *ngIf="isView()">
+              <p>
+                <label *ngIf="errToleranceFormGroup.get( 'eccSecondryEligAnalyst') !=null">{{ errToleranceFormGroup.get('eccSecondryEligAnalyst').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccEmailDistributionLst').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccEmailDistributionLst').invalid}">Email distribution list</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="appLookup">
+                <input type="text" maxlength="10" id="eccEmailDistributionLst" tabindex="0" class="form-input-s" formControlName="eccEmailDistributionLst"
+                  appUpper>
+              </div>
+              <a>
+                <span class="material-icons iconLookup">search</span>
+              </a>
+              <a class="lookup">Lookup</a>
+              <div *ngIf="submitted && this.errToleranceFormGroup.get( 'eccEmailDistributionLst').invalid">
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccEmailDistributionLst').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccEmailDistributionLst').errors?.invalid">
+                  {{emailDistListErrMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control" *ngIf="isView()">
+              <p>
+                <label *ngIf="errToleranceFormGroup.get( 'eccEmailDistributionLst') !=null">{{ errToleranceFormGroup.get('eccEmailDistributionLst').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccSuspFileCndChkDlyMin').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccSuspFileCndChkDlyMin').invalid}">Delay minutes (suspended jobs)</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div>
+                <input type="text" id="eccSuspFileCndChkDlyMin" placeholder="Min." tabindex="0" class="form-input-xxs error_message" formControlName="eccSuspFileCndChkDlyMin"
+                  maxlength="3" appNumeric>
+              </div>
+              <div *ngIf="submitted && this.errToleranceFormGroup.get( 'eccSuspFileCndChkDlyMin').invalid">
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccSuspFileCndChkDlyMin').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control" *ngIf="isView()">
+              <p>
+                <label *ngIf="errToleranceFormGroup.get( 'eccSuspFileCndChkDlyMin') !=null">{{ errToleranceFormGroup.get('eccSuspFileCndChkDlyMin').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <a id="toleranceControlParam"></a>
+        <div>
+          <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+        </div>
+        <div class="h2">Tolerance Control Parameters</div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccEnableToleranceChk').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccEnableToleranceChk').invalid}">Enable error tolerance checking?</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control next-line" *ngIf="!isView()">
+              <div class="field-block">
+                <input type="radio" id="eccEnableToleranceChkY" aria-required="true" tabindex="0" value="Y" formControlName="eccEnableToleranceChk">
+                <label class="field-label" for="eccEnableToleranceChkY">Yes</label>
+              </div>
+              <div class="field-block">
+                <input type="radio" id="eccEnableToleranceChkN" tabindex="0" value="N" formControlName="eccEnableToleranceChk">
+                <label class="field-label" for="eccEnableToleranceChkN">No</label>
+              </div>
+              <div *ngIf="submitted && this.errToleranceFormGroup.get( 'eccEnableToleranceChk').invalid">
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccEnableToleranceChk').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="errToleranceFormGroup.get( 'eccEnableToleranceChk') !=null">{{ errToleranceFormGroup.get('eccEnableToleranceChk').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccMinNbrInpRcdTrgTolChk').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccMinNbrInpRcdTrgTolChk').invalid}">Minimum records required</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control" *ngIf="!isView()">
+              <div>
+                <input type="text" id="eccMinNbrInpRcdTrgTolChk" placeholder="##" tabindex="0" class="form-input-xxs" formControlName="eccMinNbrInpRcdTrgTolChk"
+                  maxlength="5" appNumeric>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="errToleranceFormGroup.get( 'eccMinNbrInpRcdTrgTolChk') !=null">{{ errToleranceFormGroup.get('eccMinNbrInpRcdTrgTolChk').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccLengthOfMemberId').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccLengthOfMemberId').invalid}">Member ID length</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div>
+                <input type="text" id="eccLengthOfMemberId" placeholder="##" tabindex="0" class="form-input-xxxs error_message" formControlName="eccLengthOfMemberId"
+                  maxlength="2" appNumeric>
+              </div>
+              <div *ngIf="submitted && this.errToleranceFormGroup.get( 'eccLengthOfMemberId').invalid">
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccLengthOfMemberId').errors?.invalid">
+                  {{mustBetween1to18}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="errToleranceFormGroup.get( 'eccLengthOfMemberId') !=null">{{ errToleranceFormGroup.get('eccLengthOfMemberId').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccPerformRetroTrmChk').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccPerformRetroTrmChk').invalid}">Perform retro-term check?</span>
+                <span class="required" *ngIf="isEnableToleranceChkYes()">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control next-line" *ngIf="!isView()">
+              <div class="field-block">
+                <input type="radio" id="eccPerformRetroTrmChkY" aria-required="true" tabindex="0" value="Y" formControlName="eccPerformRetroTrmChk">
+                <label class="field-label" for="eccPerformRetroTrmChkY">Yes</label>
+              </div>
+              <div class="field-block">
+                <input type="radio" id="eccPerformRetroTrmChkN" tabindex="0" value="N" formControlName="eccPerformRetroTrmChk">
+                <label class="field-label" for="eccPerformRetroTrmChkN">No</label>
+              </div>
+              <div *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPerformRetroTrmChk').invalid">
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPerformRetroTrmChk').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="errToleranceFormGroup.get( 'eccPerformRetroTrmChk') !=null">{{ errToleranceFormGroup.get('eccPerformRetroTrmChk').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccPercentForRetroTrmChk').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccPercentForRetroTrmChk').invalid}">Retro-term percentage</span>
+                <span class="required" *ngIf="isPercentForRetroTrmChkRequired()">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div>
+                <input type="text" id="eccPercentForRetroTrmChk" placeholder="%" tabindex="0" class="form-input-xxs error_message" formControlName="eccPercentForRetroTrmChk"
+                  maxlength="5" appNumericDecimal>
+              </div>
+              <div *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPercentForRetroTrmChk').invalid">
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPercentForRetroTrmChk').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPercentForRetroTrmChk').errors?.invalid">
+                  {{mustBetween1to100}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="errToleranceFormGroup.get( 'eccPercentForRetroTrmChk') !=null">{{ errToleranceFormGroup.get('eccPercentForRetroTrmChk').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccPerfrmExplctTrmChk').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccPerfrmExplctTrmChk').invalid}">Perform explicit-term check?</span>
+                <span class="required" *ngIf="isEnableToleranceChkYes()">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control next-line" *ngIf="!isView()">
+              <div class="field-block">
+                <input type="radio" id="eccPerfrmExplctTrmChkY" aria-required="true" tabindex="0" value="Y" formControlName="eccPerfrmExplctTrmChk">
+                <label class="field-label" for="eccPerfrmExplctTrmChkY">Yes</label>
+              </div>
+              <div class="field-block">
+                <input type="radio" id="eccPerfrmExplctTrmChkN" tabindex="0" value="N" formControlName="eccPerfrmExplctTrmChk">
+                <label class="field-label" for="eccPerfrmExplctTrmChkN">No</label>
+              </div>
+              <div *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPerfrmExplctTrmChk').invalid">
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPerfrmExplctTrmChk').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="errToleranceFormGroup.get( 'eccPerfrmExplctTrmChk') !=null">{{ errToleranceFormGroup.get('eccPerfrmExplctTrmChk').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get('eccPercntForExplctTrmChk').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{ 'error': submitted && this.errToleranceFormGroup.get( 'eccPercntForExplctTrmChk').invalid}">Explicit-term percentage</span>
+                <span class="required" *ngIf="isPercntForExplctTrmChkRequired()">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip Imagery
+                  may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div>
+                <input type="text" id="eccPercntForExplctTrmChk" placeholder="%" tabindex="0" class="form-input-xxs error_message" formControlName="eccPercntForExplctTrmChk"
+                  maxlength="5" appNumericDecimal>
+              </div>
+              <div *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPercntForExplctTrmChk').invalid">
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPercntForExplctTrmChk').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+                <p class="bold_error" *ngIf="submitted && this.errToleranceFormGroup.get( 'eccPercntForExplctTrmChk').errors?.invalid">
+                  {{mustBetween1to100}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="errToleranceFormGroup.get( 'eccPercntForExplctTrmChk') !=null">{{ errToleranceFormGroup.get('eccPercntForExplctTrmChk').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- load information end here -->
+
+        <div>
+          <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+
+        </div>
+        <!-- End here-->
+        <form-controls
+            [recordSessionStorageId]="'eligibilityProfile'"
+            [showCancel]="true"
+            [showSave]="!isView()"
+            (onSave)="submit()"
+            [onCancelRoute]="'/s-active-eligibility-profile'"
+        >
+        </form-controls>
+
+      </div>
+      <div class="spacer"></div>
+    </form>
+    <div *ngIf="inProcess">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+  <div class="dateUserStampStyle" *ngIf="!inProcess">
+    Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+    <br>&nbsp;
+  </div>
+  <style>
+    @font-face {
+      font-family: 'frutiger-bold';
+      src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+      url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+    }
+
+
+    @font-face {
+      font-family: 'frutiger-roman';
+      font-style: normal;
+      font-weight: 400;
+      src: url('../../assets/fonts/optum/frutiger-roman.eot');
+      /* IE9 Compat Modes */
+      src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+      url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+      url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+    }
+  </style>

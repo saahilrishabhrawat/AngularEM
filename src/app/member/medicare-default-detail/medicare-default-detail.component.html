@@ -1,0 +1,1644 @@
+<a id="top"></a>
+<div class="title">
+  <div id="end_of_global_nav" tabindex="-1"></div>
+  <section class="area no-padding trim--white ">
+    <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+      <div class="ogn__title__left">
+        <h1 class="h1">Coverage Default Detail</h1>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+
+  <div>
+    <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+  </div>
+
+  <div class="form_background">
+
+    <div>
+      <app-form-menu></app-form-menu>
+      <section class="area no-padding trim--white">
+        <div class="ogn__secondary-form ogn-container">
+          <div class="content"></div>
+        </div>
+      </section>
+    </div>
+    <!--Form starts-->
+    <form [formGroup]="coverageDtlForm" [hidden]="isSaving" (change)=refreshMessage()>
+      <form-controls
+        [recordSessionStorageId]="'eligibilityProfile'"
+        [showCancel]="true"
+        [showSave]="!isView()"
+        (onSave)="submit()"
+        [onCancelRoute]="'/s-active-eligibility-profile'"
+      >
+      </form-controls>
+
+      <div class="errorDiv">
+        <p class="errorDiv_text" *ngIf="submitted && this.coverageDtlForm.invalid">The errors below must be corrected before saving.</p>
+        <p class="errorDiv_text" *ngIf="isError && submitted && this.coverageDtlForm.valid">
+          Error occurred in save.
+        </p>
+        <p class="errorDiv_text" *ngIf="isError && !submitted">
+          Error occurred in view.
+        </p>
+      </div>
+
+      <div class="successDiv" *ngIf="isSuccess && submitted && this.coverageDtlForm.valid">
+        <p class="errorDiv_text">Your changes were successfully saved.</p>
+      </div>
+      <!-- End of the buttons and start of the form -->
+
+      <!--First section of C/A/G start here-->
+      <pcag-info
+        [platformId]="platformId"
+        [carrierId]="carrierId"
+        [accountId]="accountId"
+        [groupId]="groupId"
+      >
+      </pcag-info>
+
+      <!--First section of C/A/G closed here-->
+      <!--coverage default detail section start here -->
+      <div class="typography form">
+        <!--Heading Medicare Default Detail section start here -->
+        <div id="medicareind">
+          <app-form-section-heading></app-form-section-heading>
+          <div class="h2">Medicare Indicators</div>
+        </div>
+        <!--Heading section closed here-->
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empMmdLock').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{'error': submitted && this.coverageDtlForm.get('empMmdLock').invalid}">MMD lock</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <input type="radio" required="" id="mmdLckY" aria-required="true" tabindex="0" value="Y" formControlName="empMmdLock">
+                <label class="field-label" for="mmdLckY">Yes</label>
+              </div>
+              <div class="field-block">
+                <input type="radio" id="mmdLckN" tabindex="0" value="N" formControlName="empMmdLock">
+                <label class="field-label" for="mmdLckN">No</label>
+              </div>
+              <div *ngIf="submitted && this.coverageDtlForm.get('empMmdLock').invalid">
+                <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empMmdLock').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="coverageDtlForm.get('empMmdLock') != null">{{ coverageDtlForm.get('empMmdLock').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empContractNumberInd').invalid}">
+            <div class="left-control">
+              <label for="empContractNumberInd">
+                <span [ngClass]="{'error': submitted && this.coverageDtlForm.get('empContractNumberInd').invalid}">Contract</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empContractNumberInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" class="form-select-lg" id="empContractNumberInd" formControlName="empContractNumberInd" (change)="changePBMInd($event)">
+                    <option value="">Select one</option>
+                    <option value="N">Do not load field</option>
+                    <option value="Q">Required</option>
+                    <option value="V">Validate and reject</option>
+                    <option value="Y">Validate and warn</option>
+                  </select>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.coverageDtlForm.get('empContractNumberInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empContractNumberInd').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+                <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empContractNumberInd').invalid">
+                  {{contractPBPNotMatchErrMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="coverageDtlForm.get('empContractNumberInd') != null">{{ coverageDtlForm.get('empContractNumberInd').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empContractNumberRepr').invalid}">
+            <div class="left-control-greyFields">
+              <label for="empContractNumberRepr">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empContractNumberRepr').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empContractNumberRepr').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="empContractNumberRepr" class="form-select-lg" formControlName="empContractNumberRepr">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('empContractNumberRepr').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empContractNumberRepr').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="coverageDtlForm.get('empContractNumberRepr') != null">{{ coverageDtlForm.get('empContractNumberRepr').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empPbpInd').invalid}">
+            <div class="left-control">
+              <label for="empPbpInd">
+                <span [ngClass]="{'error': submitted && this.coverageDtlForm.get('empPbpInd').invalid}">Plan benefit package (PBP)</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empPbpInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="empPbpInd" class="form-select-lg" formControlName="empPbpInd" (change)="updateValidityContractPBPVal()">
+                    <option value="">Select one</option>
+                    <option value="N">Do not load field</option>
+                    <option value="Q">Required</option>
+                    <option value="V">Validate and reject</option>
+                    <option value="Y">Validate and warn</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('empPbpInd').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empPbpInd').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empPbpInd').invalid">
+                    {{pbpContractNotMatchErrMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="coverageDtlForm.get('empPbpInd') != null">{{ coverageDtlForm.get('empPbpInd').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empPbpRepr').invalid}">
+            <div class="left-control-greyFields">
+              <label for="empPbpRepr">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empPbpRepr').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empPbpRepr').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="empPbpRepr" class="form-select-lg" formControlName="empPbpRepr">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('empPbpRepr').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empPbpRepr').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="coverageDtlForm.get('empPbpRepr') != null">{{ coverageDtlForm.get('empPbpRepr').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empContractPbpValidlvl').invalid}">
+            <div class="left-control">
+              <label for="empContractPbpValidlvl">
+                <span [ngClass]="{'error': submitted && this.coverageDtlForm.get('empContractPbpValidlvl').invalid}">Validation level (contract/PBP)</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empContractPbpValidlvl').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="empContractPbpValidlvl" class="form-select-lg" formControlName="empContractPbpValidlvl">
+                    <option value="">Select one</option>
+                    <option value="A">Carrier / Account</option>
+                    <option value="C">Carrier</option>
+                    <option value="G">Carrier / Account / Group</option>
+                    <option value="N">No</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('empContractPbpValidlvl').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empContractPbpValidlvl').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="coverageDtlForm.get('empContractPbpValidlvl') != null">{{ coverageDtlForm.get('empContractPbpValidlvl').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('empSegmentInd').invalid || this.coverageDtlForm.get('empSegment').invalid)}">
+            <div class="left-control">
+              <label for="empSegmentInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('empSegmentInd').invalid || this.coverageDtlForm.get('empSegment').invalid)}">Segment</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmpSegmentInd}">
+                  <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empSegmentInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="empSegmentInd" class="form-select-lg" formControlName="empSegmentInd" (change)="selectType($event,'empSegmentInd')">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="L">Load and output report</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('empSegmentInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empSegmentInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmpSegmentInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="empSegment" placeholder="Segment" tabindex="0" class="form-input-xs ssn_input" formControlName="empSegment"
+                      maxlength="3" appUpper>
+                  </ng-container>
+                  <div *ngIf="submitted && showEmpSegmentInd && this.coverageDtlForm.get('empSegment').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empSegment').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('empSegmentInd') != null">{{ coverageDtlForm.get('empSegmentInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('empSegment') != null">{{ coverageDtlForm.get('empSegment').value }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('empSubsidyLevelInd').invalid || this.coverageDtlForm.get('empSubsidyLevel').invalid)}">
+            <div class="left-control">
+              <label for="empSubsidyLevelInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('empSubsidyLevelInd').invalid || this.coverageDtlForm.get('empSubsidyLevel').invalid)}">Subsidy level</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmpSubsidyLevelInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empSubsidyLevelInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="empSubsidyLevelInd" (change)="selectType($event,'empSubsidyLevelInd')" class="form-select-lg" formControlName="empSubsidyLevelInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="L">Load and output report</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('empSubsidyLevelInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empSubsidyLevelInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmpSubsidyLevelInd">
+                    <legend>Default/replacement value</legend>
+                    <select class="form-select-md select" tabindex="0" id="empSubsidyLevel" formControlName="empSubsidyLevel" [ngStyle]="{'border' : (submitted && showEmpSubsidyLevelInd && this.coverageDtlForm.get('empSubsidyLevel').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                      <option value="">Select one</option>
+                      <option value="000">No subsidy</option>
+                      <option value="25">25% subsidy</option>
+                      <option value="50">50% subsidy</option>
+                      <option value="75">75% subsidy</option>
+                      <option value="100">100% subsidy</option>
+                    </select>
+                  </ng-container>
+                  <div *ngIf="submitted && showEmpSubsidyLevelInd && this.coverageDtlForm.get('empSubsidyLevel').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empSubsidyLevel').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('empSubsidyLevelInd') != null">{{ coverageDtlForm.get('empSubsidyLevelInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('empSubsidyLevel') != null">{{ coverageDtlForm.get('empSubsidyLevel').value }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('empCopayCategoryInd').invalid || this.coverageDtlForm.get('empCopayCategory').invalid)}">
+            <div class="left-control">
+              <label for="empCopayCategoryInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('empCopayCategoryInd').invalid || this.coverageDtlForm.get('empCopayCategory').invalid)}">Copay category</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmpCopayCategoryInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empCopayCategoryInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="empCopayCategoryInd" (change)="selectType($event,'empCopayCategoryInd')" class="form-select-lg"
+                      formControlName="empCopayCategoryInd">
+                      <option value="" selected="selected">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="L">Load and output report</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('empCopayCategoryInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empCopayCategoryInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmpCopayCategoryInd">
+                    <legend>Default/replacement value</legend>
+                    <select class="form-select-lg select" tabindex="0" id="empCopayCategory" formControlName="empCopayCategory" [ngStyle]="{'border' : (submitted && showEmpCopayCategoryInd && this.coverageDtlForm.get('empCopayCategory').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                      <option value="">Select one</option>
+                      <option value="U">U.S. Territory subsidy</option>
+                      <option value="0">None, not low income</option>
+                      <option value="1">Copay category 1</option>
+                      <option value="2">Copay category 2</option>
+                      <option value="3">Copay category 3</option>
+                      <option value="4">Copay category 4</option>
+                      <option value="5">Unknown category</option>
+                    </select>
+                  </ng-container>
+                  <div *ngIf="submitted && showEmpCopayCategoryInd && this.coverageDtlForm.get('empCopayCategory').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empCopayCategory').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('empCopayCategoryInd') != null">{{ coverageDtlForm.get('empCopayCategoryInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('empCopayCategory') != null">{{ coverageDtlForm.get('empCopayCategory').value }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empCopayCategoryRepr').invalid}">
+            <div class="left-control-greyFields">
+              <label for="empCopayCategoryRepr">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empCopayCategoryRepr').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empCopayCategoryRepr').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="empCopayCategoryRepr" class="form-select-lg" formControlName="empCopayCategoryRepr">
+                    <option value="">Select one</option>>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                    <option value="r">LICS-only reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('empCopayCategoryRepr').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empCopayCategoryRepr').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('empCopayCategoryRepr') != null">{{ coverageDtlForm.get('empCopayCategoryRepr').value }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('empCcategoryEffDteInd').invalid || this.coverageDtlForm.get('empCcategoryEffDate').invalid)}">
+            <div class="left-control">
+              <label for="empCcategoryEffDteInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('empCcategoryEffDteInd').invalid || this.coverageDtlForm.get('empCcategoryEffDate').invalid)}">Copay category effective date</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmpCcategoryEffDteInd}">
+                  <div class="select">
+                    <select tabindex="0" id="empCcategoryEffDteInd" (change)="selectType($event,'empCcategoryEffDteInd')" class="form-select-lg"
+                      formControlName="empCcategoryEffDteInd" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empCcategoryEffDteInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="L">Load and output report</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('empCcategoryEffDteInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empCcategoryEffDteInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmpCcategoryEffDteInd">
+                    <legend>Default/replacement value</legend>
+                    <app-datepicker
+                      formControlName="empCcategoryEffDate"
+                    >
+                    </app-datepicker>
+                  </ng-container>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('empCcategoryEffDate').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empCcategoryEffDate').errors.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                    <p class="bold_error" *ngIf="submitted && !this.coverageDtlForm.get('empCcategoryEffDate').errors.required && this.coverageDtlForm.get('empCcategoryEffDate').invalid">
+                      {{invalidDateMsg}}
+                    </p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('empCcategoryEffDteInd') != null">{{ coverageDtlForm.get('empCcategoryEffDteInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('empCcategoryEffDate') != null">{{ coverageDtlForm.get('empCcategoryEffDate').value }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empCcategoryEffDteRep').invalid}">
+            <div class="left-control-greyFields">
+              <label for="empCcategoryEffDteRep">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empCcategoryEffDteRep').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empCcategoryEffDteRep').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="empCcategoryEffDteRep" class="form-select-lg" formControlName="empCcategoryEffDteRep">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                    <option value="r">LICS-only reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('empCcategoryEffDteRep').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empCcategoryEffDteRep').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('empCcategoryEffDteRep') != null">{{ coverageDtlForm.get('empCcategoryEffDteRep').value }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('empEnrollmentSourceInd').invalid || this.coverageDtlForm.get('empEnrollmentSource').invalid)}">
+            <div class="left-control">
+              <label for="empEnrollmentSourceInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('empEnrollmentSourceInd').invalid || this.coverageDtlForm.get('empEnrollmentSource').invalid)}">Enrollment source</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmpEnrollmentSourceInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empEnrollmentSourceInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="empEnrollmentSourceInd" (change)="selectType($event,'empEnrollmentSourceInd')" class="form-select-lg"
+                      formControlName="empEnrollmentSourceInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="L">Load and output report</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('empEnrollmentSourceInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empEnrollmentSourceInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmpEnrollmentSourceInd">
+                    <legend>Default/replacement value</legend>
+                    <select id="empEnrollmentSource" class="form-select-lg select" [ngStyle]="{'border' : (submitted && showEmpEnrollmentSourceInd && this.coverageDtlForm.get('empEnrollmentSource').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}"
+                      formControlName="empEnrollmentSource" tabindex="0">
+                      <option value="">Select one</option>
+                      <option value="A">Auto-enrolled by CMS</option>
+                      <option value="B">Beneficiary election </option>
+                      <option value="C">Facilitated by CMS </option>
+                      <option value="D">Systematic by CMS/rollovr </option>
+                      <option value="E">Auto-enrolled by Plans </option>
+                      <option value="F">Facilitated by Plans </option>
+                      <option value="G">POS submitted enrollment </option>
+                      <option value="H">Re-asgn Enrl by CMS/Plans </option>
+                      <option value="I">By Pln w/No B/E/F/G/H/Blk </option>
+                      <option value="1">Web Enrollment </option>
+                      <option value="2">Paper Enrollment </option>
+                      <option value="3">Telephonic Non-Broker </option>
+                      <option value="4">Broker Enrollment </option>
+                    </select>
+                  </ng-container>
+                  <div *ngIf="submitted && showEmpEnrollmentSourceInd && this.coverageDtlForm.get('empEnrollmentSource').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empEnrollmentSource').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('empEnrollmentSourceInd') != null">{{ coverageDtlForm.get('empEnrollmentSourceInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('empEnrollmentSource') != null">{{ coverageDtlForm.get('empEnrollmentSource').value }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empPlanCodeRepr').invalid}">
+            <div class="left-control">
+              <label for="empPlanCodeRepr">
+                <span [ngClass]="{'error': submitted && this.coverageDtlForm.get('empPlanCodeRepr').invalid}">Plan code reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empPlanCodeRepr').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="empPlanCodeRepr" class="form-select-lg" formControlName="empPlanCodeRepr">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('empPlanCodeRepr').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empPlanCodeRepr').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('empPlanCodeRepr') != null">{{ coverageDtlForm.get('empPlanCodeRepr').value }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empMsiMedicareHicInd').invalid}">
+            <div class="left-control">
+              <label for="empMsiMedicareHicInd">
+                <span [ngClass]="{'error': submitted && this.coverageDtlForm.get('empMsiMedicareHicInd').invalid}">MSI medicare HICN</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empMsiMedicareHicInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="empMsiMedicareHicInd" class="form-select-lg" formControlName="empMsiMedicareHicInd">
+                    <option value="">Select one</option>
+                    <option value="B">Blank or zero field</option>
+                    <option value="N">No, not in input file</option>
+                    <option value="Q">Required</option>
+                    <option value="S">Soft reject</option>
+                    <option value="Y">Yes, in input file</option>
+                    <option value="Z">Input zero or blank = No Edit</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('empMsiMedicareHicInd').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empMsiMedicareHicInd').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('empMsiMedicareHicInd') != null">{{ coverageDtlForm.get('empMsiMedicareHicInd').value }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('empGroupRepr').invalid}">
+            <div class="left-control">
+              <label for="empGroupRepr">
+                <span [ngClass]="{'error': submitted && this.coverageDtlForm.get('empGroupRepr').invalid}">Group reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('empGroupRepr').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="empGroupRepr" class="form-select-lg" formControlName="empGroupRepr">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('empGroupRepr').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('empGroupRepr').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('empGroupRepr') != null">{{ coverageDtlForm.get('empGroupRepr').value }}</label>
+            </div>
+          </div>
+        </div>
+        <!-- End the Medicare Default Detail and start of the jump link-->
+        <div>
+          <a id="otherCoverageIndi"></a>
+          <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+        </div>
+        <!--Heading Medicare Default Detail section start here -->
+        <div>
+          <app-form-section-heading></app-form-section-heading>
+          <div class="h2">Other Coverage Indicators</div>
+        </div>
+        <!--Heading section closed here-->
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcMmcLock').invalid}">
+            <div class="left-control">
+              <label>
+                <span [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcMmcLock').invalid}">MMC lock</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <input type="radio" required="" id="mmcLckY" aria-required="true" tabindex="0" value="Y" formControlName="emcMmcLock">
+                <label class="field-label" for="mmcLckY">Yes</label>
+              </div>
+              <div class="field-block">
+                <input type="radio" id="mmcLckN" tabindex="0" value="N" formControlName="emcMmcLock">
+                <label class="field-label" for="mmcLckN">No</label>
+              </div>
+              <div *ngIf="submitted && this.coverageDtlForm.get('emcMmcLock').invalid">
+                <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcMmcLock').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcMmcLock') != null">{{ coverageDtlForm.get('emcMmcLock').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcRemoveReproFlag').invalid}">
+            <div class="left-control">
+              <label for="emcRemoveReproFlag">
+                <span [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcRemoveReproFlag').invalid}">Remove</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                  Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcRemoveReproFlag').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="emcRemoveReproFlag" class="form-select-lg" formControlName="emcRemoveReproFlag">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('emcRemoveReproFlag').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcRemoveReproFlag').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcRemoveReproFlag') != null">{{ coverageDtlForm.get('emcRemoveReproFlag').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcBinInd').invalid || this.coverageDtlForm.get('emcBin').invalid)}">
+            <div class="left-control">
+              <label for="emcBinInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcBinInd').invalid || this.coverageDtlForm.get('emcBin').invalid)}">BIN</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcBinInd').invalid || this.coverageDtlForm.get('emcBin').invalid)}">
+                <div [ngClass]="{'ssn':showEmcBinInd}">
+                  <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcBinInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="emcBinInd" class="form-select-lg" formControlName="emcBinInd" (change)="selectType($event,'emcBinInd')">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('emcBinInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcBinInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmcBinInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="emcBin" placeholder="BIN" tabindex="0" maxlength="6" class="form-input-s ssn_input" formControlName="emcBin"
+                      appUpper>
+
+                    <div *ngIf="submitted && showEmcBinInd && this.coverageDtlForm.get('emcBin').invalid">
+                      <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcBin').errors?.required">
+                        {{fieldRequiredMsg}}
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcBinInd') != null">{{ coverageDtlForm.get('emcBinInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcBin') != null">{{ coverageDtlForm.get('emcBin').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcBinRepro').invalid}">
+            <div class="left-control-greyFields">
+              <label for="emcBinRepro">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcBinRepro').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcBinRepro').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="emcBinRepro" class="form-select-lg" formControlName="emcBinRepro">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('emcBinRepro').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcBinRepro').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcBinRepro') != null">{{ coverageDtlForm.get('emcBinRepro').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcPcnInd').invalid || this.coverageDtlForm.get('emcPcn').invalid)}">
+            <div class="left-control">
+              <label for="emcPcnInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcPcnInd').invalid || this.coverageDtlForm.get('emcPcn').invalid)}">Processor control number</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmcPcnInd}">
+                  <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcPcnInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="emcPcnInd" class="form-select-lg" formControlName="emcPcnInd" (change)="selectType($event,'emcPcnInd')">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="O">Allow for blank or spaces</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('emcPcnInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcPcnInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmcPcnInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="emcPcn" placeholder="PCN" tabindex="0" class="form-input-s ssn_input" formControlName="emcPcn" maxlength="10"
+                      appUpper>
+                  </ng-container>
+                  <div *ngIf="submitted && showEmcPcnInd && this.coverageDtlForm.get('emcPcn').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcPcn').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcPcnInd') != null">{{ coverageDtlForm.get('emcPcnInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcPcn') != null">{{ coverageDtlForm.get('emcPcn').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcPcnRepro').invalid}">
+            <div class="left-control-greyFields">
+              <label for="emcPcnRepro">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcPcnRepro').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcPcnRepro').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="emcPcnRepro" class="form-select-lg" formControlName="emcPcnRepro">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('emcPcnRepro').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcPcnRepro').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcPcnRepro') != null">{{ coverageDtlForm.get('emcPcnRepro').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcSbmGroupInd').invalid || this.coverageDtlForm.get('emcSbmGroup').invalid)}">
+            <div class="left-control">
+              <label for="emcSbmGroupInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcSbmGroupInd').invalid || this.coverageDtlForm.get('emcSbmGroup').invalid)}">Submitted group</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmcSbmGroupInd}">
+                  <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcSbmGroupInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="emcSbmGroupInd" class="form-select-lg" formControlName="emcSbmGroupInd" (change)="selectType($event,'emcSbmGroupInd')">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('emcSbmGroupInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcSbmGroupInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmcSbmGroupInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="emcSbmGroup" placeholder="Group" tabindex="0" class="form-input-md ssn_input" formControlName="emcSbmGroup"
+                      maxlength="15" appUpper>
+                  </ng-container>
+                  <div *ngIf="submitted && showEmcSbmGroupInd && this.coverageDtlForm.get('emcSbmGroup').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcSbmGroup').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcSbmGroupInd') != null">{{ coverageDtlForm.get('emcSbmGroupInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcSbmGroup') != null">{{ coverageDtlForm.get('emcSbmGroup').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcSbmGroupRepro').invalid}">
+            <div class="left-control-greyFields">
+              <label for="emcSbmGroupRepro">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcSbmGroupRepro').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                  Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcSbmGroupRepro').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="emcSbmGroupRepro" class="form-select-lg" formControlName="emcSbmGroupRepro">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('emcSbmGroupRepro').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcSbmGroupRepro').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcSbmGroupRepro') != null">{{ coverageDtlForm.get('emcSbmGroupRepro').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcHelpDeskPhoneInd').invalid || this.coverageDtlForm.get('emcHelpDeskPhone').invalid)}">
+            <div class="left-control">
+              <label for="emcHelpDeskPhoneInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcHelpDeskPhoneInd').invalid || this.coverageDtlForm.get('emcHelpDeskPhone').invalid)}">Helpdesk phone</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmcHelpDeskPhoneInd}">
+                  <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcHelpDeskPhoneInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="emcHelpDeskPhoneInd" class="form-select-lg" formControlName="emcHelpDeskPhoneInd" (change)="selectType($event,'emcHelpDeskPhoneInd')">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('emcHelpDeskPhoneInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcHelpDeskPhoneInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmcHelpDeskPhoneInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="emcHelpDeskPhone" placeholder="xxx-xxx-xxxx" tabindex="0" class="form-input-s ssn_input" formControlName="emcHelpDeskPhone"
+                      appPhone>
+
+                  </ng-container>
+                  <div *ngIf="submitted && showEmcHelpDeskPhoneInd && this.coverageDtlForm.get('emcHelpDeskPhone').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcHelpDeskPhone').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcHelpDeskPhone').errors?.minlength">
+                      Invalid phone number.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcHelpDeskPhoneInd') != null">{{ coverageDtlForm.get('emcHelpDeskPhoneInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcHelpDeskPhone') != null">{{ coverageDtlForm.get('emcHelpDeskPhone').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcSupplementaltypcdInd').invalid || this.coverageDtlForm.get('emcSupplementaltypcd').invalid)}">
+            <div class="left-control">
+              <label for="emcSupplementaltypcdInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcSupplementaltypcdInd').invalid || this.coverageDtlForm.get('emcSupplementaltypcd').invalid)}">Supplemental type code</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmcSupplementaltypcdInd}">
+                  <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcSupplementaltypcdInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="emcSupplementaltypcdInd" class="form-select-lg" formControlName="emcSupplementaltypcdInd" (change)="selectType($event,'emcSupplementaltypcdInd')">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('emcSupplementaltypcdInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcSupplementaltypcdInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmcSupplementaltypcdInd">
+                    <legend>Default/replacement value</legend>
+                    <div class="select" [ngStyle]="{'border' : (submitted && showEmcSupplementaltypcdInd && this.coverageDtlForm.get('emcSupplementaltypcd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                      <select tabindex="0" id="emcSupplementaltypcd" class="form-select-lg" formControlName="emcSupplementaltypcd">
+                        <option value="">Select one</option>
+                        <option value="A">Worked aged</option>
+                        <option value="B">ERSD</option>
+                        <option value="C">Conditional payment</option>
+                        <option value="D">Auto insurance, NoFlt</option>
+                        <option value="E">Worker’s Compensation</option>
+                        <option value="F">Federal (public)</option>
+                        <option value="G">Disabled</option>
+                        <option value="H">Black lung</option>
+                        <option value="I">Veterans’</option>
+                        <option value="L">1 liability, 2+ supplemental</option>
+                        <option value="M">Medigap</option>
+                        <option value="N">State program (Non-qual SPAP)</option>
+                        <option value="O">Other</option>
+                        <option value="P">Patient Assist Program (PAP)</option>
+                        <option value="Q">Qual St. Pharm Ast Program (SPAP)</option>
+                        <option value="R">Charity</option>
+                        <option value="S">AIDS drug assistance program</option>
+                        <option value="T">Federal Health Program</option>
+                        <option value="1">Medicaid</option>
+                        <option value="2">Tricare</option>
+                        <option value="3">Major medical</option>
+                      </select>
+                    </div>
+                  </ng-container>
+                  <div *ngIf="submitted && showEmcSupplementaltypcdInd && this.coverageDtlForm.get('emcSupplementaltypcd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcSupplementaltypcd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcSupplementaltypcdInd') != null">{{ coverageDtlForm.get('emcSupplementaltypcdInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcSupplementaltypcd') != null">{{ coverageDtlForm.get('emcSupplementaltypcd').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcSupplementaltypcdRep').invalid}">
+            <div class="left-control-greyFields">
+              <label for="emcSupplementaltypcdRep">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcSupplementaltypcdRep').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                  Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcSupplementaltypcdRep').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="emcSupplementaltypcdRep" class="form-select-lg" formControlName="emcSupplementaltypcdRep">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.coverageDtlForm.get('emcSupplementaltypcdRep').invalid">
+                <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcSupplementaltypcdRep').errors?.required">
+                  {{fieldRequiredMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcSupplementaltypcdRep') != null">{{ coverageDtlForm.get('emcSupplementaltypcdRep').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcCoverageIdInd').invalid || this.coverageDtlForm.get('emcCoverageId').invalid)}">
+            <div class="left-control">
+              <label for="emcCoverageIdInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcCoverageIdInd').invalid || this.coverageDtlForm.get('emcCoverageId').invalid)}">Coverage ID</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmcCoverageIdInd}">
+                  <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcCoverageIdInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="emcCoverageIdInd" class="form-select-lg" formControlName="emcCoverageIdInd" (change)="selectType($event,'emcCoverageIdInd')">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('emcCoverageIdInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcCoverageIdInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmcCoverageIdInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="emcCoverageId" placeholder="Coverage ID" tabindex="0" class="form-input-s ssn_input" formControlName="emcCoverageId"
+                      maxlength="10" appUpper>
+                  </ng-container>
+                  <div *ngIf="submitted && showEmcCoverageIdInd && this.coverageDtlForm.get('emcCoverageId').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcCoverageId').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcCoverageIdInd') != null">{{ coverageDtlForm.get('emcCoverageIdInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcCoverageId') != null">{{ coverageDtlForm.get('emcCoverageId').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcMemberIdInd').invalid || this.coverageDtlForm.get('emcMemberId').invalid)}">
+            <div class="left-control">
+              <label for="emcMemberIdInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcMemberIdInd').invalid || this.coverageDtlForm.get('emcMemberId').invalid)}">Member ID</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmcMemberIdInd}">
+                  <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcMemberIdInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="emcMemberIdInd" class="form-select-lg" formControlName="emcMemberIdInd" (change)="selectType($event,'emcMemberIdInd')">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('emcMemberIdInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcMemberIdInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmcMemberIdInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="emcMemberId" placeholder="Member ID" tabindex="0" class="form-input-md ssn_input" formControlName="emcMemberId"
+                      maxlength="20" appUpper>
+                  </ng-container>
+                  <div *ngIf="submitted && showEmcMemberIdInd && this.coverageDtlForm.get('emcMemberId').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcMemberId').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcMemberIdInd') != null">{{ coverageDtlForm.get('emcMemberIdInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcMemberId') != null">{{ coverageDtlForm.get('emcMemberId').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcMemberIdRepro').invalid}">
+            <div class="left-control-greyFields">
+              <label for="emcMemberIdRepro">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcMemberIdRepro').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                  Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcMemberIdRepro').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="emcMemberIdRepro" class="form-select-lg" formControlName="emcMemberIdRepro">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('emcMemberIdRepro').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcMemberIdRepro').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcMemberIdRepro') != null">{{ coverageDtlForm.get('emcMemberIdRepro').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcPersonCodeInd').invalid || this.coverageDtlForm.get('emcPersonCode').invalid)}">
+            <div class="left-control">
+              <label for="emcPersonCodeInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcPersonCodeInd').invalid || this.coverageDtlForm.get('emcPersonCode').invalid)}">Person code</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmcPersonCodeInd}">
+                  <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcPersonCodeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="emcPersonCodeInd" class="form-select-lg" formControlName="emcPersonCodeInd" (change)="selectType($event,'emcPersonCodeInd')">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('emcPersonCodeInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcPersonCodeInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmcPersonCodeInd">
+                    <legend>Default/replacement value</legend>
+                    <input type="text" id="emcPersonCode" placeholder="Code" tabindex="0" class="form-input-xxs ssn_input" formControlName="emcPersonCode"
+                      maxlength="3" appUpper>
+                    <div *ngIf="submitted && showEmcPersonCodeInd && this.coverageDtlForm.get('emcPersonCode').invalid">
+                      <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcPersonCode').errors?.required">
+                        {{fieldRequiredMsg}}
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcPersonCodeInd') != null">{{ coverageDtlForm.get('emcPersonCodeInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcPersonCode') != null">{{ coverageDtlForm.get('emcPersonCode').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcCoverageCategoryInd').invalid || this.coverageDtlForm.get('emcCoverageCategory').invalid)}">
+            <div class="left-control">
+              <label for="emcCoverageCategoryInd">
+                <span [ngClass]="{'error': submitted && (this.coverageDtlForm.get('emcCoverageCategoryInd').invalid || this.coverageDtlForm.get('emcCoverageCategory').invalid)}">Coverage category</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEmcCoverageCategoryInd}">
+                  <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcCoverageCategoryInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="emcCoverageCategoryInd" class="form-select-lg" formControlName="emcCoverageCategoryInd" (change)="selectType($event,'emcCoverageCategoryInd')">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="submitted && this.coverageDtlForm.get('emcCoverageCategoryInd').invalid">
+                    <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcCoverageCategoryInd').errors?.required">
+                      {{fieldRequiredMsg}}
+                    </p>
+                  </div>
+                  <ng-container *ngIf="showEmcCoverageCategoryInd">
+                    <legend>Default/replacement value</legend>
+                    <div class="select" [ngStyle]="{'border' : (submitted && showEMCCoverageCategoryInd && this.coverageDtlForm.get('emcCoverageCategory').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                      <select tabindex="0" id="emcCoverageCategory" class="form-input-md" formControlName="emcCoverageCategory">
+                        <option value="" selected="selected">Select one</option>
+                        <option value="M">Medicare Part D</option>
+                        <option value="D">Medicaid</option>
+                        <option value="O">Other</option>
+                      </select>
+                    </div>
+                    <div *ngIf="submitted && showEmcCoverageCategoryInd && this.coverageDtlForm.get('emcCoverageCategory').invalid">
+                      <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcCoverageCategory').errors?.required">
+                        {{fieldRequiredMsg}}
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcCoverageCategoryInd') != null">{{ coverageDtlForm.get('emcCoverageCategoryInd').value }}</label>
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcCoverageCategory') != null">{{ coverageDtlForm.get('emcCoverageCategory').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="left-control">
+              <label for="emcFromDate">
+                <span>From date</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message">
+              <div class="field-block">
+                <p>
+                  <!--<label class="view_message" *ngIf="coverageDtlForm.get('emcFromDate') != null">{{ coverageDtlForm.get('emcFromDate').value }}</label>-->
+                  <label>Yes</label>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcFromDateReproInd').invalid}">
+            <div class="left-control-greyFields">
+              <label for="emcFromDateReproInd">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcFromDateReproInd').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                  Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcFromDateReproInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="emcFromDateReproInd" class="form-select-lg" formControlName="emcFromDateReproInd">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('emcFromDateReproInd').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcFromDateReproInd').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcFromDateReproInd') != null">{{ coverageDtlForm.get('emcFromDateReproInd').value }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="left-control">
+              <label for="emcThruDate">
+                <span>Thru date</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message">
+              <div class="field-block">
+                <p>
+                  <!--<label class="view_message" *ngIf="coverageDtlForm.get('emcThruDate') != null">{{ coverageDtlForm.get('emcThruDate').value }}</label>-->
+                  <label>Yes</label>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcThruDateReproInd').invalid}">
+            <div class="left-control-greyFields">
+              <label for="emcThruDateReproInd">
+                <span class="greyFields-label" [ngClass]="{'error': submitted && this.coverageDtlForm.get('emcThruDateReproInd').invalid}">Reprocess</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                  Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.coverageDtlForm.get('emcThruDateReproInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="emcThruDateReproInd" class="form-select-lg" formControlName="emcThruDateReproInd">
+                    <option value="">Select one</option>
+                    <option value="N">Don't reprocess</option>
+                    <option value="R">Full reprocessing</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && this.coverageDtlForm.get('emcThruDateReproInd').invalid">
+                  <p class="bold_error" *ngIf="submitted && this.coverageDtlForm.get('emcThruDateReproInd').errors?.required">
+                    {{fieldRequiredMsg}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="coverageDtlForm.get('emcThruDateReproInd') != null">{{ coverageDtlForm.get('emcThruDateReproInd').value }}</label>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn btn--secondary deleteOtherCoverage" (click)=deleteThisCoverage() *ngIf = "!isView()"> Delete this coverage</a>
+
+        <div>
+          <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+        </div>
+        <!--Form End here-->
+      </div>
+      <!--coverage default detail section closed here -->
+      <form-controls
+        [recordSessionStorageId]="'eligibilityProfile'"
+        [showCancel]="true"
+        [showSave]="!isView()"
+        (onSave)="submit()"
+        [onCancelRoute]="'/s-active-eligibility-profile'"
+      >
+      </form-controls>
+
+      <div class="spacer"></div>
+    </form>
+
+    <div *ngIf="isSaving">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+    <!--Form endss-->
+  </div>
+  <div class="dateUserStampStyle" *ngIf="!isSaving">
+    Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+    <br>&nbsp;
+  </div>
+</div>
+
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+</style>

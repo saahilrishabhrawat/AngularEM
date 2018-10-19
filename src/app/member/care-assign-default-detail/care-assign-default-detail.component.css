@@ -1,0 +1,235 @@
+/* Validation */
+
+
+/* validation */
+
+
+.typography{
+
+    max-width:1138px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+textarea{
+    border:none;
+}
+
+.textLookup{
+    border: 1px solid #CC00FF;
+}
+
+.content{
+    height: 48px;
+}
+.ogn__secondary-form
+{
+    -ms-flex-align: center;
+        align-items: center;
+  width:1138px;
+  padding: 0px 0px;
+}
+.form_out{
+    max-width:1138px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+
+.form_background{
+    background-color: #fff;
+    max-width:1138px;
+   
+   
+}
+.title{
+    border-bottom: solid 1px #E0E0E0;
+}
+
+.spacer{
+    height: 100px;
+}
+
+
+/* Tool Tip Starts*/
+.notification--tool-tip{
+    margin-left:12px;
+  }
+  
+  :host >>> .tooltip-inner {
+      width: 232px;
+      background-color: white;
+      border: 1px solid #B3B3B3;
+      visibility: visible; 
+      font-style: "frutiger-roman.woff";
+      font-size: 12px;
+      text-align: left;
+      color:black;
+      border-bottom: 3px solid #B3B3B3;
+       line-height: 20px;
+    }
+       :host >>> .bs-tooltip-right .arrow, .bs-tooltip-auto[x-placement^="right"] .arrow {
+        right: 0;
+        width: 0.4rem;
+        height: 0.8rem;
+       
+       }
+      
+      :host >>> .bs-tooltip-right .arrow::before {
+        right: 0;
+        border-top: 0.4rem solid transparent;
+        border-bottom: 0.4rem solid transparent; 
+        border-right: 0.4rem solid #B3B3B3; 
+  
+       }
+  
+       /*ToolTip Ends here*/
+  /**  Add profile start here */
+  /* Error Div */
+
+
+
+.errorDiv{
+    background-color: #E32315;
+    margin: 20px 16px 20px 16px;
+  }
+
+  
+  .errorDiv_text{
+    color: #fff;
+    font-family: 'frutiger-bold';
+    font-size: 16px;
+    margin-left:40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+
+
+  /*Error Message css ends */
+
+
+  /* Everything should be in this Form */
+
+
+.h2{
+    margin-bottom: 16px!important;
+    margin-left: 16px!important; 
+}
+
+@media screen and (min-width: 960px)
+{
+.ogn-container {
+    padding: 0 0px;
+}
+}
+
+.content{
+height: 74px; margin-left: 16px; margin-right: 16px
+}
+
+ .container{
+     margin-left: 40px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border : 1px solid #222;
+    width: 600px;
+ }
+ .table-row {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-grow: 0;
+    -webkit-flex-grow: 0;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+       
+  }
+  .text {
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 8px;
+    padding-left: 8px;
+    width: 80px;
+    text-align: left;
+  }
+  .num {
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 80px;
+    padding-right: 8px;
+    padding-left: 8px;
+    text-align: center
+  }
+  
+  .table-row {    
+    border-bottom: 1px solid #E0E0E0;
+    font-size: 12px;
+    font-family: 'frutiger-roman';
+    color: #222; 
+    padding-top: 8px;
+    padding-bottom: 8px;   
+  }
+  .table-row.header {    
+    border-bottom: 1px solid #222;
+    font-size: 12px;
+    font-family: 'frutiger-bold';
+    color: #222;    
+    padding-top: 20px;
+    padding-bottom: 4px;
+  }
+  .table-row:last-of-type{
+      border-bottom: none;
+  }
+
+  .right-control input:read-only{
+    border: transparent;
+}
+
+.input-wthout-outline{
+    outline: 0px solid white!important ;
+}
+
+.form-control-error {
+    border: 1px solid red!important;
+}
+
+.form-field-error {
+    display: inline-block;
+    color: red;
+}
+.successDiv{
+    background-color: #627D32;
+    margin: 20px 16px 20px 16px;
+  }
+.dateUserStampStyle{
+    text-align: left;
+}
+.ssn_input  {
+    margin-top: 5px!important;
+    border-color: #61c6e5 !important;;
+}
+legend {
+    margin-top: 10px!important;
+    margin-bottom: 0px!important;
+    font-size: 12px!important;
+    font-style: normal!important;
+    color: #636363!important;
+    font-family: 'frutiger-roman' !important;
+ }
+.ssn{
+background-color: #CCEBF6;
+padding:8px;
+}
+
+
+
+

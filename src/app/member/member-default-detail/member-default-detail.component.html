@@ -1,0 +1,2455 @@
+<a id="top"></a>
+<div class="title">
+    <div id="end_of_global_nav" tabindex="-1"></div>
+    <section class="area no-padding trim--white ">
+        <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+            <div class="ogn__title__left">
+                <h1 class="h1">Member Default Detail</h1>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+    <div>
+        <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+    </div>
+    <div class="form_background">
+        <div class="">
+            <app-form-menu></app-form-menu>
+            <section class="area no-padding trim--white">
+                <div class="ogn__secondary-form ogn-container">
+                    <div class="content"></div>
+                </div>
+            </section>
+        </div>
+        <form novalidate [formGroup]="memberDefaultForm" [hidden]="isSaving">
+          <form-controls
+            [recordSessionStorageId]="'eligibilityProfile'"
+            [showCancel]="true"
+            [showSave]="!isView()"
+            (onSave)="submit()"
+            [onCancelRoute]="'/s-active-eligibility-profile'"
+          >
+          </form-controls>
+
+            <div class="errorDiv" *ngIf="submitted && this.memberDefaultForm.invalid">
+                <p class="errorDiv_text">The errors below must be corrected before saving.</p>
+            </div>
+            <div class="successDiv" *ngIf="submitted && !this.memberDefaultForm.invalid && isSuccess">
+              <p class="errorDiv_text">Your changes were successfully saved.</p>
+            </div>
+
+            <pcag-info
+              [platformId]="platformId"
+              [carrierId]="carrierId"
+              [accountId]="accountId"
+              [groupId]="groupId"
+            >
+            </pcag-info>
+
+
+            
+            <div id="memberDefaults">
+                <app-form-section-heading></app-form-section-heading>
+                <div class="h2">Member Defaults</div>
+            </div>
+            <!-- Start from here -->
+            <div class="typography form">
+              <div class="row">
+              <div class="form-group" [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdMemberEligibilityTp').invalid}">
+                  <div class="left-control">
+                      <label for="form_select_eligibilityType" id="form_label_eligibilityType">
+                          <span [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdMemberEligibilityTp').invalid}">Eligibility type</span>
+                          <span class="required">*</span>
+                      </label>
+                      <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                              Imagery may or may not reflect your current medications.">
+                      </a>
+                  </div>
+                  <div class="right-control error_message" *ngIf="!isView()">
+                    <div class="field-block">
+                        <div class="select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdMemberEligibilityTp').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                      <select tabindex="0" id="form_select_eligibilityType"
+                                              class="form-select-md" formControlName="emdMemberEligibilityTp" >
+                                 
+                                <option value="">Select one</option>
+                                <option value="E">External Program</option>
+                                <option value="F">Family</option>                               
+                                <option value="I">Individual</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div *ngIf="submitted && this.memberDefaultForm.get('emdMemberEligibilityTp').invalid">
+                      <p class="bold_error" *ngIf="submitted && this.memberDefaultForm.get('emdMemberEligibilityTp').errors.required">
+                          This field is required.
+                      </p>                    
+                  </div>
+                 </div>
+                 <div class="right-control view_message" *ngIf="isView()">
+                  <p>
+                      <label class="view_message" *ngIf="memberDefaultForm.get('emdMemberEligibilityTp') != null">{{ memberDefaultForm.get('emdMemberEligibilityTp').value }}</label>
+                  </p>
+              </div>
+              </div>
+            </div>
+
+
+
+              <div class="row">
+                <div class="form-group"
+                [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdCreateSpouseInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Create spouse</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_createSpouseY" aria-required="true" tabindex="0"
+                                   formControlName="emdCreateSpouseInd" value="Y" >
+                            <label class="field-label" for="form_radio_createSpouseY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_createSpouseN" tabindex="0" formControlName="emdCreateSpouseInd"
+                                   value="N" >
+                            <label class="field-label" for="form_radio_createSpouseN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.memberDefaultForm.get('emdCreateSpouseInd').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.memberDefaultForm.get('emdCreateSpouseInd').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                      <p>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdCreateSpouseInd') != null">{{ memberDefaultForm.get('emdCreateSpouseInd').value }}</label>
+                      </p>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group"
+              [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdCreateDependentsInd').invalid}">
+                  <div class="left-control">
+                      <label>
+                          <span>Create dependents</span>
+                          <span class="required">*</span>
+                      </label>
+                      <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                  Imagery may or may not reflect your current medications.">
+                      </a>
+                  </div>
+                  <div class="right-control error_message" *ngIf="!isView()">
+                      <div class="field-block">
+                          <input type="radio" required="" id="form_radio_createDependentsY" aria-required="true" tabindex="0"
+                                 formControlName="emdCreateDependentsInd" value="Y" >
+                          <label class="field-label" for="form_radio_createDependentsY">Yes</label>
+                      </div>
+                      <div class="field-block">
+                          <input type="radio" id="form_radio_createDependentsN" tabindex="0" formControlName="emdCreateDependentsInd"
+                                 value="N" >
+                          <label class="field-label" for="form_radio_createDependentsN">No</label>
+                      </div>
+                      <div *ngIf="submitted && this.memberDefaultForm.get('emdCreateDependentsInd').invalid">
+                              <p class="bold_error" *ngIf="submitted && this.memberDefaultForm.get('emdCreateDependentsInd').errors.required">
+                                  This field is required.
+                              </p>
+                          </div>
+                  </div>
+                  <div class="right-control view_message" *ngIf="isView()">
+                    <p>
+                        <label class="view_message" *ngIf="memberDefaultForm.get('emdCreateDependentsInd') != null">{{ memberDefaultForm.get('emdCreateDependentsInd').value }}</label>
+                    </p>
+                </div>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group" [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdNumberOfDependents').invalid}">
+                <div class="left-control">
+                    <label id="form_label_numberOfDependents" for="form_input_numberOfDependents">
+                        <span>Number of dependents</span>
+                    </label>
+                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                    </a>
+                </div>
+                <div class="right-control error_message" *ngIf="!isView()">
+                    <input id="form_input_numberOfDependents" type="text" placeholder="Nbr" tabindex="0" class="form-input-xxs" formControlName="emdNumberOfDependents"
+                        appNumeric maxlength="2">
+                </div>
+                <div class="right-control view_message" *ngIf="isView()">
+                  <p>
+                      <label class="view_message" *ngIf="memberDefaultForm.get('emdNumberOfDependents') != null">{{ memberDefaultForm.get('emdNumberOfDependents').value }}</label>
+                  </p>
+              </div>                
+            </div>
+        </div>
+
+
+
+
+
+                    <a id="demographicIndicators"></a>
+                  <div>                        
+                      <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>                      
+                  </div>
+                  
+                  <div>
+                    <app-form-section-heading></app-form-section-heading>
+                    <div class="h2">Demographic Indicators</div>
+                  </div>
+
+
+
+                  <div class="row">
+                        <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdNameInd').invalid || this.memberDefaultForm.get('emdFirstName').invalid
+                        || this.memberDefaultForm.get('emdMiddleInitial').invalid || this.memberDefaultForm.get('emdLastName').invalid
+                        )}">
+                          <div class="left-control">
+                            <label for="emdNameInd">
+                              <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdNameInd').invalid || this.memberDefaultForm.get('emdFirstName').invalid
+                              || this.memberDefaultForm.get('emdMiddleInitial').invalid || this.memberDefaultForm.get('emdLastName').invalid
+                              )}">Name</span>
+                              <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                          Imagery may or may not reflect your current medications.">
+                            </a>
+                          </div>
+                          <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                              <div [ngClass]="{'ssn':showEMDNameInd}">
+                                <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdNameInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                  <select tabindex="0" id="emdNameInd" class="form-select-lg" formControlName="emdNameInd" (change)="selectType($event,'emdNameInd')">
+                                    <option value="">Select one</option>
+                                    <option value="B">Blank or zero field</option>
+                                    <option value="D">Default, if no input value</option>
+                                    <option value="L">Load and output report</option>
+                                    <option value="N">No, not in input file</option>
+                                    <option value="R">Replace input value</option>
+                                    <option value="V">Validate</option>
+                                    <option value="Y">Yes, in input file</option>
+                                    <option value="Z">Input zero or blank = No Edit</option>
+                                  </select>
+                                </div>
+                                <div *ngIf="submitted && this.memberDefaultForm.get('emdNameInd').invalid && this.memberDefaultForm.get('emdNameInd').errors.required">
+                                  <p class="bold_error">
+                                    {{fieldRequiredMsg}}
+                                  </p>
+                                </div>
+                                <ng-container *ngIf="showEMDNameInd">
+                                  <legend class="ssn_legend">Default/replacement value</legend>
+                                  <input type="text" id="emdFirstName" placeholder="First name" tabindex="0" class="form-input-s ssn_input" formControlName="emdFirstName"
+                                    appAlphabets maxlength="15">
+
+                                    <input type="text" id="emdMiddleInitial" placeholder="MI" tabindex="0" class="form-input-xxxs ssn_input" formControlName="emdMiddleInitial"
+                                    appAlphabets maxlength="1">
+
+                                    <input type="text" id="emdLastName" placeholder="Last name" tabindex="0" class="form-input-s ssn_input" formControlName="emdLastName"
+                                    appAlphaspec maxlength="25">
+
+
+                                </ng-container>
+                                <div *ngIf="submitted && showEMDNameInd && (this.memberDefaultForm.get('emdFirstName').invalid
+                                || this.memberDefaultForm.get('emdMiddleInitial').invalid
+                                || this.memberDefaultForm.get('emdLastName').invalid)                                
+                                ">
+                                  <p class="bold_error">
+                                    {{fieldRequiredMsg}}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>         
+                          <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="memberDefaultForm.get('emdNameInd') != null">{{ memberDefaultForm.get('emdNameInd').value }}</label>
+                                <label  *ngIf="memberDefaultForm.get('emdFirstName') != null">{{ memberDefaultForm.get('emdFirstName').value }}</label>
+                                <label  *ngIf="memberDefaultForm.get('emdMiddleInitial') != null">{{ memberDefaultForm.get('emdMiddleInitial').value }}</label>
+                                <label  *ngIf="memberDefaultForm.get('emdLastName') != null">{{ memberDefaultForm.get('emdLastName').value }}</label>
+                            </p>
+                        </div>        
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                            <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdSocSecNbrInd').invalid || this.memberDefaultForm.get('emdSocSecNbr').invalid)}">
+                              <div class="left-control">
+                                <label for="emdSocSecNbrInd">
+                                  <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdSocSecNbrInd').invalid || this.memberDefaultForm.get('emdSocSecNbr').invalid)}">SSN</span>
+                                  <span class="required">*</span>
+                                </label>
+                                <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                              Imagery may or may not reflect your current medications.">
+                                </a>
+                              </div>
+                              <div class="right-control error_message" *ngIf="!isView()">
+                                <div class="field-block">
+                                  <div [ngClass]="{'ssn':showEMDSocSecNbrInd}">
+                                    <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdSocSecNbrInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                      <select tabindex="0" id="emdSocSecNbrInd" class="form-select-lg" formControlName="emdSocSecNbrInd" (change)="selectType($event,'emdSocSecNbrInd')">
+                                        <option value="">Select one</option>
+                                        <option value="B">Blank or zero field</option>
+                                        <option value="D">Default, if no input value</option>                                        
+                                        <option value="N">No, not in input file</option>
+                                        <option value="Q">Required</option>
+                                        <option value="R">Replace input value</option>
+                                        <option value="V">Validate</option>
+                                        <option value="Y">Yes, in input file</option>
+                                        <option value="Z">Input zero or blank = No Edit</option>
+                                      </select>
+                                    </div>
+                                    <div *ngIf="submitted && this.memberDefaultForm.get('emdSocSecNbrInd').invalid && this.memberDefaultForm.get('emdSocSecNbrInd').errors.required">
+                                      <p class="bold_error">
+                                        {{fieldRequiredMsg}}
+                                      </p>
+                                    </div>
+                                    <ng-container *ngIf="showEMDSocSecNbrInd">
+                                      <legend class="ssn_legend">Default/replacement value</legend>
+                                      <input type="text" id="emdSocSecNbr" placeholder="xxx-xx-xxxx" (change)="resetEmdSocSecNbrFlag()" tabindex="0" class="form-input-s ssn_input" formControlName="emdSocSecNbr"
+                                      appSsn minlength="11" maxlength="11">
+                                    </ng-container>
+                                    <div *ngIf="submitted && showEMDSocSecNbrInd && this.memberDefaultForm.get('emdSocSecNbr').invalid && this.emdSocSecNbrRequiredFlag">
+                                      <p class="bold_error">
+                                        {{fieldRequiredMsg}}
+                                      </p>
+                                    </div>
+                                    <div *ngIf="submitted && showEMDSocSecNbrInd && this.memberDefaultForm.get('emdSocSecNbr').invalid && !this.emdSocSecNbrRequiredFlag
+                                        && this.memberDefaultForm.get('emdSocSecNbr').errors.minlength">
+                                      <p class="bold_error">
+                                        {{emdSocSecNbrLengthMsg}}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="memberDefaultForm.get('emdSocSecNbrInd') != null">{{ memberDefaultForm.get('emdSocSecNbrInd').value }}</label>
+                                    <label class="view_message" *ngIf="memberDefaultForm.get('emdSocSecNbr') != null">{{ memberDefaultForm.get('emdSocSecNbr').value }}</label>
+                                </p>
+                            </div>   
+                            </div>
+                          </div>
+
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdBuildSocSecNbr').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_buildSSN" id="form_label_buildSSN">
+                                <span [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdBuildSocSecNbr').invalid}">Build SSN?</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                    Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                          <div class="field-block">
+                              <div class="select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdBuildSocSecNbr').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                            <select tabindex="0" id="form_select_buildSSN"
+                                                    class="form-select-lg" formControlName="emdBuildSocSecNbr" >
+                                       
+                                      <option value="">Select one</option>
+                                      <option value="A">Chgd & not chgd EX record</option>
+                                      <option value="N">No</option>                               
+                                      <option value="Y">Yes</option>
+                                      <option value="Y">Use alternate lookup</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdBuildSocSecNbr').invalid && this.memberDefaultForm.get('emdBuildSocSecNbr').errors.required">
+                            <p class="bold_error">
+                                    {{ fieldRequiredMsg }}
+                            </p>                    
+                        </div>
+                       </div>
+                       <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdBuildSocSecNbr') != null">{{ memberDefaultForm.get('emdBuildSocSecNbr').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+      
+      
+      
+                    <div class="row">
+                      <div class="form-group"
+                      [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdSsnOnErrorFile').invalid}">
+                          <div class="left-control">
+                              <label>
+                                  <span>SSN error report</span>
+                                  <span class="required">*</span>
+                              </label>
+                              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                          Imagery may or may not reflect your current medications.">
+                              </a>
+                          </div>
+                          <div class="right-control error_message" *ngIf="!isView()">
+                              <div class="field-block">
+                                  <input type="radio" required="" id="form_radio_ssnErrorReportY" aria-required="true" tabindex="0"
+                                         formControlName="emdSsnOnErrorFile" value="Y" >
+                                  <label class="field-label" for="form_radio_ssnErrorReportY">Yes</label>
+                              </div>
+                              <div class="field-block">
+                                  <input type="radio" id="form_radio_ssnErrorReportN" tabindex="0" formControlName="emdSsnOnErrorFile"
+                                         value="N" >
+                                  <label class="field-label" for="form_radio_ssnErrorReportN">No</label>
+                              </div>
+                              <div *ngIf="submitted && this.memberDefaultForm.get('emdSsnOnErrorFile').invalid && this.memberDefaultForm.get('emdSsnOnErrorFile').errors.required">
+                                      <p class="bold_error">
+                                            {{ fieldRequiredMsg }}
+                                      </p>
+                                  </div>
+                          </div>
+                          <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="memberDefaultForm.get('emdSsnOnErrorFile') != null">{{ memberDefaultForm.get('emdSsnOnErrorFile').value }}</label>
+                            </p>
+                        </div>   
+                      </div>
+                  </div>
+
+
+                  <div class="row">
+                        <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdSexInd').invalid || this.memberDefaultForm.get('emdSex').invalid)}">
+                          <div class="left-control">
+                            <label for="emdSexInd">
+                              <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdSexInd').invalid || this.memberDefaultForm.get('emdSex').invalid)}">Gender</span>
+                              <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                          Imagery may or may not reflect your current medications.">
+                            </a>
+                          </div>
+                          <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                              <div [ngClass]="{'ssn':showEMDSexInd}">
+                                <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdSexInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                  <select tabindex="0" id="emdSexInd" class="form-select-lg" formControlName="emdSexInd" (change)="selectType($event,'emdSexInd')">
+                                    <option value="">Select one</option>
+                                    <option value="B">Blank or zero field</option>
+                                    <option value="D">Default, if no input value</option>                                    
+                                    <option value="N">No, not in input file</option>
+                                    <option value="Q">Required</option>
+                                    <option value="R">Replace input value</option>
+                                    <option value="V">Validate</option>
+                                    <option value="Y">Yes, in input file</option>
+                                    <option value="Z">Input zero or blank = No Edit</option>
+                                  </select>
+                                </div>
+                                <div *ngIf="submitted && this.memberDefaultForm.get('emdSexInd').invalid && this.memberDefaultForm.get('emdSexInd').errors.required">
+                                  <p class="bold_error">
+                                    {{fieldRequiredMsg}}
+                                  </p>
+                                </div>
+                                <ng-container *ngIf="showEMDSexInd">
+                                  <legend class="ssn_legend">Default/replacement value</legend>
+
+
+                                    <div class="field-block">
+                                            <input type="radio" id="form_radio_sexF"  tabindex="0"
+                                                   formControlName="emdSex" value="F" >
+                                            <label class="field-label" for="form_radio_sexF">Female</label>
+                                    </div>
+                                    <div class="field-block">
+                                        <input type="radio" id="form_radio_sexM" tabindex="0" formControlName="emdSex"
+                                            value="M" >
+                                        <label class="field-label" for="form_radio_sexM">Male</label>
+                                    </div>
+
+
+                                </ng-container>
+                                <div *ngIf="submitted && showEMDSexInd && this.memberDefaultForm.get('emdSex').invalid">
+                                  <p class="bold_error">
+                                    {{fieldRequiredMsg}}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="memberDefaultForm.get('emdSexInd') != null">{{ memberDefaultForm.get('emdSexInd').value }}</label>
+                                <label class="view_message" *ngIf="memberDefaultForm.get('emdSex') != null">{{ memberDefaultForm.get('emdSex').value }}</label>
+                            </p>
+                        </div>   
+                        </div>
+                      </div>
+
+
+
+
+                  <div class="row">
+                        <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdDateOfBirthInd').invalid || this.memberDefaultForm.get('emdDateOfBirth').invalid))}">
+                          <div class="left-control">
+                            <label for="emdDateOfBirthInd">
+                              <span [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdDateOfBirthInd').invalid || this.memberDefaultForm.get('emdDateOfBirth').invalid))}">Date of birth</span>
+                              <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                            Imagery may or may not reflect your current medications.">
+                            </a>
+                          </div>
+                          <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                              <div [ngClass]="{'ssn':showEMDDateOfBirthInd}">
+                                <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDefaultForm.get('emdDateOfBirthInd').invalid || this.memberDefaultForm.get('emdDateOfBirth').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                  <select tabindex="0" id="emdDateOfBirthInd" (change)="selectType($event,'emdDateOfBirthInd')" class="form-select-lg" formControlName="emdDateOfBirthInd">
+                                    <option value="">Select one</option>
+                                    <option value="B">Blank or zero field</option>
+                                    <option value="D">Default, if no input value</option>                                    
+                                    <option value="N">No, not in input file</option>
+                                    <option value="Q">Required</option>
+                                    <option value="R">Replace input value</option>
+                                    <option value="V">Validate</option>
+                                    <option value="Y">Yes, in input file</option>
+                                    <option value="Z">Input zero or blank = No Edit</option>
+                                  </select>
+                                </div>
+                                <div *ngIf="submitted && this.memberDefaultForm.get('emdDateOfBirthInd').invalid && this.memberDefaultForm.get('emdDateOfBirthInd').errors.required">
+                                        <p class="bold_error">
+                                              {{ fieldRequiredMsg }}
+                                        </p>
+                                </div>
+                                <ng-container *ngIf="showEMDDateOfBirthInd">
+                                  <legend class="ssn_legend">Default/replacement value</legend>
+                                  <app-datepicker
+                                    formControlName="emdDateOfBirth"
+                                    (change)="resetDate()"
+                                  >
+                                  </app-datepicker>                             
+                                
+                                <div *ngIf="submitted && this.memberDefaultForm.get('emdDateOfBirth').invalid &&  emdDateOfBirthRequiredErrorFlag">
+                                        <p class="bold_error">
+                                              {{ fieldRequiredMsg }}
+                                        </p>
+                                </div>
+                                <div *ngIf="submitted && this.memberDefaultForm.get('emdDateOfBirth').invalid &&  !emdDateOfBirthRequiredErrorFlag">
+                                        <p class="bold_error">
+                                              {{ emdDateOfBirthNotValidErrorMsg }}
+                                        </p>
+                                </div>
+                                </ng-container>
+                              </div>
+                            </div>                           
+                          </div>
+                          <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="memberDefaultForm.get('emdDateOfBirthInd') != null">{{ memberDefaultForm.get('emdDateOfBirthInd').value }}</label>
+                                <label class="view_message" *ngIf="memberDefaultForm.get('emdDateOfBirth') != null">{{ memberDefaultForm.get('emdDateOfBirth').value }}</label>
+                            </p>
+                        </div>   
+                        </div>
+                      </div>
+
+                      <div class="row">
+                            <div class="form-group" [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdAddressInd').invalid}">
+                                <div class="left-control">
+                                    <label for="form_select_addressIndicator" id="form_label_addressIndicator">
+                                        <span [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdAddressInd').invalid}">Address</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                            Imagery may or may not reflect your current medications.">
+                                    </a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                  <div class="field-block">
+                                      <div class="select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdAddressInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                    <select tabindex="0" id="form_select_addressIndicator"
+                                                            class="form-select-lg" formControlName="emdAddressInd" >
+                                               
+                                              <option value="">Select one</option>
+                                              <option value="B">Blank or zero field</option>
+                                              <option value="N">No, not in input file</option>                               
+                                              <option value="Q">Required</option>
+                                              <option value="S">Soft reject</option>
+                                              <option value="Y">Yes, in input file</option>
+                                              <option value="Z">Input zero or blank = No Edit</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div *ngIf="submitted && this.memberDefaultForm.get('emdAddressInd').invalid && this.memberDefaultForm.get('emdAddressInd').errors.required">
+                                    <p class="bold_error">
+                                            {{ fieldRequiredMsg }}
+                                    </p>                    
+                                </div>
+                               </div>
+                               <div class="right-control view_message" *ngIf="isView()">
+                                <p>
+                                    <label class="view_message" *ngIf="memberDefaultForm.get('emdAddressInd') != null">{{ memberDefaultForm.get('emdAddressInd').value }}</label>
+                                </p>
+                            </div>   
+                            </div>
+                          </div>
+
+
+                          <div class="row">
+                                <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdCountryInd').invalid || this.memberDefaultForm.get('emdCountryCode').invalid)}">
+                                  <div class="left-control">
+                                    <label for="emdCountryInd">
+                                      <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdCountryInd').invalid || this.memberDefaultForm.get('emdCountryCode').invalid)}">Country</span>
+                                      <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                                    </a>
+                                  </div>
+                                  <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                      <div [ngClass]="{'ssn':showEMDCountryInd}">
+                                        <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdCountryInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                          <select tabindex="0" id="emdCountryInd" class="form-select-lg" formControlName="emdCountryInd" (change)="selectType($event,'emdCountryInd')">
+                                            <option value="">Select one</option>
+                                            <option value="B">Blank or zero field</option>
+                                            <option value="D">Default, if no input value</option>                                    
+                                            <option value="N">No, not in input file</option>
+                                            <option value="Q">Required</option>
+                                            <option value="R">Replace input value</option>
+                                            <option value="V">Validate</option>
+                                            <option value="Y">Yes, in input file</option>
+                                            <option value="Z">Input zero or blank = No Edit</option>
+                                          </select>
+                                        </div>
+                                        <div *ngIf="submitted && this.memberDefaultForm.get('emdCountryInd').invalid && this.memberDefaultForm.get('emdCountryInd').errors.required">
+                                          <p class="bold_error">
+                                            {{fieldRequiredMsg}}
+                                          </p>
+                                        </div>
+                                        <ng-container *ngIf="showEMDCountryInd">
+                                          <legend class="ssn_legend">Default/replacement value</legend>
+                                          <input type="text" id="emdCountryCode" placeholder="Code" tabindex="0" class="form-input-xxs ssn_input" formControlName="emdCountryCode"
+                                           appAlphanumeric maxlength="4">
+                                        </ng-container>
+                                        <div *ngIf="submitted && showEMDCountryInd && this.memberDefaultForm.get('emdCountryCode').invalid">
+                                          <p class="bold_error">
+                                            {{fieldRequiredMsg}}
+                                          </p>
+                                        </div> 
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="right-control view_message" *ngIf="isView()">
+                                    <p>
+                                        <label class="view_message" *ngIf="memberDefaultForm.get('emdCountryInd') != null">{{ memberDefaultForm.get('emdCountryInd').value }}</label>
+                                        <label class="view_message" *ngIf="memberDefaultForm.get('emdCountryCode') != null">{{ memberDefaultForm.get('emdCountryCode').value }}</label>
+                                    </p>
+                                </div>   
+                                </div>
+                              </div>
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdEmailInd').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_emailIndicator" id="form_label_emailIndicator">
+                                <span [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdEmailInd').invalid}">Email</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                    Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                          <div class="field-block">
+                              <div class="select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdEmailInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                            <select tabindex="0" id="form_select_emailIndicator"
+                                                    class="form-select-lg" formControlName="emdEmailInd" >
+                                       
+                                      <option value="">Select one</option>
+                                      <option value="B">Blank or zero field</option>
+                                      <option value="N">No, not in input file</option>                               
+                                      <option value="Q">Required</option>
+                                      <option value="Y">Yes, in input file</option>
+                                      <option value="Z">Input zero or blank = No Edit</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdEmailInd').invalid && this.memberDefaultForm.get('emdEmailInd').errors.required">
+                            <p class="bold_error">
+                                    {{ fieldRequiredMsg }}
+                            </p>                    
+                        </div>
+                       </div>
+                       <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdEmailInd') != null">{{ memberDefaultForm.get('emdEmailInd').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+                  
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdPhoneNumberInd').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_phoneIndicator" id="form_label_phoneIndicator">
+                                <span [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdPhoneNumberInd').invalid}">Phone number</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                    Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                          <div class="field-block">
+                              <div class="select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdPhoneNumberInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                            <select tabindex="0" id="form_select_phoneIndicator"
+                                                    class="form-select-lg" formControlName="emdPhoneNumberInd" >
+                                       
+                                        <option value="">Select one</option>
+                                        <option value="B">Blank or zero field</option>
+                                        <option value="N">No, not in input file</option>                               
+                                        <option value="Q">Required</option>
+                                        <option value="Y">Yes, in input file</option>
+                                        <option value="Z">Input zero or blank = No Edit</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdPhoneNumberInd').invalid && this.memberDefaultForm.get('emdPhoneNumberInd').errors.required">
+                            <p class="bold_error">
+                                    {{ fieldRequiredMsg }}
+                            </p>                    
+                        </div>
+                       </div>
+                       <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdPhoneNumberInd') != null">{{ memberDefaultForm.get('emdPhoneNumberInd').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+                  <a id="memberIndicators"></a>
+                  <div>
+                    <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+                </div>
+
+
+                
+                <div>
+                    <app-form-section-heading></app-form-section-heading>
+                    <div class="h2">Member Indicators</div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdPersonCodeInd').invalid || this.memberDefaultForm.get('emdPersonCode').invalid)}">
+                      <div class="left-control">
+                        <label for="emdPersonCodeInd">
+                          <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdPersonCodeInd').invalid || this.memberDefaultForm.get('emdPersonCode').invalid)}">Person code</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDPersonCodeInd}">
+                            <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdPersonCodeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdPersonCodeInd" class="form-select-lg" formControlName="emdPersonCodeInd" (change)="selectType($event,'emdPersonCodeInd')">
+                                <option value="">Select one</option>
+                                <option value="A">Append person code</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>                                
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdPersonCodeInd').invalid && this.memberDefaultForm.get('emdPersonCodeInd').errors.required">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <ng-container *ngIf="showEMDPersonCodeInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+                              <input type="text" id="emdPersonCode" placeholder="Code" tabindex="0" class="form-input-xxs ssn_input" formControlName="emdPersonCode"
+                               appAlphanumeric maxlength="3">
+                            </ng-container>
+                            <div *ngIf="submitted && showEMDPersonCodeInd && this.memberDefaultForm.get('emdPersonCode').invalid">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdPersonCodeInd') != null">{{ memberDefaultForm.get('emdPersonCodeInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdPersonCode') != null">{{ memberDefaultForm.get('emdPersonCode').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdRelationshipCodeInd').invalid || this.memberDefaultForm.get('emdRelationshipCode').invalid)}">
+                      <div class="left-control">
+                        <label for="emdRelationshipCodeInd">
+                          <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdRelationshipCodeInd').invalid || this.memberDefaultForm.get('emdRelationshipCode').invalid)}">Relationship code</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDRelationshipCodeInd}">
+                            <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdRelationshipCodeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdRelationshipCodeInd" class="form-select-lg" formControlName="emdRelationshipCodeInd" (change)="selectType($event,'emdRelationshipCodeInd')">
+                                <option value="">Select one</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>                                
+                                <option value="V">Validate</option>
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdRelationshipCodeInd').invalid && this.memberDefaultForm.get('emdRelationshipCodeInd').errors.required">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <ng-container *ngIf="showEMDRelationshipCodeInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+                             
+                               <select class="form-select-s select" tabindex="0" id="emdRelationshipCode" formControlName="emdRelationshipCode" [ngStyle]="{'border' : (submitted  && this.memberDefaultForm.get('emdRelationshipCode').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                <option value="">Select one</option>
+                                <option value="1">Cardholder</option>
+                                <option value="2">Spouse</option>
+                                <option value="3">Child</option>
+                                <option value="4">Other</option>
+                                <option value="0">Unspecified</option>
+                              </select>
+                             
+                            </ng-container>
+                            <div *ngIf="submitted && showEMDRelationshipCodeInd && this.memberDefaultForm.get('emdRelationshipCode').invalid">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdRelationshipCodeInd') != null">{{ memberDefaultForm.get('emdRelationshipCodeInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdRelationshipCode') != null">{{ memberDefaultForm.get('emdRelationshipCode').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdMemberTypeInd').invalid || this.memberDefaultForm.get('emdMemberType').invalid)}">
+                      <div class="left-control">
+                        <label for="emdMemberTypeInd">
+                          <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdMemberTypeInd').invalid || this.memberDefaultForm.get('emdMemberType').invalid)}">Member type</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDMemberTypeInd}">
+                            <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdMemberTypeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdMemberTypeInd" class="form-select-lg" formControlName="emdMemberTypeInd"  (change)="selectType($event,'emdMemberTypeInd')">
+                                <option value="">Select one</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>                                
+                                <option value="V">Validate</option>
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdMemberTypeInd').invalid && this.memberDefaultForm.get('emdMemberTypeInd').errors.required">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <ng-container *ngIf="showEMDMemberTypeInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+                             
+                               <select class="form-select-md select" tabindex="0" id="emdMemberType" formControlName="emdMemberType" [ngStyle]="{'border' : (submitted  && this.memberDefaultForm.get('emdMemberType').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                <option value="">Select one</option>
+                                <option value="6">COBRA</option>
+                                <option value="7">COBRA WAIT</option>
+                                <option value="1">Dependent parent</option>
+                                <option value="2">Disabled dependent</option>
+                                <option value="5">Non-student dependent</option>
+                                <option value="3">Spousal equivalent</option>
+                                <option value="4">Student</option>
+                              </select>
+                              
+                            </ng-container>
+                            <div *ngIf="submitted && showEMDMemberTypeInd && this.memberDefaultForm.get('emdMemberType').invalid">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMemberTypeInd') != null">{{ memberDefaultForm.get('emdMemberTypeInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMemberType') != null">{{ memberDefaultForm.get('emdMemberType').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdFamilyTypeInd').invalid || this.memberDefaultForm.get('emdFamilyType').invalid)}">
+                      <div class="left-control">
+                        <label for="emdFamilyTypeInd">
+                          <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdFamilyTypeInd').invalid || this.memberDefaultForm.get('emdFamilyType').invalid)}">Family type</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDFamilyTypeInd}">
+                            <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdFamilyTypeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdFamilyTypeInd" class="form-select-lg" formControlName="emdFamilyTypeInd" (change)="selectType($event,'emdFamilyTypeInd')">
+                                <option value="">Select one</option>                                
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>   
+                                <option value="V">Validate</option>                             
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdFamilyTypeInd').invalid && this.memberDefaultForm.get('emdFamilyTypeInd').errors.required">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <ng-container *ngIf="showEMDFamilyTypeInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+                             
+                               <select class="form-select-lg select" tabindex="0" id="emdFamilyType" formControlName="emdFamilyType" [ngStyle]="{'border' : (submitted  && this.memberDefaultForm.get('emdFamilyType').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                <option value="">Select one</option>
+                                <option value="A">Cardholder + 2</option>
+                                <option value="1">Family</option>
+                                <option value="2">Cardholder</option>
+                                <option value="3">Cardholder & spouse</option>
+                                <option value="4">Cardholder & dependents</option>
+                                <option value="5">Spouse & dependents</option>
+                                <option value="6">Dependents</option>
+                                <option value="7">Spouse only</option>
+                                <option value="8">Member + 1</option>
+                                <option value="9">Cardholder + 1</option>
+
+                              </select>
+                              
+                            </ng-container>
+                            <div *ngIf="submitted && showEMDFamilyTypeInd && this.memberDefaultForm.get('emdFamilyType').invalid">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdFamilyTypeInd') != null">{{ memberDefaultForm.get('emdFamilyTypeInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdFamilyType') != null">{{ memberDefaultForm.get('emdFamilyType').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdFamilyIndicatorInd').invalid || this.memberDefaultForm.get('emdFamilyIndicator').invalid)}">
+                      <div class="left-control">
+                        <label for="emdFamilyIndicatorInd">
+                          <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdFamilyIndicatorInd').invalid || this.memberDefaultForm.get('emdFamilyIndicator').invalid)}">Family</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDFamilyIndicatorInd}">
+                            <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdFamilyIndicatorInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdFamilyIndicatorInd" class="form-select-lg" formControlName="emdFamilyIndicatorInd" (change)="selectType($event,'emdFamilyIndicatorInd')">
+                                <option value="">Select one</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>
+                                <option value="V">Validate</option>
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdFamilyIndicatorInd').invalid && this.memberDefaultForm.get('emdFamilyIndicatorInd').errors.required">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <ng-container *ngIf="showEMDFamilyIndicatorInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+
+
+                                <div class="field-block">
+                                        <input type="radio" id="form_radio_familyIndicatorY"  tabindex="0"
+                                               formControlName="emdFamilyIndicator" value="Y" >
+                                        <label class="field-label" for="form_radio_familyIndicatorY">Family</label>
+                                </div>
+                                <div class="field-block">
+                                    <input type="radio" id="form_radio_familyIndicatorN" tabindex="0" formControlName="emdFamilyIndicator"
+                                        value="N" >
+                                    <label class="field-label" for="form_radio_familyIndicatorN">Single-person</label>
+                                </div>
+
+
+                            </ng-container>
+                            <div *ngIf="submitted && showEMDFamilyIndicatorInd && this.memberDefaultForm.get('emdFamilyIndicator').invalid">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdFamilyIndicatorInd') != null">{{ memberDefaultForm.get('emdFamilyIndicatorInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdFamilyIndicator') != null">{{ memberDefaultForm.get('emdFamilyIndicator').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdFamilyIdInd').invalid || this.memberDefaultForm.get('emdFamilyId').invalid)}">
+                      <div class="left-control">
+                        <label for="emdFamilyIdInd">
+                          <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdFamilyIdInd').invalid || this.memberDefaultForm.get('emdFamilyId').invalid)}">Family ID</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDFamilyIdInd}">
+                            <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdFamilyIdInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdFamilyIdInd" class="form-select-lg" formControlName="emdFamilyIdInd" (change)="selectType($event,'emdFamilyIdInd')">
+                                <option value="">Select one</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>                                
+                                <option value="V">Validate</option>  
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdFamilyIdInd').invalid && this.memberDefaultForm.get('emdFamilyIdInd').errors.required">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <ng-container *ngIf="showEMDFamilyIdInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+                              <input type="text" id="emdFamilyId" placeholder="Family ID" tabindex="0" class="form-input-md ssn_input" formControlName="emdFamilyId"
+                               appAlphanumeric maxlength="18">
+                            </ng-container>
+                            <div *ngIf="submitted && showEMDFamilyIdInd && this.memberDefaultForm.get('emdFamilyId').invalid">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdFamilyIdInd') != null">{{ memberDefaultForm.get('emdFamilyIdInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdFamilyId') != null">{{ memberDefaultForm.get('emdFamilyId').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdMultBirthCodeInd').invalid || this.memberDefaultForm.get('emdMultipleBirthCode').invalid)}">
+                      <div class="left-control">
+                        <label for="emdMultBirthCodeInd">
+                          <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdMultBirthCodeInd').invalid || this.memberDefaultForm.get('emdMultipleBirthCode').invalid)}">Multiple-birth code</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDMultBirthCodeInd}">
+                            <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdMultBirthCodeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdMultBirthCodeInd" class="form-select-lg" formControlName="emdMultBirthCodeInd" (change)="selectType($event,'emdMultBirthCodeInd')">
+                                <option value="">Select one</option>
+                                <option value="A">Set to 1, matching A records</option>
+                                <option value="B">Blank or zero field</option>         
+                                <option value="D">Default, if no input value</option>                           
+                                <option value="L">Load and output report</option>
+                                <option value="N">No, not in input file</option>                                
+                                <option value="R">Replace input value</option>
+                                <option value="V">Validate</option>
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdMultBirthCodeInd').invalid && this.memberDefaultForm.get('emdMultBirthCodeInd').errors.required">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <ng-container *ngIf="showEMDMultBirthCodeInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+
+                              <div *ngIf="showEMDMultBirthCodeRadio">
+                                <div class="field-block">
+                                        <input type="radio" id="form_radio_multipleBirthCode0" tabindex="0" formControlName="emdMultipleBirthCode"
+                                          value="0" >
+                                        <label class="field-label" for="form_radio_multipleBirthCode0">Single birth</label>
+                                </div>
+                                <div class="field-block">
+                                        <input type="radio" id="form_radio_multipleBirthCode1"  tabindex="0"
+                                               formControlName="emdMultipleBirthCode" value="1" >
+                                        <label class="field-label" for="form_radio_multipleBirthCode1">Multiple birth</label>
+                                </div>                               
+                              </div> 
+                                <div *ngIf="showEMDMultBirthCodeTextbox">
+                                    <input type="text" id="emdMultipleBirthCode" placeholder="Base Member ID length" tabindex="0" class="form-input-lg ssn_input" formControlName="emdMultipleBirthCode"
+                                    appNumeric maxlength="2">
+                                </div> 
+
+                            </ng-container>
+
+                           
+                            <div *ngIf="submitted && showEMDMultBirthCodeInd && this.memberDefaultForm.get('emdMultipleBirthCode').invalid">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMultBirthCodeInd') != null">{{ memberDefaultForm.get('emdMultBirthCodeInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMultipleBirthCode') != null">{{ memberDefaultForm.get('emdMultipleBirthCode').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+                  
+             
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdMemberIdFormatChec').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_memberIdFormatChec" id="form_label_memberIdFormatChec">
+                                <span [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdMemberIdFormatChec').invalid}">Member ID format check</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                    Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                          <div class="field-block">
+                              <div class="select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdMemberIdFormatChec').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                            <select tabindex="0" id="form_select_memberIdFormatChec"
+                                                    class="form-select-lg" formControlName="emdMemberIdFormatChec" >
+                                       
+                                        <option value="">Select one</option>
+                                        <option value="N">Do not check format</option>
+                                        <option value="W">Warn if format doesn’t match</option>                               
+                                        <option value="Y">Reject if format doesn’t match</option>
+                                    </select>
+                              </div>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdMemberIdFormatChec').invalid && this.memberDefaultForm.get('emdMemberIdFormatChec').errors.required">
+                            <p class="bold_error">
+                                    {{ fieldRequiredMsg }}
+                            </p>                    
+                        </div>
+                       </div>
+                       <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMemberIdFormatChec') != null">{{ memberDefaultForm.get('emdMemberIdFormatChec').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdLanguageCodeInd').invalid || this.memberDefaultForm.get('emdLanguageCode').invalid)}">
+                      <div class="left-control">
+                        <label for="emdLanguageCodeInd">
+                          <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdLanguageCodeInd').invalid || this.memberDefaultForm.get('emdLanguageCode').invalid)}">Language Code</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDLanguageCodeInd}">
+                            <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdLanguageCodeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdLanguageCodeInd" class="form-select-lg" formControlName="emdLanguageCodeInd" (change)="selectType($event,'emdLanguageCodeInd')">
+                                <option value="">Select one</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>                                
+                                <option value="V">Validate</option>  
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdLanguageCodeInd').invalid && this.memberDefaultForm.get('emdLanguageCodeInd').errors.required">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <ng-container *ngIf="showEMDLanguageCodeInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>                             
+                               <!-- <select class="form-select-md select" tabindex="0" id="emdLanguageCode" formControlName="emdLanguageCode" [ngStyle]="{'border' : (submitted  && this.memberDefaultForm.get('emdLanguageCode').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                <option value="">Select one</option>                                
+                                <option *ngFor="let emdLanguageCodeRecord of emdLanguageCodeArray" [value]="emdLanguageCodeRecord.valueId">{{emdLanguageCodeRecord.valueDesc}}</option>
+                              </select> -->         
+                              
+                                <input type="text" id="emdLanguageCode"  placeholder="Language Code"  formControlName="emdLanguageCode" [matAutocomplete]="auto">
+                                <mat-autocomplete  #auto="matAutocomplete" [displayWith]="displayFn">
+                                  <mat-option *ngFor="let option of languageCodeFilteredOptions | async" [value]="option">
+                                    {{option.desc}}
+                                  </mat-option>
+                                </mat-autocomplete>       
+                             
+                            </ng-container>
+                            <div *ngIf="submitted && showEMDLanguageCodeInd && this.memberDefaultForm.get('emdLanguageCode').invalid && !invalidLanguageCode">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <div *ngIf="submitted && showEMDLanguageCodeInd && this.memberDefaultForm.get('emdLanguageCode').invalid && invalidLanguageCode">
+                              <p class="bold_error">
+                                {{invalidLanguageCodeMsg}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+    
+                      
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdLanguageCodeInd') != null">{{ memberDefaultForm.get('emdLanguageCodeInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdLanguageCode') != null">{{ memberDefaultForm.get('emdLanguageCode').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdOrigEffDateInd').invalid || this.memberDefaultForm.get('emdOrigEffectiveDate').invalid))}">
+                      <div class="left-control">
+                        <label for="emdOrigEffDateInd">
+                          <span [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdOrigEffDateInd').invalid || this.memberDefaultForm.get('emdOrigEffectiveDate').invalid))}">Original from date</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDOrigEffectiveDate}">
+                            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDefaultForm.get('emdOrigEffDateInd').invalid || this.memberDefaultForm.get('emdOrigEffectiveDate').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdOrigEffDateInd" (change)="selectType($event,'emdOrigEffDateInd')" class="form-select-lg" formControlName="emdOrigEffDateInd">
+                                <option value="">Select one</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>
+                                <option value="V">Validate</option>
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdOrigEffDateInd').invalid && this.memberDefaultForm.get('emdOrigEffDateInd').errors.required">
+                                    <p class="bold_error">
+                                          {{ fieldRequiredMsg }}
+                                    </p>
+                            </div>
+                            <ng-container *ngIf="showEMDOrigEffectiveDate">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+                              <app-datepicker
+                                formControlName="emdOrigEffectiveDate"
+                                (change)="resetDate()"
+                              >
+                              </app-datepicker>      
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdOrigEffectiveDate').invalid &&  emdOrigEffectiveDateRequiredErrorFlag">
+                                    <p class="bold_error">
+                                          {{ fieldRequiredMsg }}
+                                    </p>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdOrigEffectiveDate').invalid &&  !emdOrigEffectiveDateRequiredErrorFlag">
+                                    <p class="bold_error">
+                                          {{ emdOrigEffectiveDateNotValidErrorMsg }}
+                                    </p>
+                            </div>
+                            </ng-container>
+                          </div>
+                        </div>                           
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdOrigEffDateInd') != null">{{ memberDefaultForm.get('emdOrigEffDateInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdOrigEffectiveDate') != null">{{ memberDefaultForm.get('emdOrigEffectiveDate').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdRenewalDateInd').invalid || this.memberDefaultForm.get('emdRenewalDate').invalid))}">
+                      <div class="left-control">
+                        <label for="emdRenewalDateInd">
+                          <span [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdRenewalDateInd').invalid || this.memberDefaultForm.get('emdRenewalDate').invalid))}">Benefit reset date</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDRenewalDateInd}">
+                            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDefaultForm.get('emdRenewalDateInd').invalid || this.memberDefaultForm.get('emdRenewalDate').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdRenewalDateInd" (change)="selectType($event,'emdRenewalDateInd')" class="form-select-lg" formControlName="emdRenewalDateInd">
+                                <option value="">Select one</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>
+                                <option value="V">Validate</option>
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdRenewalDateInd').invalid && this.memberDefaultForm.get('emdRenewalDateInd').errors.required">
+                                    <p class="bold_error">
+                                          {{ fieldRequiredMsg }}
+                                    </p>
+                            </div>
+                            <ng-container *ngIf="showEMDRenewalDateInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+                              <app-datepicker
+                                formControlName="emdRenewalDate"
+                                (change)="resetDate()"
+                              >
+                              </app-datepicker>                        
+                            
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdRenewalDate').invalid &&  emdRenewalDateRequiredErrorFlag">
+                                    <p class="bold_error">
+                                          {{ fieldRequiredMsg }}
+                                    </p>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdRenewalDate').invalid &&  !emdRenewalDateRequiredErrorFlag">
+                                    <p class="bold_error">
+                                          {{ emdRenewalDateNotValidErrorMsg }}
+                                    </p>
+                            </div>
+                            </ng-container>
+                          </div>
+                        </div>                           
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdRenewalDateInd') != null">{{ memberDefaultForm.get('emdRenewalDateInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdRenewalDate') != null">{{ memberDefaultForm.get('emdRenewalDate').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdMedicareHicInd').invalid || this.memberDefaultForm.get('emdMedicareHic').invalid)}">
+                      <div class="left-control">
+                        <label for="emdMedicareHicInd">
+                          <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdMedicareHicInd').invalid || this.memberDefaultForm.get('emdMedicareHic').invalid)}">Medicare MBI/HICN</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDMedicareHicInd}">
+                            <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdMedicareHicInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdMedicareHicInd" class="form-select-lg" formControlName="emdMedicareHicInd" (change)="selectType($event,'emdMedicareHicInd')">
+                                <option value="">Select one</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>
+                                <option value="V">Validate</option>
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdMedicareHicInd').invalid && this.memberDefaultForm.get('emdMedicareHicInd').errors.required">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <ng-container *ngIf="showEMDMedicareHicInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+                              <input type="text" id="emdMedicareHic" placeholder="MBI/HICN" tabindex="0" class="form-input-s ssn_input" formControlName="emdMedicareHic"
+                              appAlphanumeric maxlength="11">
+                            </ng-container>
+                            <div *ngIf="submitted && showEMDMedicareHicInd && this.memberDefaultForm.get('emdMedicareHic').invalid">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMedicareHicInd') != null">{{ memberDefaultForm.get('emdMedicareHicInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMedicareHic') != null">{{ memberDefaultForm.get('emdMedicareHic').value }}</label>                            
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdMedicareEffDateInd').invalid || this.memberDefaultForm.get('emdMedicareEffDate').invalid))}">
+                      <div class="left-control">
+                        <label for="emdMedicareEffDateInd">
+                          <span [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdMedicareEffDateInd').invalid || this.memberDefaultForm.get('emdMedicareEffDate').invalid))}">Medicare from date</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                        Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDMedicareEffDateInd}">
+                            <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDefaultForm.get('emdMedicareEffDateInd').invalid || this.memberDefaultForm.get('emdMedicareEffDate').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdMedicareEffDateInd" (change)="selectType($event,'emdMedicareEffDateInd')" class="form-select-lg" formControlName="emdMedicareEffDateInd">
+                                <option value="">Select one</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>
+                                <option value="V">Validate</option>
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdMedicareEffDateInd').invalid && this.memberDefaultForm.get('emdMedicareEffDateInd').errors.required">
+                                    <p class="bold_error">
+                                          {{ fieldRequiredMsg }}
+                                    </p>
+                            </div>
+                            <ng-container *ngIf="showEMDMedicareEffDateInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+                              <app-datepicker
+                                formControlName="emdMedicareEffDate"
+                                (change)="resetDate()"
+                              >
+                              </app-datepicker>                         
+                            
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdMedicareEffDate').invalid &&  emdMedicareEffDateRequiredErrorFlag">
+                                    <p class="bold_error">
+                                          {{ fieldRequiredMsg }}
+                                    </p>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdMedicareEffDate').invalid &&  !emdMedicareEffDateRequiredErrorFlag">
+                                    <p class="bold_error">
+                                          {{ emdMedicareEffDateNotValidErrorMsg }}
+                                    </p>
+                            </div>
+                            </ng-container>
+                          </div>
+                        </div>                           
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMedicareEffDateInd') != null">{{ memberDefaultForm.get('emdMedicareEffDateInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMedicareEffDate') != null">{{ memberDefaultForm.get('emdMedicareEffDate').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdMedicareCvgTypeInd').invalid || this.memberDefaultForm.get('emdMedicareCvgType').invalid)}">
+                      <div class="left-control">
+                        <label for="emdMedicareCvgTypeInd">
+                          <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdMedicareCvgTypeInd').invalid || this.memberDefaultForm.get('emdMedicareCvgType').invalid)}">Medicare coverage type</span>
+                          <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                        </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                          <div [ngClass]="{'ssn':showEMDMedicareCvgTypeInd}">
+                            <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdMedicareCvgTypeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                              <select tabindex="0" id="emdMedicareCvgTypeInd" class="form-select-lg" formControlName="emdMedicareCvgTypeInd" (change)="selectType($event,'emdMedicareCvgTypeInd')">
+                                <option value="">Select one</option>
+                                <option value="B">Blank or zero field</option>
+                                <option value="D">Default, if no input value</option>                                    
+                                <option value="N">No, not in input file</option>
+                                <option value="Q">Required</option>
+                                <option value="R">Replace input value</option>
+                                <option value="V">Validate</option>
+                                <option value="Y">Yes, in input file</option>
+                                <option value="Z">Input zero or blank = No Edit</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && this.memberDefaultForm.get('emdMedicareCvgTypeInd').invalid && this.memberDefaultForm.get('emdMedicareCvgTypeInd').errors.required">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                            <ng-container *ngIf="showEMDMedicareCvgTypeInd">
+                              <legend class="ssn_legend">Default/replacement value</legend>
+                             
+                               <select class="form-select-xl select" tabindex="0" id="emdMedicareCvgType" formControlName="emdMedicareCvgType" [ngStyle]="{'border' : (submitted  && this.memberDefaultForm.get('emdMedicareCvgType').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                <option value="">Select one</option>
+                                <option value="A">Secondary Part A</option>
+                                <option value="B">Part B</option>
+                                <option value="D">Parts A&B Age 65</option>
+                                <option value="M">Parts A&B</option>
+                                <option value="N">Not covered</option>
+                                <option value="R">Renal</option>
+                                <option value="U">Secondary, unknown</option>
+                                <option value="W">Secondary, Working/TEFRA</option>
+                                <option value="Y">Yes, undefined</option>
+                                <option value="1">Medicare Part D</option>
+                                <option value="2">Medicare Part D Wrap coverage</option>
+                                <option value="3">Medicare Employer Drug Sub</option>
+                              </select>
+                              
+                            </ng-container>
+                            <div *ngIf="submitted && showEMDMedicareCvgTypeInd && this.memberDefaultForm.get('emdMedicareCvgType').invalid">
+                              <p class="bold_error">
+                                {{fieldRequiredMsg}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMedicareCvgTypeInd') != null">{{ memberDefaultForm.get('emdMedicareCvgTypeInd').value }}</label>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdMedicareCvgType') != null">{{ memberDefaultForm.get('emdMedicareCvgType').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+
+
+
+                  <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdInactvFutureCovInd').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_inactvFutureCovInd" id="form_label_inactvFutureCovInd">
+                                <span [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdInactvFutureCovInd').invalid}">Inactive future coverage</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                    Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                          <div class="field-block">
+                              <div class="select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdInactvFutureCovInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                            <select tabindex="0" id="form_select_inactvFutureCovInd"
+                                                    class="form-select-md" formControlName="emdInactvFutureCovInd" >
+                                       
+                                        <option value="">Select one</option>                                        
+                                        <option value="N">No</option>                               
+                                        <option value="O">Audit file data</option>
+                                        <option value="Y">Yes</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdInactvFutureCovInd').invalid && this.memberDefaultForm.get('emdInactvFutureCovInd').errors.required">
+                            <p class="bold_error">
+                                    {{ fieldRequiredMsg }}
+                            </p>                    
+                        </div>
+                       </div>
+                       <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdInactvFutureCovInd') != null">{{ memberDefaultForm.get('emdInactvFutureCovInd').value }}</label>
+                        </p>
+                    </div>   
+                    </div>
+                  </div>
+                  <a id="eligibilityIndicators"></a>
+                  <div>
+                    <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+                  </div>
+
+                  <div>
+                    <app-form-section-heading></app-form-section-heading>
+                    <div class="h2">Eligibility Indicators</div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdEffectiveDateInd').invalid || this.memberDefaultForm.get('emdEffectiveDate').invalid))}">
+                    <div class="left-control">
+                      <label for="emdEffectiveDateInd">
+                        <span [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdEffectiveDateInd').invalid || this.memberDefaultForm.get('emdEffectiveDate').invalid))}">From date</span>
+                        <span class="required">*</span>
+                      </label>
+                      <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                      </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                      <div class="field-block">
+                        <div [ngClass]="{'ssn':showEMDEffectiveDateInd}">
+                          <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDefaultForm.get('emdEffectiveDateInd').invalid || this.memberDefaultForm.get('emdEffectiveDate').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                            <select tabindex="0" id="emdEffectiveDateInd" (change)="selectType($event,'emdEffectiveDateInd')" class="form-select-lg" formControlName="emdEffectiveDateInd">
+                              <option value="">Select one</option>
+                              <option value="B">Blank or zero field</option>
+                              <option value="D">Default, if no input value</option>
+                              <option value="L">Load and output report</option>                                    
+                              <option value="N">No, not in input file</option>                              
+                              <option value="R">Replace input value</option>
+                              <option value="V">Validate</option>
+                              <option value="Y">Yes, in input file</option>
+                              <option value="Z">Input zero or blank = No Edit</option>
+                            </select>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdEffectiveDateInd').invalid && this.memberDefaultForm.get('emdEffectiveDateInd').errors.required">
+                                  <p class="bold_error">
+                                        {{ fieldRequiredMsg }}
+                                  </p>
+                          </div>
+                          <ng-container *ngIf="showEMDEffectiveDateInd">
+                            <legend class="ssn_legend">Default/replacement value</legend>
+                            <app-datepicker
+                              formControlName="emdEffectiveDate"
+                              (change)="resetEmdEffectiveDate()"
+                            >
+                            </app-datepicker>                           
+                          
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdEffectiveDate').invalid &&  emdEffectiveDateRequiredErrorFlag">
+                                  <p class="bold_error">
+                                        {{ fieldRequiredMsg }}
+                                  </p>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdEffectiveDate').invalid &&  !emdEffectiveDateRequiredErrorFlag">
+                                  <p class="bold_error">
+                                        {{ emdEffectiveDateNotValidErrorMsg }}
+                                  </p>
+                          </div>
+                          </ng-container>
+                        </div>
+                      </div>                           
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                      <p>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdEffectiveDateInd') != null">{{ memberDefaultForm.get('emdEffectiveDateInd').value }}</label>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdEffectiveDate') != null">{{ memberDefaultForm.get('emdEffectiveDate').value }}</label>
+                      </p>
+                  </div>   
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdThruDateInd').invalid || this.memberDefaultForm.get('emdThruDate').invalid))}">
+                    <div class="left-control">
+                      <label for="emdThruDateInd">
+                        <span [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdThruDateInd').invalid || this.memberDefaultForm.get('emdThruDate').invalid))}">Thru date / days</span>
+                        <span class="required">*</span>
+                      </label>
+                      <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                      </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                      <div class="field-block">
+                        <div [ngClass]="{'ssn':showEMDThruDateInd}">
+                          <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDefaultForm.get('emdThruDateInd').invalid || this.memberDefaultForm.get('emdThruDate').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                            <select tabindex="0" id="emdThruDateInd" (change)="selectType($event,'emdThruDateInd')" class="form-select-lg" formControlName="emdThruDateInd">
+                              <option value="">Select one</option>
+                              <option value="B">Blank or zero field</option>
+                              <option value="D">Default, if no input value</option>
+                              <option value="L">Load and output report</option>                                    
+                              <option value="N">No, not in input file</option>                              
+                              <option value="R">Replace input value</option>
+                              <option value="V">Validate</option>
+                              <option value="Y">Yes, in input file</option>
+                              <option value="Z">Input zero or blank = No Edit</option>
+                            </select>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdThruDateInd').invalid && this.memberDefaultForm.get('emdThruDateInd').errors.required">
+                                  <p class="bold_error">
+                                        {{ fieldRequiredMsg }}
+                                  </p>
+                          </div>
+                          <ng-container *ngIf="showEMDThruDateInd">
+                            <legend class="ssn_legend">Default/replacement value</legend>
+                            
+                            <div class="row">
+                            <div class="block">
+                              <app-datepicker
+                                formControlName="emdThruDate"
+                              >
+                              </app-datepicker>
+                            </div>      
+                            <div class="blockTextbox">
+                            <input type="text" id="emdThruDays" placeholder="Days" tabindex="0" class="form-input-xxs ssn_input" formControlName="emdThruDays"
+                            appNumeric maxlength="3">
+                            </div>
+                            </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdThruDate').invalid &&  emdThruDateAtleastOneRequiredErrorFlag">
+                                  <p class="bold_error">
+                                        {{ emdThruDateAtleastOneRequiredErrorMsg }}
+                                  </p>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdThruDate').invalid &&  emdThruDateBothNotRequiredErrorFlag">
+                                  <p class="bold_error">
+                                        {{ emdThruDateBothNotRequiredErrorMsg }}
+                                  </p>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdThruDate').invalid &&  emdThruDateNotValidErrorFlag">
+                            <p class="bold_error">
+                                  {{ emdThruDateNotValidErrorMsg }}
+                            </p>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdThruDate').invalid &&  emdThruDayNotValidErrorFlag">
+                            <p class="bold_error">
+                                  {{ emdThruDayNotValidErrorMsg }}
+                            </p>
+                          </div>
+                          </ng-container>
+                        </div>
+                      </div>                           
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                      <p>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdThruDateInd') != null">{{ memberDefaultForm.get('emdThruDateInd').value }}</label>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdThruDate') != null">{{ memberDefaultForm.get('emdThruDate').value }}</label>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdThruDays') != null">{{ memberDefaultForm.get('emdThruDays').value }}</label>
+                      </p>
+                  </div>   
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="form-group" [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdPlanInd').invalid || this.memberDefaultForm.get('planEffDate').invalid))}">
+                    <div class="left-control">
+                      <label for="emdPlanInd">
+                        <span [ngClass]="{'error': (submitted && (this.memberDefaultForm.get('emdPlanInd').invalid || this.memberDefaultForm.get('planEffDate').invalid))}">Plan code / from date</span>
+                        <span class="required">*</span>
+                      </label>
+                      <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                      </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                      <div class="field-block">
+                        <div [ngClass]="{'ssn':showEMDPlanInd}">
+                          <div class="select" [ngStyle]="{'border' : (submitted && (this.memberDefaultForm.get('emdPlanInd').invalid || this.memberDefaultForm.get('planEffDate').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                            <select tabindex="0" id="emdPlanInd" (change)="selectType($event,'emdPlanInd')" class="form-select-lg" formControlName="emdPlanInd">
+                              <option value="">Select one</option>
+                              <option value="B">Blank or zero field</option>
+                              <option value="D">Default, if no input value</option>
+                              <option value="L">Load and output report</option>                                    
+                              <option value="N">No, not in input file</option>                              
+                              <option value="R">Replace input value</option>
+                              <option value="V">Validate</option>
+                              <option value="Y">Yes, in input file</option>
+                              <option value="Z">Input zero or blank = No Edit</option>
+                            </select>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdPlanInd').invalid && this.memberDefaultForm.get('emdPlanInd').errors.required">
+                                  <p class="bold_error">
+                                        {{ fieldRequiredMsg }}
+                                  </p>
+                          </div>
+                          <ng-container *ngIf="showEMDPlanInd">
+                            <legend class="ssn_legend">Default/replacement value</legend>
+                            <!-- date picker -->
+                            <div class="row">
+                              <div class="block">
+                                  <app-datepicker
+                                    formControlName="planEffDate"
+                                    (change)="resetPlanEffDate()"
+                                  >
+                                  </app-datepicker>
+                              </div> 
+                              <div class="block"> <app-lookup formControlName="planCode" placeholderText= "Plan code" appLookUpLength = "10" [appLookUpType]=appAlphanumallspec></app-lookup></div>                               
+                            </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('planEffDate').invalid && !planEffDatePlanCodeErrorFlag &&  planEffDateRequiredErrorFlag">
+                                  <p class="bold_error">
+                                        {{ fieldRequiredMsg }}
+                                  </p>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('planEffDate').invalid && !planEffDatePlanCodeErrorFlag &&  !planEffDateRequiredErrorFlag">
+                                  <p class="bold_error">
+                                        {{ planEffDateNotValidErrorMsg }}
+                                  </p>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('planEffDate').invalid &&  planEffDatePlanCodeErrorFlag">
+                                  <p class="bold_error">
+                                        {{planEffDatePlanCodeErrorMsg}}
+                                  </p>
+                          </div>
+                          </ng-container>
+                        </div>
+                      </div>                           
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                      <p>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdPlanInd') != null">{{ memberDefaultForm.get('emdPlanInd').value }}</label>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('planEffDate') != null">{{ memberDefaultForm.get('planEffDate').value }}</label>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('planCode') != null">{{ memberDefaultForm.get('planCode').value }}</label>
+                      </p>
+                  </div>   
+                  </div>
+                </div>
+
+
+
+
+                <div class="row">
+                  <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdBrandCopayInd').invalid || this.memberDefaultForm.get('emdBrandCopay').invalid)}">
+                    <div class="left-control">
+                      <label for="emdBrandCopayInd">
+                        <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdBrandCopayInd').invalid || this.memberDefaultForm.get('emdBrandCopay').invalid)}">Brand copay</span>
+                        <span class="required">*</span>
+                      </label>
+                      <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications.">
+                      </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                      <div class="field-block">
+                        <div [ngClass]="{'ssn':showEMDBrandCopayInd}">
+                          <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdBrandCopayInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                            <select tabindex="0" id="emdBrandCopayInd" class="form-select-lg" formControlName="emdBrandCopayInd" (change)="selectType($event,'emdBrandCopayInd')">
+                              <option value="">Select one</option>
+                              <option value="B">Blank or zero field</option>
+                              <option value="D">Default, if no input value</option>
+                              <option value="L">Load and output report</option>                                    
+                              <option value="N">No, not in input file</option>                              
+                              <option value="R">Replace input value</option>
+                              <option value="V">Validate</option>
+                              <option value="Y">Yes, in input file</option>
+                              <option value="Z">Input zero or blank = No Edit</option>
+                            </select>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdBrandCopayInd').invalid && this.memberDefaultForm.get('emdBrandCopayInd').errors.required">
+                            <p class="bold_error">
+                              {{fieldRequiredMsg}}
+                            </p>
+                          </div>
+                          <ng-container *ngIf="showEMDBrandCopayInd">
+                            <legend class="ssn_legend">Default/replacement value</legend>
+                            <input type="text" id="emdBrandCopay" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="emdBrandCopay"
+                            appMask="decimalThreePlaces" maxlength="6">
+                          </ng-container>
+                          <div *ngIf="submitted && showEMDBrandCopayInd && this.memberDefaultForm.get('emdBrandCopay').invalid">
+                            <p class="bold_error">
+                              {{fieldRequiredMsg}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                      <p>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdBrandCopayInd') != null">{{ memberDefaultForm.get('emdBrandCopayInd').value }}</label>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdBrandCopay') != null">{{ memberDefaultForm.get('emdBrandCopay').value }}</label>
+                      </p>
+                  </div>   
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdGenericCopayInd').invalid || this.memberDefaultForm.get('emdGenericCopay').invalid)}">
+                    <div class="left-control">
+                      <label for="emdGenericCopayInd">
+                        <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdGenericCopayInd').invalid || this.memberDefaultForm.get('emdGenericCopay').invalid)}">Generic copay</span>
+                        <span class="required">*</span>
+                      </label>
+                      <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications.">
+                      </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                      <div class="field-block">
+                        <div [ngClass]="{'ssn':showEMDGenericCopayInd}">
+                          <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdGenericCopayInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                            <select tabindex="0" id="emdGenericCopayInd" class="form-select-lg" formControlName="emdGenericCopayInd" (change)="selectType($event,'emdGenericCopayInd')">
+                              <option value="">Select one</option>
+                              <option value="B">Blank or zero field</option>
+                              <option value="D">Default, if no input value</option>
+                              <option value="L">Load and output report</option>                                    
+                              <option value="N">No, not in input file</option>                              
+                              <option value="R">Replace input value</option>
+                              <option value="V">Validate</option>
+                              <option value="Y">Yes, in input file</option>
+                              <option value="Z">Input zero or blank = No Edit</option>
+                            </select>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdGenericCopayInd').invalid && this.memberDefaultForm.get('emdGenericCopayInd').errors.required">
+                            <p class="bold_error">
+                              {{fieldRequiredMsg}}
+                            </p>
+                          </div>
+                          <ng-container *ngIf="showEMDGenericCopayInd">
+                            <legend class="ssn_legend">Default/replacement value</legend>
+                            <input type="text" id="emdGenericCopay" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="emdGenericCopay"
+                            appMask="decimalThreePlaces" maxlength="6">
+                          </ng-container>
+                          <div *ngIf="submitted && showEMDGenericCopayInd && this.memberDefaultForm.get('emdGenericCopay').invalid">
+                            <p class="bold_error">
+                              {{fieldRequiredMsg}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                      <p>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdGenericCopayInd') != null">{{ memberDefaultForm.get('emdGenericCopayInd').value }}</label>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdGenericCopay') != null">{{ memberDefaultForm.get('emdGenericCopay').value }}</label>
+                      </p>
+                  </div>   
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdCopay3Ind').invalid || this.memberDefaultForm.get('emdCopay3').invalid)}">
+                    <div class="left-control">
+                      <label for="emdCopay3Ind">
+                        <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdCopay3Ind').invalid || this.memberDefaultForm.get('emdCopay3').invalid)}">Copay 3</span>
+                        <span class="required">*</span>
+                      </label>
+                      <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications.">
+                      </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                      <div class="field-block">
+                        <div [ngClass]="{'ssn':showEMDCopay3Ind}">
+                          <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdCopay3Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                            <select tabindex="0" id="emdCopay3Ind" class="form-select-lg" formControlName="emdCopay3Ind" (change)="selectType($event,'emdCopay3Ind')">
+                              <option value="">Select one</option>
+                              <option value="B">Blank or zero field</option>
+                              <option value="D">Default, if no input value</option>    
+                              <option value="L">Load and output report</option>                                
+                              <option value="N">No, not in input file</option>                              
+                              <option value="R">Replace input value</option>
+                              <option value="V">Validate</option>
+                              <option value="Y">Yes, in input file</option>
+                              <option value="Z">Input zero or blank = No Edit</option>
+                            </select>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdCopay3Ind').invalid && this.memberDefaultForm.get('emdCopay3Ind').errors.required">
+                            <p class="bold_error">
+                              {{fieldRequiredMsg}}
+                            </p>
+                          </div>
+                          <ng-container *ngIf="showEMDCopay3Ind">
+                            <legend class="ssn_legend">Default/replacement value</legend>
+                            <input type="text" id="emdCopay3" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="emdCopay3"
+                            appMask="decimalThreePlaces" maxlength="6">
+                          </ng-container>
+                          <div *ngIf="submitted && showEMDCopay3Ind && this.memberDefaultForm.get('emdCopay3').invalid">
+                            <p class="bold_error">
+                              {{fieldRequiredMsg}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                      <p>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdCopay3Ind') != null">{{ memberDefaultForm.get('emdCopay3Ind').value }}</label>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdCopay3') != null">{{ memberDefaultForm.get('emdCopay3').value }}</label>
+                      </p>
+                  </div>   
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdCopay4Ind').invalid || this.memberDefaultForm.get('emdCopay4').invalid)}">
+                    <div class="left-control">
+                      <label for="emdCopay4Ind">
+                        <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdCopay4Ind').invalid || this.memberDefaultForm.get('emdCopay4').invalid)}">Copay 4</span>
+                        <span class="required">*</span>
+                      </label>
+                      <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications.">
+                      </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                      <div class="field-block">
+                        <div [ngClass]="{'ssn':showEMDCopay4Ind}">
+                          <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdCopay4Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                            <select tabindex="0" id="emdCopay4Ind" class="form-select-lg" formControlName="emdCopay4Ind" (change)="selectType($event,'emdCopay4Ind')">
+                              <option value="">Select one</option>
+                              <option value="B">Blank or zero field</option>
+                              <option value="D">Default, if no input value</option>
+                              <option value="L">Load and output report</option>                                    
+                              <option value="N">No, not in input file</option>                              
+                              <option value="R">Replace input value</option>
+                              <option value="V">Validate</option>
+                              <option value="Y">Yes, in input file</option>
+                              <option value="Z">Input zero or blank = No Edit</option>
+                            </select>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdCopay4Ind').invalid && this.memberDefaultForm.get('emdCopay4Ind').errors.required">
+                            <p class="bold_error">
+                              {{fieldRequiredMsg}}
+                            </p>
+                          </div>
+                          <ng-container *ngIf="showEMDCopay4Ind">
+                            <legend class="ssn_legend">Default/replacement value</legend>
+                            <input type="text" id="emdCopay4" placeholder="###.##" tabindex="0" class="form-input-xs ssn_input" formControlName="emdCopay4"
+                            appMask="decimalThreePlaces" maxlength="6">
+                          </ng-container>
+                          <div *ngIf="submitted && showEMDCopay4Ind && this.memberDefaultForm.get('emdCopay4').invalid">
+                            <p class="bold_error">
+                              {{fieldRequiredMsg}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                      <p>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdCopay4Ind') != null">{{ memberDefaultForm.get('emdCopay4Ind').value }}</label>
+                          <label class="view_message" *ngIf="memberDefaultForm.get('emdCopay4') != null">{{ memberDefaultForm.get('emdCopay4').value }}</label>
+                      </p>
+                  </div>   
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="form-group"
+                  [ngClass]="{'error': submitted && this.memberDefaultForm.get('emdPlanEligValidation').invalid}">
+                      <div class="left-control">
+                          <label>
+                              <span>Plan eligibility validation</span>
+                              <span class="required">*</span>
+                          </label>
+                          <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                      Imagery may or may not reflect your current medications.">
+                          </a>
+                      </div>
+                      <div class="right-control error_message" *ngIf="!isView()">
+                          <div class="field-block">
+                              <input type="radio" required="" id="form_radio_planEligValidationY" aria-required="true" tabindex="0"
+                                     formControlName="emdPlanEligValidation" value="Y" >
+                              <label class="field-label" for="form_radio_planEligValidationY">Yes</label>
+                          </div>
+                          <div class="field-block">
+                              <input type="radio" id="form_radio_planEligValidationN" tabindex="0" formControlName="emdPlanEligValidation"
+                                     value="N" >
+                              <label class="field-label" for="form_radio_planEligValidationN">No</label>
+                          </div>
+                          <div *ngIf="submitted && this.memberDefaultForm.get('emdPlanEligValidation').invalid && this.memberDefaultForm.get('emdPlanEligValidation').errors.required">
+                                  <p class="bold_error">
+                                        {{ fieldRequiredMsg }}
+                                  </p>
+                              </div>
+                      </div>
+                      <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="memberDefaultForm.get('emdPlanEligValidation') != null">{{ memberDefaultForm.get('emdPlanEligValidation').value }}</label>
+                        </p>
+                    </div>   
+                  </div>
+              </div>
+
+
+              <a id="reportingIndicators"></a>
+              <div>
+                <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+              </div>
+
+              <div>
+                <app-form-section-heading></app-form-section-heading>
+                <div class="h2">Reporting Indicators</div>
+            </div>
+
+            <div class="row">
+              <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdDurKeyInd').invalid || this.memberDefaultForm.get('emdDurKey').invalid)}">
+                <div class="left-control">
+                  <label for="emdDurKeyInd">
+                    <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdDurKeyInd').invalid || this.memberDefaultForm.get('emdDurKey').invalid)}">DUR key</span>
+                    <span class="required">*</span>
+                  </label>
+                  <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                  </a>
+                </div>
+                <div class="right-control error_message" *ngIf="!isView()">
+                  <div class="field-block">
+                    <div [ngClass]="{'ssn':showEMDDurKeyInd}">
+                      <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdDurKeyInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                        <select tabindex="0" id="emdDurKeyInd" class="form-select-lg" formControlName="emdDurKeyInd" (change)="selectType($event,'emdDurKeyInd')">
+                          <option value="">Select one</option>
+                          <option value="B">Blank or zero field</option>
+                          <option value="D">Default, if no input value</option>                                    
+                          <option value="N">No, not in input file</option>
+                          <option value="Q">Required</option>
+                          <option value="R">Replace input value</option>
+                          <option value="S">Soft reject</option>
+                          <option value="Y">Yes, in input file</option>
+                          <option value="Z">Input zero or blank = No Edit</option>
+                        </select>
+                      </div>
+                      <div *ngIf="submitted && this.memberDefaultForm.get('emdDurKeyInd').invalid && this.memberDefaultForm.get('emdDurKeyInd').errors.required">
+                        <p class="bold_error">
+                          {{fieldRequiredMsg}}
+                        </p>
+                      </div>
+                      <ng-container *ngIf="showEMDDurKeyInd">
+                        <legend class="ssn_legend">Default/replacement value</legend>
+                        <input type="text" id="emdDurKey" placeholder="DUR key" tabindex="0" class="form-input-md ssn_input" formControlName="emdDurKey"
+                        appAlphanumallspec maxlength="18">
+                      </ng-container>
+                      <div *ngIf="submitted && showEMDDurKeyInd && this.memberDefaultForm.get('emdDurKey').invalid">
+                        <p class="bold_error">
+                          {{fieldRequiredMsg}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="right-control view_message" *ngIf="isView()">
+                  <p>
+                      <label class="view_message" *ngIf="memberDefaultForm.get('emdDurKeyInd') != null">{{ memberDefaultForm.get('emdDurKeyInd').value }}</label>
+                      <label class="view_message" *ngIf="memberDefaultForm.get('emdDurKey') != null">{{ memberDefaultForm.get('emdDurKey').value }}</label>
+                  </p>
+              </div>   
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdDurFlagInd').invalid || this.memberDefaultForm.get('emdDurFlag').invalid)}">
+                <div class="left-control">
+                  <label for="emdDurFlagInd">
+                    <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdDurFlagInd').invalid || this.memberDefaultForm.get('emdDurFlag').invalid)}">DUR process flag</span>
+                    <span class="required">*</span>
+                  </label>
+                  <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                  </a>
+                </div>
+                <div class="right-control error_message" *ngIf="!isView()">
+                  <div class="field-block">
+                    <div [ngClass]="{'ssn':showEMDDurFlagInd}">
+                      <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdDurFlagInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                        <select tabindex="0" id="emdDurFlagInd" class="form-select-lg" formControlName="emdDurFlagInd" (change)="selectType($event,'emdDurFlagInd')">
+                          <option value="">Select one</option>
+                          <option value="B">Blank or zero field</option>
+                          <option value="D">Default, if no input value</option>                                    
+                          <option value="N">No, not in input file</option>
+                          <option value="Q">Required</option>
+                          <option value="R">Replace input value</option>
+                          <option value="V">Validate</option>
+                          <option value="Y">Yes, in input file</option>
+                          <option value="Z">Input zero or blank = No Edit</option>
+                        </select>
+                      </div>
+                      <div *ngIf="submitted && this.memberDefaultForm.get('emdDurFlagInd').invalid && this.memberDefaultForm.get('emdDurFlagInd').errors.required">
+                        <p class="bold_error">
+                          {{fieldRequiredMsg}}
+                        </p>
+                      </div>
+                      <ng-container *ngIf="showEMDDurFlagInd">
+                        <legend class="ssn_legend">Default/replacement value</legend>
+
+
+                          <div class="field-block">
+                                  <input type="radio" id="form_radio_durFlagY"  tabindex="0"
+                                         formControlName="emdDurFlag" value="Y" >
+                                  <label class="field-label" for="form_radio_durFlagY">Yes</label>
+                          </div>
+                          <div class="field-block">
+                              <input type="radio" id="form_radio_durFlagN" tabindex="0" formControlName="emdDurFlag"
+                                  value="N" >
+                              <label class="field-label" for="form_radio_durFlagN">No</label>
+                          </div>
+
+
+                      </ng-container>
+                      <div *ngIf="submitted && showEMDDurFlagInd && this.memberDefaultForm.get('emdDurFlag').invalid">
+                        <p class="bold_error">
+                          {{fieldRequiredMsg}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="right-control view_message" *ngIf="isView()">
+                  <p>
+                      <label class="view_message" *ngIf="memberDefaultForm.get('emdDurFlagInd') != null">{{ memberDefaultForm.get('emdDurFlagInd').value }}</label>
+                      <label class="view_message" *ngIf="memberDefaultForm.get('emdDurFlag') != null">{{ memberDefaultForm.get('emdDurFlag').value }}</label>
+                  </p>
+              </div>   
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdClientProdCodeInd').invalid || this.memberDefaultForm.get('emdClientProductCode').invalid)}">
+                <div class="left-control">
+                  <label for="emdClientProdCodeInd">
+                    <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdClientProdCodeInd').invalid || this.memberDefaultForm.get('emdClientProductCode').invalid)}">Client product code</span>
+                    <span class="required">*</span>
+                  </label>
+                  <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                  </a>
+                </div>
+                <div class="right-control error_message" *ngIf="!isView()">
+                  <div class="field-block">
+                    <div [ngClass]="{'ssn':showEMDClientProdCodeInd}">
+                      <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdClientProdCodeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                        <select tabindex="0" id="emdClientProdCodeInd" class="form-select-lg" formControlName="emdClientProdCodeInd" (change)="selectType($event,'emdClientProdCodeInd')">
+                          <option value="">Select one</option>
+                          <option value="B">Blank or zero field</option>
+                          <option value="D">Default, if no input value</option>                                    
+                          <option value="N">No, not in input file</option>
+                          <option value="Q">Required</option>
+                          <option value="R">Replace input value</option>
+                          <option value="S">Soft reject</option>
+                          <option value="Y">Yes, in input file</option>
+                          <option value="Z">Input zero or blank = No Edit</option>
+                        </select>
+                      </div>
+                      <div *ngIf="submitted && this.memberDefaultForm.get('emdClientProdCodeInd').invalid && this.memberDefaultForm.get('emdClientProdCodeInd').errors.required">
+                        <p class="bold_error">
+                          {{fieldRequiredMsg}}
+                        </p>
+                      </div>
+                      <ng-container *ngIf="showEMDClientProdCodeInd">
+                        <legend class="ssn_legend">Default/replacement value</legend>
+                        <input type="text" id="emdClientProductCode" placeholder="Product code" tabindex="0" class="form-input-s ssn_input" formControlName="emdClientProductCode"
+                        appAlphanumallspec maxlength="6">
+                      </ng-container>
+                      <div *ngIf="submitted && showEMDClientProdCodeInd && this.memberDefaultForm.get('emdClientProductCode').invalid">
+                        <p class="bold_error">
+                          {{fieldRequiredMsg}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="right-control view_message" *ngIf="isView()">
+                  <p>
+                      <label class="view_message" *ngIf="memberDefaultForm.get('emdClientProdCodeInd') != null">{{ memberDefaultForm.get('emdClientProdCodeInd').value }}</label>
+                      <label class="view_message" *ngIf="memberDefaultForm.get('emdClientProductCode') != null">{{ memberDefaultForm.get('emdClientProductCode').value }}</label>
+                  </p>
+              </div>   
+              </div>
+            </div>
+
+
+
+            <div class="row">
+              <div class="form-group" [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdClientRiderCodeInd').invalid || this.memberDefaultForm.get('emdClientRiderCode').invalid)}">
+                <div class="left-control">
+                  <label for="emdClientRiderCodeInd">
+                    <span [ngClass]="{'error': submitted && (this.memberDefaultForm.get('emdClientRiderCodeInd').invalid || this.memberDefaultForm.get('emdClientRiderCode').invalid)}">Client rider code</span>
+                    <span class="required">*</span>
+                  </label>
+                  <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                  </a>
+                </div>
+                <div class="right-control error_message" *ngIf="!isView()">
+                  <div class="field-block">
+                    <div [ngClass]="{'ssn':showEMDClientRiderCodeInd}">
+                      <div class="select ssn_select" [ngStyle]="{'border' : (submitted && this.memberDefaultForm.get('emdClientRiderCodeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                        <select tabindex="0" id="emdClientRiderCodeInd" class="form-select-lg" formControlName="emdClientRiderCodeInd" (change)="selectType($event,'emdClientRiderCodeInd')">
+                          <option value="">Select one</option>
+                          <option value="B">Blank or zero field</option>
+                          <option value="D">Default, if no input value</option>                                    
+                          <option value="N">No, not in input file</option>
+                          <option value="Q">Required</option>
+                          <option value="R">Replace input value</option>
+                          <option value="S">Soft reject</option>
+                          <option value="Y">Yes, in input file</option>
+                          <option value="Z">Input zero or blank = No Edit</option>
+                        </select>
+                      </div>
+                      <div *ngIf="submitted && this.memberDefaultForm.get('emdClientRiderCodeInd').invalid && this.memberDefaultForm.get('emdClientRiderCodeInd').errors.required">
+                        <p class="bold_error">
+                          {{fieldRequiredMsg}}
+                        </p>
+                      </div>
+                      <ng-container *ngIf="showEMDClientRiderCodeInd">
+                        <legend class="ssn_legend">Default/replacement value</legend>
+                        <input type="text" id="emdClientRiderCode" placeholder="Rider code" tabindex="0" class="form-input-s ssn_input" formControlName="emdClientRiderCode"
+                        appAlphanumallspec maxlength="6">
+                      </ng-container>
+                      <div *ngIf="submitted && showEMDClientRiderCodeInd && this.memberDefaultForm.get('emdClientRiderCode').invalid">
+                        <p class="bold_error">
+                          {{fieldRequiredMsg}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="right-control view_message" *ngIf="isView()">
+                  <p>
+                      <label class="view_message" *ngIf="memberDefaultForm.get('emdClientRiderCodeInd') != null">{{ memberDefaultForm.get('emdClientRiderCodeInd').value }}</label>
+                      <label class="view_message" *ngIf="memberDefaultForm.get('emdClientRiderCode') != null">{{ memberDefaultForm.get('emdClientRiderCode').value }}</label>
+                  </p>
+              </div>   
+              </div>
+            </div>
+
+            <div>
+              <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+            </div>
+
+
+
+                  
+            <form-controls
+              [recordSessionStorageId]="'eligibilityProfile'"
+              [showCancel]="true"
+              [showSave]="!isView()"
+              (onSave)="submit()"
+              [onCancelRoute]="'/s-active-eligibility-profile'"
+            >
+            </form-controls>
+  
+          </div>
+          <div class="spacer"></div>
+
+        </form>
+        <div *ngIf="isSaving">
+            <app-loading-indicator></app-loading-indicator>
+        </div>
+    </div>
+    <div class="dateUserStampStyle">
+      Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; 
+      Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; 
+      User:&nbsp;&nbsp;{{changeUser}}
+      <br>&nbsp;
+    </div>
+   
+</div>
+
+<style>
+    @font-face {
+        font-family: 'frutiger-bold';
+        src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */ url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+    }
+
+    @font-face {
+        font-family: 'frutiger-roman';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../../assets/fonts/optum/frutiger-roman.eot');
+        /* IE9 Compat Modes */
+        src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */ url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+    }
+</style>

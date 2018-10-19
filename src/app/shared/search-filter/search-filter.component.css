@@ -1,0 +1,60 @@
+/* Styles for filter */
+.addFilterButtonStyle{   
+    float: right;
+}
+
+.close-button {
+    background: url('/assets/images/close-btn-small.png') no-repeat;
+    width:12px;
+    height:10px;
+    border:0;
+    margin:0;
+    position:relative;
+    left: -4px;
+    top: 12px;
+    display: inline;
+}
+
+.has-search-icon {
+    background: url('/assets/images/search.svg') no-repeat;
+    background-position: center right 3px;
+    border: 0;
+}
+::-ms-clear {
+    display: none;
+  }
+input{
+    text-transform: none;    
+}
+
+input:focus {
+    background-color: #FFFFFF !important;
+}
+
+.filterBox{
+    width:220px;  
+    float:left; 
+    margin-left: 12px;
+    height:36px;
+    margin-right: 5px;
+    margin-bottom: 18px;
+}
+
+.form-group {
+    margin-left:5px !important;
+    margin-right:5px !important;
+    margin-top:5px !important;
+    margin-bottom:5px !important;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #B3B3B3 !important;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #B3B3B3 !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color:#B3B3B3 !important;
+}

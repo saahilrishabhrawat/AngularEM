@@ -1,0 +1,227 @@
+<div class="title" id="top">
+    <div id="end_of_global_nav" tabindex="-1"></div>
+    <section class="area no-padding trim--white ">
+        <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+            <div class="ogn__title__left">
+                <h1 class="h1">{{pageTitle}}</h1>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="form_outer">
+
+    <div>
+        <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+    </div>
+
+    <div class="form_background">
+
+        <div>
+            <app-form-menu></app-form-menu>
+            <section class="area no-padding trim--white">
+                <div class="ogn__secondary-form ogn-container">
+                    <div class="content"></div>
+                </div>
+            </section>
+        </div>
+
+        <form novalidate [formGroup]="errorToleranceThresholdForm" [hidden]="isLoading">
+
+            <form-controls
+                [recordSessionStorageId]="'eligibilityProfile'"
+                [showCancel]="true"
+                [showSave]="!isView()"
+                (onSave)="submit()"
+                [onCancelRoute]="'/s-active-eligibility-profile'"
+                >
+            </form-controls>
+
+            <div class="errorDiv" *ngIf="submitted && false">
+                <p class="errorDiv_text">{{errorDivMessage}}</p>
+            </div>
+            <div class="successDiv" *ngIf="isSuccess && false">
+                <p class="errorDiv_text">{{saveMsg}}</p>
+            </div>
+
+            <pcag-info
+                [platformId]="platformId"
+                [carrierId]="carrierId"
+                [accountId]="accountId"
+                [groupId]="groupId"
+            >
+            </pcag-info>
+
+            <!-- Start from here -->
+            <div class="typography form">
+
+                <div>
+                    <app-form-section-heading></app-form-section-heading>
+                    <div class="h2">Threshold Information</div>
+
+                    <div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': submitted && this.errorToleranceThresholdForm.get('ecdFileIdFieldNumber').invalid }">
+
+                                <div class="left-control">
+                                    <label for="ecdFileIdFieldNumber">
+                                        <span [ngClass]="{'error': submitted && this.errorToleranceThresholdForm.get('ecdFileIdFieldNumber').invalid}">Field</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div class="select" [ngStyle]="{'border' : (submitted && this.errorToleranceThresholdForm.get('ecdFileIdFieldNumber').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                            <select tabindex="0" class="form-select-lg" id="ecdFileIdFieldNumber" formControlName="ecdFileIdFieldNumber">
+                                                <option value="">Select one</option>
+                                                <option *ngFor="let listItem of fieldIdSelectOptions" [value]="listItem.valueId">{{listItem.valueDesc}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="submitted && this.errorToleranceThresholdForm.get('ecdFileIdFieldNumber').invalid">
+                                        <p class="bold_error">
+                                            {{fieldErrorMessages['ecdFileIdFieldNumber'] || fieldRequiredMessage}}
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="isView()">
+                                    <label>{{(getFieldDescriptionFromValue(errorToleranceThresholdForm.get(('ecdFileIdFieldNumber')).value) || '')}}</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': submitted && this.errorToleranceThresholdForm.get('ecdToleranceChkActive').invalid }">
+
+                                <div class="left-control">
+                                    <label for="ecdToleranceChkActive">
+                                        <span [ngClass]="{'error': submitted && this.errorToleranceThresholdForm.get('ecdToleranceChkActive').invalid}">Enabled</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <input type="radio" aria-required="true" tabindex="0" id ="ecdToleranceChkActiveY" name="ecdToleranceChkActive" formControlName="ecdToleranceChkActive"
+                                            value="Y">    
+                                        <label class="field-label" for="ecdToleranceChkActiveY">Yes</label>
+                                    </div>
+                                    <div class="field-block">
+                                        <input type="radio" aria-required="true" tabindex="0" id ="ecdToleranceChkActiveN" name="ecdToleranceChkActive" formControlName="ecdToleranceChkActive"
+                                            value="N">
+                                        <label class="field-label" for="ecdToleranceChkActiveN">No</label>
+                                    </div>
+
+                                    <div *ngIf="submitted && this.errorToleranceThresholdForm.get('ecdToleranceChkActive').invalid">
+                                        <p class="bold_error">
+                                            {{fieldErrorMessages['ecdToleranceChkActive'] || fieldRequiredMessage}}
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="isView()">
+                                    <label>{{(errorToleranceThresholdForm.get(('ecdToleranceChkActive')).value === 'Y' ? 'Yes' : 'No' || '')}}</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': submitted && this.errorToleranceThresholdForm.get('ecdTolerancePercentage').invalid }">
+
+                                <div class="left-control">
+                                    <label for="ecdTolerancePercentage">
+                                        <span [ngClass]="{'error': submitted && this.errorToleranceThresholdForm.get('ecdTolerancePercentage').invalid}">Percentage</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <input type="text" maxlength="6" placeholder="###.##" class="form-input-xs" id="ecdTolerancePercentage" formControlName="ecdTolerancePercentage" appMask="percentage">
+                                    </div>
+
+                                    <div *ngIf="submitted && this.errorToleranceThresholdForm.get('ecdTolerancePercentage').invalid">
+                                        <p class="bold_error">
+                                            {{fieldErrorMessages['ecdTolerancePercentage'] || fieldRequiredMessage}}
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="isView()">
+                                    <label>{{(errorToleranceThresholdForm.get(('ecdTolerancePercentage')).value || '')}}</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div>
+                        <app-form-section-footer [jumplinkFlag]="jumplinkFlag"></app-form-section-footer>
+                </div>
+
+            </div>
+
+            <form-controls
+                [recordSessionStorageId]="'eligibilityProfile'"
+                [showCancel]="true"
+                [showSave]="!isView()"
+                (onSave)="submit()"
+                [onCancelRoute]="'/s-active-eligibility-profile'"
+            >
+            </form-controls>
+
+        </form>
+
+        <div *ngIf="isLoading">
+            <app-loading-indicator></app-loading-indicator>
+        </div>
+
+    </div>
+
+    <div class="dateUserStampStyle">
+        Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+        <br>&nbsp;
+    </div>
+
+</div>
+
+
+
+<style>
+    @font-face {
+        font-family: 'frutiger-bold';
+        src: url('../../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+        url('../../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+    }
+
+    @font-face {
+        font-family: 'frutiger-roman';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../../../assets/fonts/optum/frutiger-roman.eot');
+        /* IE9 Compat Modes */
+        src: url('../../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('../../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+        url('../../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+    }
+</style>

@@ -1,0 +1,411 @@
+<section class="area no-padding trim--white">
+    <div class="ogn__secondary-header-formlink ogn-container">
+        <div class="content">
+            <div class="longBar"></div>
+
+
+            <div *ngIf="this.jumplinkFlag==='CARE_ASSIGN'" class="grid">
+                <div class="jumplinkColumn">
+                </div>
+                <div class="backToTopColumn">
+                    <a href="care-assign-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="this.jumplinkFlag==='OVERRIDE'" class="grid">
+                <div class="jumplinkColumn">
+                </div>
+                <div class="backToTopColumn">
+                    <a href="override-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div *ngIf="this.jumplinkFlag==='HIM'" class="grid">
+                <div class="jumplinkColumn">
+
+                </div>
+                <div class="backToTopColumn">
+                    <a href="him-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div *ngIf="this.jumplinkFlag==='EligPrfDtl'" class="grid">
+                <div class="jumplinkColumn">
+                    <div class="grid">
+                        <div style="width: 70px;">
+                            <span class="jumplink-header-style">
+                                Jumplinks:
+                            </span>
+                        </div>
+                        <div style="width: 380px">
+                            <div class="grid">
+                                <div>
+                                    <a href="eligibility-profile-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#stageLoadData"
+                                        class="jumplink-style">Stage Load Data</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="eligibility-profile-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#profileInformation"
+                                        class="jumplink-style">Profile Information</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="eligibility-profile-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#loadInformation"
+                                        class="jumplink-style">Load Information</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="backToTopColumn">
+                    <a href="eligibility-profile-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+
+            <div *ngIf="this.jumplinkFlag==='CovrgDfltDtl'" class="grid">
+                <div class="jumplinkColumn">
+                    <div class="grid">
+                        <div style="width: 70px;">
+                            <span class="jumplink-header-style">
+                                Jumplinks:
+                            </span>
+                        </div>
+                        <div style="width: 380px">
+                            <div class="grid">
+                                <div>
+                                    <a href="coverage-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#medicareind"
+                                        class="jumplink-style">Medicare Default Detail</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="coverage-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#otherCoverageIndi"
+                                        class="jumplink-style">Other Coverage Indicators</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="backToTopColumn">
+                    <a href="coverage-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div *ngIf="this.jumplinkFlag==='IncdntDfltDtl'" class="grid">
+                <div class="jumplinkColumn">
+                </div>
+                <div class="backToTopColumn">
+                    <a href="incident-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+
+            <div *ngIf="this.jumplinkFlag==='MemberDfltDtl'" class="grid">
+                <div class="jumplinkColumn">
+                    <div class="grid">
+                        <div style="width: 70px;">
+                            <span class="jumplink-header-style">
+                                Jumplinks:
+                            </span>
+                        </div>
+                        <div style="width: 380px">
+                            <div class="grid">
+                                <div>
+                                    <a href="member-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#memberDefaults"
+                                        class="jumplink-style">Member Defaults</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="member-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#demographicIndicators"
+                                        class="jumplink-style">Demographic Indicators</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="member-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#memberIndicators"
+                                        class="jumplink-style">Member Indicators</a>
+                                </div>
+                                <div>
+                                    <a href="member-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#eligibilityIndicators"
+                                        class="jumplink-style">Eligibility Indicators</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="member-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#reportingIndicators"
+                                        class="jumplink-style">Reporting Indicators</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="backToTopColumn">
+                    <a href="member-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="this.jumplinkFlag==='ALT_INSURANCE'" class="grid">
+                <div class="jumplinkColumn">
+                </div>
+                <div class="backToTopColumn">
+                    <a href="alternate-insurance-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="this.jumplinkFlag==='GROUP_DEFAULT_DETAIL'" class="grid">
+                <div class="jumplinkColumn">
+                    <div class="grid">
+                        <div style="width: 70px;">
+                            <span class="jumplink-header-style">
+                                Jumplinks:
+                            </span>
+                        </div>
+                        <div style="width: 380px">
+                            <div class="grid">
+                                <div>
+                                    <a href="group-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#groupIndicators"
+                                        class="jumplink-style">Group Indicators</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="group-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#groupEligIndicators"
+                                        class="jumplink-style">Group Eligibility Indicators</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="backToTopColumn">
+                    <a href="group-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+
+            <div *ngIf="this.jumplinkFlag==='health-default-detail-form'" class="grid">
+                <div class="jumplinkColumn">
+                    <div class="grid">
+                        <div style="width: 70px;">
+                            <span class="jumplink-header-style">
+                                Jumplinks:
+                            </span>
+                        </div>
+                        <div style="width: 380px">
+                            <div class="grid">
+                                <div>
+                                    <a href="health-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#diagnosis-codes"
+                                        class="jumplink-style">Diagnosis codes</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="health-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#allergy-codes"
+                                        class="jumplink-style">Allergy codes</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="health-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#misc-codes"
+                                        class="jumplink-style">Misc. codes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="backToTopColumn">
+                    <a href="health-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div *ngIf="this.jumplinkFlag==='EQD'" class="grid">
+              <div class="jumplinkColumn">
+              </div>
+              <div class="backToTopColumn">
+                  <a href="eligibility-queue-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};rptNm={{this.reportName}};mode={{this.mode}}#top"
+                      class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                      <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                      <span class="topTextStyle">Top</span>
+                  </a>
+              </div>
+          </div>
+
+          <div *ngIf="this.jumplinkFlag==='QualityDfltDtl'" class="grid">
+                <div class="jumplinkColumn">
+
+                </div>
+                <div class="backToTopColumn">
+                    <a href="quality-default-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+
+            <div *ngIf="this.jumplinkFlag==='EGD'" class="grid">
+              <div class="jumplinkColumn">
+
+              </div>
+              <div class="backToTopColumn">
+                  <a href="eligibility-governance-data-control;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                      class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                      <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                      <span class="topTextStyle">Top</span>
+                  </a>
+              </div>
+          </div>
+            
+        <div *ngIf="this.jumplinkFlag== 'ERROR_TOLERANCE_CONTROL'" class="grid">
+            <div style="width: 70px;">
+                <span class="jumplink-header-style">
+                    Jumplinks:
+                </span>
+        </div>
+        <div style="width: 380px">
+            <div class="grid">
+                <div>
+                    <a href="error-tolerance-control;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#generalParam"
+                        class="jumplink-style">General Parameters</a>
+                </div>
+                <div class="jumplink-div-style">&middot;</div>
+                <div>
+                    <a href="error-tolerance-control;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#toleranceControlParam"
+                        class="jumplink-style">Tolerance Control Parameters</a>
+                </div>
+            </div>
+        </div>
+        <div class="backToTopColumn">
+            <a href="error-tolerance-control;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                <span class="topTextStyle">Top</span>
+            </a>
+        </div>
+        </div>
+
+
+        <div *ngIf="this.jumplinkFlag==='EligReqDtl'" class="grid">
+                <div class="jumplinkColumn">
+
+                </div>
+                <div class="backToTopColumn">
+                    <a href="eligibility-request-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};trackingId={{this.trackingId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+     <div *ngIf="this.jumplinkFlag==='ERROR_TOLERANCE_THRESHOLD_DETAIL'" class="grid">
+                <div class="jumplinkColumn">
+                </div>
+                <div class="backToTopColumn">
+                    <a href="error-tolerance-threshold;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};field={{this.field}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+
+            <div *ngIf="this.jumplinkFlag==='RequiredFieldDetail'" class="grid">
+                <div class="jumplinkColumn">
+                    <div class="grid">
+                        <div style="width: 70px;">
+                            <span class="jumplink-header-style">
+                                Jumplinks:
+                            </span>
+                        </div>
+                        <div style="width: 380px">
+                            <div class="grid">
+                                <div>
+                                    <a href="required-member-fields-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#demographicInformation"
+                                        class="jumplink-style">Demographic Information</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="required-member-fields-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#memberInformation"
+                                        class="jumplink-style">Member Information</a>
+                                </div>
+                                <div class="jumplink-div-style"></div>
+                                <div>
+                                    <a href="required-member-fields-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#eligibilityInformation"
+                                        class="jumplink-style">Eligibility Information</a>
+                                </div>
+                                <div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="required-member-fields-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#reportingInformation"
+                                        class="jumplink-style">Reporting Information</a>
+                                </div>
+                                <div class="jumplink-div-style"></div>
+                                <div>
+                                    <a href="required-member-fields-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#careAssignmentInformation"
+                                        class="jumplink-style">Care Assignment Information</a>
+                                </div>
+								<div class="jumplink-div-style">&middot;</div>
+                                <div>
+                                    <a href="required-member-fields-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#altInsuranceInformation"
+                                        class="jumplink-style">Alt Insurance Information</a>
+                                </div>
+								
+								
+								
+								
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="backToTopColumn">
+                    <a href="required-member-fields-detail;cid={{this.carrierId}};aid={{this.accountId}};gid={{this.groupId}};pid={{this.platformId}};mode={{this.mode}}#top"
+                        class="btn--back-to-top-container topAlignment" aria-hidden="true">
+                        <span class="btn--back-to-top-container__btn1 topAlignment "></span>
+                        <span class="topTextStyle">Top</span>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="spacerAfterColumns"></div>
+        </div>
+    </div>
+</section>

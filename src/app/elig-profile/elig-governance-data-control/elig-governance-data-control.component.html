@@ -1,0 +1,209 @@
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+
+</style>
+<a id="top"></a>
+<div class="title">
+  <div id="end_of_global_nav" tabindex="-1"></div>
+  <section class="area no-padding trim--white ">
+    <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+      <div class="ogn__title__left">
+        <h1 class="h1">Eligibility Governance Data Control</h1>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+  <div>
+    <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+  </div>
+  <div class="form_background">
+    <div class="">
+      <app-form-menu></app-form-menu>
+      <section class="area no-padding trim--white">
+        <div class="ogn__secondary-form ogn-container">
+          <div class="content"></div>
+        </div>
+      </section>
+    </div>
+    <!--Form starts-->
+    <form [formGroup]="eligGovDataCtrlForm" [hidden]="isSaving || inProcess">
+
+      <form-controls
+        [recordSessionStorageId]="'eligibilityProfile'"
+        [showCancel]="true"
+        [showSave]="!isView()"
+        (onSave)="submit()"
+        [onCancelRoute]="'/s-active-eligibility-profile'"
+      >
+      </form-controls>
+
+      <div class="errorDiv" *ngIf="submitted && this.eligGovDataCtrlForm.invalid">
+        <p class="errorDiv_text">{{errorDivMessage}}</p>
+      </div>
+      <div class="successDiv" *ngIf="submitted && this.eligGovDataCtrlForm.valid && isSuccess">
+        <p class="errorDiv_text">Your changes were successfully saved.</p>
+      </div>
+
+      <pcag-info [platformId]="platformId" [carrierId]="carrierId" [accountId]="accountId" [groupId]="groupId">
+      </pcag-info>
+      <div class="form">
+        <div class="row">
+          <div class="form-group col-xs-12 col-md-12">
+            <div class="left-control">
+              <label>
+
+                <span>Version</span>
+
+              </label>
+            </div>
+            <div class="right-control">
+              <label>{{version}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <app-form-section-heading></app-form-section-heading>
+        <div class="h2">General Parameters</div>
+      </div>
+      <div class="typography form">
+
+        <!--Input Field Start-->
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.eligGovDataCtrlForm.get('edgExternalEligUpdate').invalid}">
+            <div class="left-control">
+              <label id="edgExternalEligUpdate_label" for="edgExternalEligUpdate">
+                <span>External eligibility update?</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+            Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <input type="radio" id="edgExternalEligUpdateYes" tabindex="0" value="Y" formControlName="edgExternalEligUpdate">
+                <label class="field-label" for="edgExternalEligUpdateYes">Yes</label>
+              </div>
+              <div class="field-block">
+                <input type="radio" id="edgExternalEligUpdateNo" tabindex="0" value="N" formControlName="edgExternalEligUpdate">
+                <label class="field-label" for="edgExternalEligUpdateNo">No</label>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="eligGovDataCtrlForm.get('edgExternalEligUpdate') != null">{{ eligGovDataCtrlForm.get('edgExternalEligUpdate').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.eligGovDataCtrlForm.get('edgEligibilityMbrMatch').invalid}">
+            <div class="left-control">
+              <label id="edgEligibilityMbrMatch_label" for="edgEligibilityMbrMatch">
+                <span>Eligibility member match?</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <input type="radio" id="edgEligibilityMbrMatchYes" tabindex="0" value="Y" formControlName="edgEligibilityMbrMatch">
+                <label class="field-label" for="edgEligibilityMbrMatchYes">Yes</label>
+              </div>
+              <div class="field-block">
+                <input type="radio" id="edgEligibilityMbrMatchNo" tabindex="0" value="N" formControlName="edgEligibilityMbrMatch">
+                <label class="field-label" for="edgEligibilityMbrMatchNo">No</label>
+              </div>
+              <div *ngIf="submitted && this.eligGovDataCtrlForm.get('edgEligibilityMbrMatch').invalid" class="error_message">
+                <p class="bold_error">
+                  {{ edgEligibilityMbrMatchErrorMsg }}
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+              <p>
+                <label class="view_message" *ngIf="eligGovDataCtrlForm.get('edgEligibilityMbrMatch') != null">{{ eligGovDataCtrlForm.get('edgEligibilityMbrMatch').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.eligGovDataCtrlForm.get('edgEmailDistListId').invalid}">
+            <div class="left-control">
+              <label id="edgEmailDistListId_label" for="edgEmailDistListId">
+                <span>Email notification list</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                          Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="appLookup">
+                <input type="text" maxlength="10" id="edgEmailDistListId" tabindex="0" class="form-input-s" formControlName="edgEmailDistListId"
+                  appUpper>
+              </div>
+              <a>
+                <span class="material-icons iconLookup">search</span>
+              </a>
+              <a class="lookup">Lookup</a>
+              <div *ngIf="submitted && this.eligGovDataCtrlForm.get('edgEmailDistListId').invalid">
+                <p class="bold_error">
+                  {{edgEmailDistListIdErrorMsg}}
+                </p>
+              </div>
+            </div>
+            <div class="right-control" *ngIf="isView()">
+              <p>
+                <label *ngIf="eligGovDataCtrlForm.get('edgEmailDistListId') != null">{{ eligGovDataCtrlForm.get('edgEmailDistListId').value }}</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--Input Field End-->
+
+        <div>
+          <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+        </div>
+        <form-controls
+          [recordSessionStorageId]="'eligibilityProfile'"
+          [showCancel]="true"
+          [showSave]="!isView()"
+          (onSave)="submit()"
+          [onCancelRoute]="'/s-active-eligibility-profile'"
+          >
+        </form-controls>
+
+      </div>
+      <div class="spacer"></div>
+    </form>
+    <div *ngIf="isSaving || inProcess">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+    <!--Form ends-->
+  </div>
+  <div class="dateUserStampStyle" *ngIf="!(inProcess || isSaving)">
+    Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+    <br>&nbsp;
+  </div>
+</div>

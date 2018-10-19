@@ -1,0 +1,105 @@
+
+/*
+div {
+    background-color: #aaa28b;;
+    border: 1px solid #000000;
+    padding: 10px;
+    margin: 10px;
+}
+*/
+
+
+@font-face {
+    font-family: 'frutiger';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../assets/fonts/optum/frutiger-light.eot'); /* IE9 Compat Modes */
+    src: url('../assets/fonts/optum/frutiger-light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../assets/fonts/optum/frutiger-light.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../assets/fonts/optum/frutiger-light.ttf')  format('truetype');
+  }
+  @font-face {
+    font-family: 'frutiger';
+    font-style: italic;
+    font-weight: 300;
+    src: url('../assets/fonts/optum/frutiger-light-italic.eot'); /* IE9 Compat Modes */
+    src: url('../assets/fonts/optum/frutiger-light-italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../assets/fonts/optum/frutiger-light-italic.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../assets/fonts/optum/frutiger-light-italic.ttf')  format('truetype');
+  }
+  @font-face {
+    font-family: 'frutiger';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fonts/optum/frutiger-roman.eot'); /* IE9 Compat Modes */
+    src: url('../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../assets/fonts/optum/frutiger-roman.ttf')  format('truetype');
+  }
+  @font-face {
+    font-family: 'frutiger';
+    font-style: italic;
+    font-weight: 400;
+    src: url('../assets/fonts/optum/frutiger-roman-italic.eot'); /* IE9 Compat Modes */
+    src: url('../assets/fonts/optum/frutiger-roman-italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../assets/fonts/optum/frutiger-roman-italic.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../assets/fonts/optum/frutiger-roman-italic.ttf')  format('truetype');
+  }
+  @font-face {
+    font-family: 'frutiger';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../assets/fonts/optum/FrutigerLTW01-65Bold.eot'); /* IE9 Compat Modes */
+    src: url('../assets/fonts/optum/FrutigerLTW01-65Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../assets/fonts/optum/frutiger-bold.ttf')  format('truetype');
+  }
+  @font-face {
+    font-family: 'frutiger';
+    font-style: italic;
+    font-weight: 700;
+    src: url('../assets/fonts/optum/frutiger-bold-italic.eot'); /* IE9 Compat Modes */
+    src: url('../assets/fonts/optum/frutiger-bold-italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../assets/fonts/optum/frutiger-bold-italic.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../assets/fonts/optum/frutiger-bold-italic.ttf')  format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fonts/MaterialIcons-Regular.eot'); /* IE9 Compat Modes */
+    src: url('../assets/fonts/MaterialIcons-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../assets/fonts/MaterialIcons-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../assets/fonts/MaterialIcons-Regular.ttf')  format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Optum Icon Font';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fonts/Optum-Icon-Font.eot'); /* IE9 Compat Modes */
+    src: url('../assets/fonts/Optum-Icon-Font.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../assets/fonts/Optum-Icon-Font.woff') format('woff'),
+         url('../assets/fonts/Optum-Icon-Font.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Optum-Micro-interaction-24';
+    src:  url('../assets/fonts/Optum-Micro-interaction-24.eot?ksgutp');
+    src:  url('../assets/fonts/Optum-Micro-interaction-24.eot?ksgutp#iefix') format('embedded-opentype'),
+      url('../assets/fonts/Optum-Micro-interaction-24.woff2?ksgutp') format('woff2'),
+      url('../assets/fonts/Optum-Micro-interaction-24.ttf?ksgutp') format('truetype'),
+      url('../assets/fonts/Optum-Micro-interaction-24.woff?ksgutp') format('woff');
+  }
+  @font-face {
+    font-family: 'Optum-Micro-interaction-16';
+    src:  url('../assets/fonts/Optum-Micro-interaction-16.eot?d5jy79');
+    src:  url('../assets/fonts/Optum-Micro-interaction-16.eot?d5jy79#iefix') format('embedded-opentype'),
+      url('../assets/fonts/Optum-Micro-interaction-16.woff2?d5jy79') format('woff2'),
+      url('../assets/fonts/Optum-Micro-interaction-16.ttf?d5jy79') format('truetype'),
+      url('../assets/fonts/Optum-Micro-interaction-16.woff?d5jy79') format('woff');
+  }
+
+
+

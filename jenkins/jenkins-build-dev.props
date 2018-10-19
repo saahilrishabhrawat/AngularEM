@@ -1,0 +1,16 @@
+#Jenkins Dev build environment properties
+DOCK_REPO=rxclaim_modernization/rxc-eligibility-angular
+DOCK_LABEL=latest
+
+# Oso Dev
+CLOUD_APP=eligibility
+CLOUD_PROJECT=rxclaim-modernization
+OSE_SERVER=https://ocp-ctc-core-nonprod.optum.com
+PLATFORM=Openshift
+PROFILE=oso-dev,docker
+
+# Mesos Dev
+MESOS_PROJECT=cloudsdk-nodejs
+MESOS_SERVER=http://dbslp1728/marathon/v2/apps
+#PLATFORM=Mesos
+#PROFILE=mesos-dev,docker

@@ -1,0 +1,68 @@
+.outer-scrollable{
+  max-width: 1170px;
+  margin: auto;
+  border:1px solid #E0E0E0;
+  background-color:#F5F5F5;
+}
+.scrollable-filter-list {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .addFilterButtonStyle {
+    /**float: right;
+    */
+
+    margin-top:25px;
+    margin-bottom:25px;
+    margin-left:12px;
+
+  }
+
+
+  :host >>>  .popover{
+    padding: 16px;
+    border-bottom: 3px solid #B3B3B3;
+    border-left: 1px solid #B3B3B3;
+    border-top: 1px solid #B3B3B3;
+    border-right: 1px solid #B3B3B3;
+    margin-left: 10px;
+    border-radius: 1px;
+    width:auto;
+  }
+
+  :host >>>  .popover-body{
+    padding:0px;
+    line-height: 25px;
+  }
+  .popoverlink{
+    font-family: 'frutiger-bold';
+    font-size : 12px;
+    color: #316BBE ;
+  }
+  .popoverlink:hover{
+    text-decoration: underline;
+    color: #316BBE ;
+  }
+
+  .popoverheading{
+    font-family: 'frutiger-roman';
+    font-size : 12px;
+    color: #636363 ;
+
+  }
+   a{
+    text-decoration: none;
+  }
+
+
+ .disabledpopoverlink{
+    font-family: 'frutiger-bold';
+    font-size : 12px;
+    color: #00396C ;
+    cursor: not-allowed;
+  }
+ 

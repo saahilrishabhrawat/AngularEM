@@ -1,0 +1,343 @@
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+</style>
+<a id="top"></a>
+<div class="title">
+  <div id="end_of_global_nav" tabindex="-1"></div>
+  <section class="area no-padding trim--white ">
+    <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+      <div class="ogn__title__left">
+        <h1 class="h1">Override Default Detail</h1>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+  <div>
+      <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+  </div>
+  <div class="form_background">
+    <div class="">
+      <app-form-menu></app-form-menu>
+      <section class="area no-padding trim--white">
+        <div class="ogn__secondary-form ogn-container">
+          <div class="content"></div>
+        </div>
+      </section>
+    </div>
+    <!--Form starts-->
+    <form [formGroup]="overrideDtlForm" [hidden]="inProcess">
+      <form-controls
+        [recordSessionStorageId]="'eligibilityProfile'"
+        [showCancel]="true"
+        [showSave]="!isView()"
+        (onSave)="submit()"
+        [onCancelRoute]="'/s-active-eligibility-profile'"
+      >
+      </form-controls>
+
+      <div class="errorDiv" *ngIf="submitted && this.overrideDtlForm.invalid">
+        <p class="errorDiv_text">{{errorDivMessage}}</p>
+      </div>
+      <div class="successDiv" *ngIf="isSuccess && !this.overrideDtlForm.invalid">
+        <p class="errorDiv_text">Your changes were successfully saved.</p>
+      </div>
+
+      <pcag-info
+        [platformId]="platformId"
+        [carrierId]="carrierId"
+        [accountId]="accountId"
+        [groupId]="groupId"
+      >
+      </pcag-info>
+
+      <div>
+        <app-form-section-heading></app-form-section-heading>
+        <div class="h2">Override Indicators</div>
+      </div>
+      <div class="typography form">
+        <!--Input Field Starts-->
+
+
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': (submitted && (this.overrideDtlForm.get('eodCopayFromDateInd').invalid||this.overrideDtlForm.get('eodCopayFromDate').invalid))}">
+            <div class="left-control">
+              <label for="eodCopayFromDateInd">
+                <span [ngClass]="{'error': submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid}">Copay ‘from date’</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showeodCopayFromDateInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && (this.overrideDtlForm.get('eodCopayFromDateInd').invalid||this.overrideDtlForm.get('eodCopayFromDate').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="eodCopayFromDateInd" (change)="selectType($event,'eodCopayFromDateInd')" class="form-select-lg"
+                      formControlName="eodCopayFromDateInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="Y">Yes, in input file</option>
+
+                    </select>
+                  </div>
+                  <ng-container *ngIf="showeodCopayFromDateInd">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <app-datepicker
+                      formControlName="eodCopayFromDate"
+                      (change)="resetDate()"
+                    >
+                    </app-datepicker>
+                    <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  dateRequiredErrorFlag">
+                      <p class="bold_error">
+                        {{ fieldRequiredMsg }}
+                      </p>
+                    </div>
+                    <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDate').invalid &&  !dateRequiredErrorFlag">
+                      <p class="bold_error">
+                        {{ dateErrorMsg }}
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayFromDateInd').errors.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+
+            <div class="right-control view_message" *ngIf="isView()">
+
+              <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayFromDateInd') != null">{{ overrideDtlForm.get('eodCopayFromDateInd').value }}</label>
+
+
+              <label class="view_message" *ngIf="showeodCopayFromDateInd">{{ eodCopayFromDateString }}</label>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': (submitted && (this.overrideDtlForm.get('eodCopayThruDateInd').invalid||this.overrideDtlForm.get('eodCopayThruDate').invalid))}">
+            <div class="left-control">
+              <label for="eodCopayThruDateInd">
+                <span [ngClass]="{'error': submitted && this.overrideDtlForm.get('eodCopayThruDateInd').invalid}">Copay ‘thru date’ </span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showeodCopayThruDateInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && (this.overrideDtlForm.get('eodCopayThruDateInd').invalid||this.overrideDtlForm.get('eodCopayThruDate').invalid))? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="eodCopayThruDateInd" (change)="selectType($event,'eodCopayThruDateInd')" class="form-select-lg"
+                      formControlName="eodCopayThruDateInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="Y">Yes, in input file</option>
+
+                    </select>
+                  </div>
+                  <ng-container *ngIf="showeodCopayThruDateInd">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <app-datepicker
+                      formControlName="eodCopayThruDate"
+                    >
+                    </app-datepicker>
+
+                    <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayThruDate').invalid &&  dateRequiredErrorFlag">
+                      <p class="bold_error">
+                        {{ fieldRequiredMsg }}
+                      </p>
+                    </div>
+                    <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayThruDate').invalid &&  !dateRequiredErrorFlag">
+                      <p class="bold_error">
+                        {{ dateErrorMsg }}
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayThruDateInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayThruDateInd').errors.required">
+                  This field is required.
+                </p>
+              </div>
+
+            </div>
+
+            <div class="right-control view_message" *ngIf="isView()">
+
+              <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayThruDateInd') != null">{{ overrideDtlForm.get('eodCopayThruDateInd').value }}</label>
+
+              <label class="view_message" *ngIf="showeodCopayThruDateInd">{{ eodCopayThruDateString }}</label>
+
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': (submitted && (this.overrideDtlForm.get('eodCopayScheduleInd').invalid||this.overrideDtlForm.get('eodCopaySchedule').invalid))}">
+            <div class="left-control">
+              <label for="eodCopayScheduleInd">
+                <span [ngClass]="{'error': submitted && this.overrideDtlForm.get('eodCopayScheduleInd').invalid}">Copay schedule</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf=" !isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showeodCopayScheduleInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && (this.overrideDtlForm.get('eodCopayScheduleInd').invalid||this.overrideDtlForm.get('eodCopaySchedule').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="eodCopayScheduleInd" (change)="selectType($event,'eodCopayScheduleInd')" class="form-select-lg"
+                      formControlName="eodCopayScheduleInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="Y">Yes, in input file</option>
+
+                    </select>
+                  </div>
+                  <ng-container *ngIf="showeodCopayScheduleInd">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <app-lookup formControlName="eodCopaySchedule" [appLookUpType]=appAlphanumallspec (ngModelChange)="eodCopaySchedule = $event ? $event : null"></app-lookup>
+                    <div *ngIf="submitted && this.overrideDtlForm.get('eodCopaySchedule').invalid">
+                      <p class="bold_error" *ngIf="submitted && !this.overrideDtlForm.get('eodCopaySchedule').errors.required && this.overrideDtlForm.get('eodCopaySchedule').invalid">
+                        {{ eodCopayScheduleErrorMsg }}
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayScheduleInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayScheduleInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+
+              <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayScheduleInd') != null">{{ overrideDtlForm.get('eodCopayScheduleInd').value }}</label>
+
+              <label class="view_message" *ngIf="showeodCopayScheduleInd">{{ overrideDtlForm.get('eodCopaySchedule').value }}</label>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': (submitted && (this.overrideDtlForm.get('eodCopayStepInd').invalid||this.overrideDtlForm.get('eodCopayStep').invalid))}">
+            <div class="left-control">
+              <label for="eodCopayStepInd">
+                <span [ngClass]="{'error':  (submitted && (this.overrideDtlForm.get('eodCopayStepInd').invalid||this.overrideDtlForm.get('eodCopayStep').invalid))}">Copay step number</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf="!isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showeodCopayStepInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && (this.overrideDtlForm.get('eodCopayStepInd').invalid||this.overrideDtlForm.get('eodCopayStep').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="eodCopayStepInd" (change)="selectType($event,'eodCopayStepInd')" class="form-select-lg" formControlName="eodCopayStepInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="Y">Yes, in input file</option>
+                    </select>
+                  </div>
+                  <ng-container *ngIf="showeodCopayStepInd">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <!-- <app-lookup  formControlName="eodCopayStep" [appLookUpType]=appAlphanumallspec></app-lookup> -->
+                    <input id="eodCopayStep" type="text" placeholder="##" tabindex="0" class="form-input-xxxs" formControlName="eodCopayStep"
+                      appNumeric maxlength="2">
+                    <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayStep').invalid">
+                      <p class="bold_error" *ngIf="submitted && !this.overrideDtlForm.get('eodCopayStep').errors.required && this.overrideDtlForm.get('eodCopayStep').invalid">
+                        {{ eodCopayStepErrorMsg }}
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.overrideDtlForm.get('eodCopayStepInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.overrideDtlForm.get('eodCopayStepInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+            <div class="right-control view_message" *ngIf="isView()">
+
+              <label class="view_message" *ngIf="overrideDtlForm.get('eodCopayStepInd') != null">{{ overrideDtlForm.get('eodCopayStepInd').value }}</label>
+
+              <label class="view_message" *ngIf="showeodCopayStepInd">{{ overrideDtlForm.get('eodCopayStep').value }}</label>
+
+            </div>
+          </div>
+        </div>
+
+        <!--Input Field Ends-->
+        <div>
+          <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+        </div>
+        <form-controls
+          [recordSessionStorageId]="'eligibilityProfile'"
+          [showCancel]="true"
+          [showSave]="!isView()"
+          (onSave)="submit()"
+          [onCancelRoute]="'/s-active-eligibility-profile'"
+        >
+        </form-controls>
+      </div>
+      <div class="spacer"></div>
+    </form>
+    <div *ngIf="inProcess">
+        <app-loading-indicator></app-loading-indicator>
+      </div>
+    <!--Form ends-->
+  </div>
+  <div class="dateUserStampStyle" *ngIf="!(inProcess)">
+    Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+    <br>&nbsp;
+  </div>
+</div>

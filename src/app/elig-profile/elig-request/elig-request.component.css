@@ -1,0 +1,280 @@
+
+
+.content{
+    height: 48px;
+}
+.ogn__secondary-form {
+    -ms-flex-align: center;
+    align-items: center;
+    width:1138px;
+    padding: 0px 0px;
+}
+
+
+.form_background{
+    background-color: #fff;
+    max-width:1138px;
+}
+
+.title{
+    border-bottom: solid 1px #E0E0E0;
+}
+
+.spacer{
+    height: 100px;
+}
+
+@media screen and (min-width: 960px)
+{
+    .ogn-container {
+        padding: 0 0px;
+    }
+}
+
+.content {
+    height: 74px; margin-left: 16px; margin-right: 16px
+}
+
+.container{
+    margin-left: 40px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border : 1px solid #222;
+    width: 600px;
+}
+
+.table-row {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-grow: 0;
+    -webkit-flex-grow: 0;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+}
+.text {
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 8px;
+    padding-left: 8px;
+    width: 80px;
+    text-align: left;
+}
+
+.num {
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 80px;
+    padding-right: 8px;
+    padding-left: 8px;
+    text-align: center
+}
+
+.table-row {    
+    border-bottom: 1px solid #E0E0E0;
+    font-size: 12px;
+    font-family: 'frutiger-roman';
+    color: #222; 
+    padding-top: 8px;
+    padding-bottom: 8px;   
+}
+.table-row.header {    
+    border-bottom: 1px solid #222;
+    font-size: 12px;
+    font-family: 'frutiger-bold';
+    color: #222;    
+    padding-top: 20px;
+    padding-bottom: 4px;
+}
+.table-row:last-of-type{
+    border-bottom: none;
+}
+
+.gear {
+    float:right;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;   
+    color: #316BBE;
+    vertical-align: middle;
+    margin:0px 7px;
+    cursor: pointer;
+}
+
+.mat-column-gear {
+    flex: 0 0 40px;
+}
+
+a:focus {
+    color: #316BBE;
+}
+
+a:hover {
+    color: #316BBE;
+}
+.dtlink{
+    color: #316BBE;
+    font-family: 'frutiger-bold';
+    font-size: 14px;
+    text-decoration: none;
+}
+.dtlink:hover{
+    color: #316BBE;
+    text-decoration: underline;
+}
+.dtlink:focus{
+    color: #316BBE;
+}
+mat-row ng-star-inserted{
+    height:40px;
+}
+mat-row {
+
+    height: 40px;
+    padding:0px;
+    border-bottom: 1px solid #E0E0E0;
+    border-right: 1px solid #E0E0E0;
+    border-left: 1px solid #E0E0E0;
+    font-family: 'frutiger-roman';
+    font-size : 12px;
+}
+
+mat-header-row{
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 40px;
+    border-bottom: 1px solid #B3B3B3;
+}
+
+.mat-sort-header.arrow{
+    margin:0px;
+    position: absolute;
+}
+.mat-column-select {
+    overflow: visible;
+}
+
+.datatable {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+   /** CSS FOR Paginator Starts HERE **/  
+:host /deep/ mat-paginator .mat-paginator-container {
+    max-width: 1170px;
+    margin: auto;
+    justify-content: inherit;
+
+}
+:host /deep/ mat-paginator .mat-paginator-range-actions {
+    padding-left: 772px;
+}
+:host /deep/ mat-paginator .mat-paginator-page-size-label {
+    padding: 0px 15px 0px 0px;
+    margin: 0 0px;
+    color: black;
+    font-family: 'frutiger-bold';
+    font-size: 12px;
+
+}
+
+:host /deep/ mat-paginator .mat-paginator-range-label {
+color: black;
+font-family: 'frutiger-bold';
+font-size: 12px;
+margin: 0 -247px 0 194px;
+}
+/** CSS FOR Paginator Ends HERE **/
+
+:host >>>  .popover{
+    padding: 16px;
+    border-bottom: 3px solid #B3B3B3;
+    border-left: 1px solid #B3B3B3;
+    border-top: 1px solid #B3B3B3;
+    border-right: 1px solid #B3B3B3;
+    margin-left: 10px;
+    border-radius: 1px;
+    width:auto;
+}
+
+:host >>>  .popover-body{
+    padding:0px;
+    line-height: 25px;
+}
+.popoverlink{
+    font-family: 'frutiger-bold';
+    font-size : 12px;
+    color: #316BBE ;
+}
+.popoverlink:hover{
+    text-decoration: underline;
+    color: #316BBE ;
+}
+
+.popoverheading{
+    font-family: 'frutiger-roman';
+    font-size : 12px;
+    color: #636363 ;
+}
+
+
+.iconPopover{
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 16px;  /* Preferred icon size */
+    display: inline-block;
+    color: #316BBE;
+    margin-right:6px;
+}
+
+body {
+    background-color: black !important;
+}
+
+.mat-table {
+    margin:auto;
+    border-bottom: 1px solid #E0E0E0;
+}
+.mat-cell {
+    margin: 0px 10px;
+    min-height:40px;
+    padding: 10px 0px;
+    display: inline-block;
+}
+
+.mat-header-cell {
+    color: black;
+    font-family: 'frutiger-bold';
+    font-size: 12px;
+    align-items: center;
+    min-height:40px;
+    margin:0px 10px;
+    padding-top: 20px;
+}
+
+.mat-column-align-center {
+    display:flex !important;
+    justify-content:center!important;
+}
+
+:host >>> .mat-sort-header-button {
+    text-align: inherit;
+}
+
+:host >>> mat-header-cell.mat-column-eqdOutputQueueLibrary > .mat-sort-header-container > .mat-sort-header-button {
+    max-width: 83px !important;
+}
+
+:host >>> mat-header-cell.mat-column-eqdOutputQueueName > .mat-sort-header-container > .mat-sort-header-button {
+    max-width: 83px !important;
+}
+

@@ -1,0 +1,264 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+/** CSS FOR DATA TABLE (Columns,Rows and Styling) STARTS FROM HERE **/ 
+.mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #316BBE;
+    }
+/** CSS FOR DATA TABLE (Columns,Rows and Styling) ENDS HERE **/ 
+
+/** Border for accessibility **/
+.tabkey-border {
+    border: 2px solid #F2B411 !important;
+}
+
+
+
+/** CSS FOR STYLING THE FORMS **/ 
+
+
+/* Everything should be in this Form */
+.appLookup{
+    display: inline-block!important; 
+}
+.form_outer {
+    width: 1138px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.form {
+    background-color: white;
+    width: 1138px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+/* Optum CSS Restrict developers to align anything against the Label, Hence override it  */
+.optum-dpl textarea {
+    min-height: 65px!important;}
+label{
+   display: inline-block!important;
+   margin-left: 40px;
+   margin-bottom: 0px!important;
+   font-family: 'frutiger-roman'!important;
+   font-size : 16px!important;
+}
+label  span {
+    display: inline-block!important;
+}
+
+
+.view_message{
+    display:block!important;
+}
+
+/* You can put this to tell Developers which classes you are using */
+code {
+    margin-bottom: 0px!important;
+    margin-left: 40px!important;
+    margin-right:0px!important;
+    margin-top:0px!important;
+    color: royalblue;
+}
+
+/* Input of all types-- bASED ON THEIR SIZES */
+
+input{
+    text-transform: initial;
+    font-family: 'frutiger-roman' !important;
+    font-size: 14px !important;
+    padding:8px !important;
+    height: 35px !important;
+    /*text-transform: uppercase;*/
+
+}
+
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    text-transform: initial;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    text-transform: initial;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    text-transform: initial;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    text-transform: initial;
+  }
+
+
+
+
+.form-input-xxxs{
+    width:36px !important;
+}
+
+.form-input-xxs{
+    width:56px !important;
+}
+
+.form-input-xs{
+    width:88px !important;   
+} 
+
+.form-input-s  {
+    width:112px !important;
+}
+.form-input-md{
+    width:168px !important;
+}
+.form-input-lg{
+    width:224px !important;
+}
+
+.form-input-xl{ 
+    width:264px !important;}
+
+.row{
+    margin-bottom: 20px!important;
+    margin-left:0px!important;
+    margin-right:0px!important;
+    margin-top:0px!important;
+   
+}
+.form-group {
+    margin:0 0 0 0!important ;
+    padding:0 0 0 0 !important;
+    display:inherit !important;
+}
+.field-block {
+    margin-right:20px;
+    display: inline-block!important;
+}
+
+.field-set {
+    display: inline-block!important;
+}
+
+
+
+/**
+Form flex
+*/
+.form-group{
+    display: flex;
+}
+.form-group .left-control, .form-group .right-control{
+    display: flex;
+    flex-direction: row;
+  }
+  .left-control{
+      min-width: 250px;
+       margin-right: 100px; 
+       margin-left:60px;
+  }
+  .right-control{
+    margin-left:-20px;
+}
+
+.mrgin-right-10{
+    margin-right:10px!important;
+}
+
+select {
+    padding: 8px !important;
+}
+.form-select-s  {
+    width:112px!important;
+}
+.form-select-md{
+    width:168px!important;
+}
+.form-select-lg{
+    width:224px!important;
+}
+.form-select-xl{
+    width:264px!important;
+}
+  .error_message{
+    display: block!important;
+}
+
+.bold{
+    font-family: 'frutiger-bold'!important;
+    font-size: 14px!important;
+}
+.bold_error{
+    font-family: 'frutiger-bold'!important;
+    font-size: 12px!important;
+}
+
+.field-label {
+    margin-left: 0px!important;
+    margin-right: 40px!important;
+}
+
+.left-control-greyFields{
+    min-width: 270px;
+    margin-right: 60px; 
+    margin-left:80px;
+}
+.greyFields-label{
+    color: #B3B3B3;  
+}
+.field-block input:not([type=submit]):not([type=file]):focus, .optum-dpl .field-block select:focus {
+    background-color: white!important;
+}
+
+
+.optum-dpl .btn.btn--primary:hover, .optum-dpl .btn.btn--primary:focus {
+    background-color: #00396C;
+    border-color: #00396C;
+    color:#fff !important;
+}
+.successDiv{
+    background-color: #627D32;
+    margin: 20px 16px 20px 16px;
+}
+.errorDiv{
+    background-color: #E32315;
+    margin: 20px 16px 20px 16px;
+}  
+.errorDiv_text{
+    color: #fff;
+    font-family: 'frutiger-bold';
+    font-size: 16px;
+    margin-left:40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.margin-left-15{
+    margin-left: 15px!important;
+}
+a.lookup {
+    font-family: 'frutiger-bold';
+    font-size: 12px;
+    color: #316BBE;
+    vertical-align: middle;
+}
+
+.iconLookup {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 22px;
+    /* Preferred icon size */
+    color: #316BBE;
+    margin-left: 12px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+a.lookup:hover {
+    font-family: 'frutiger-bold';
+    font-size: 12px;
+    color: #316BBE;
+    vertical-align: middle;
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+}

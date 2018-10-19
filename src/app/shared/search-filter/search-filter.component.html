@@ -1,0 +1,7 @@
+<div class="filterBox" (mouseenter) ="mouseEnter() "  (mouseleave) ="mouseLeave()">
+  <button class="close-button" (click)="removeFilter(this.placeHolderText)"  [style.visibility]="showCloseBtn"></button>
+  <input #searchFilter matInput placeholder="{{this.placeHolderText}}" class="form-control has-search-icon" 
+  id="{{this.placeHolderText}}" name="{{this.placeHolderText}}"
+  style="width:220px;height:36px;vertical-align:top;padding-right:22px">
+</div>
+

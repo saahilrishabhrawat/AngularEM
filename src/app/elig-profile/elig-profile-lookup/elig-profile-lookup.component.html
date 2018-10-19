@@ -1,0 +1,29 @@
+<style>
+    @font-face {
+      font-family: 'frutiger-bold';
+      src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+      url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+    }
+  </style>
+  <input type="text" [attr.maxlength]="form_input_lookupMaxlength" id="form_input_lookup" class="textLookup" [value]="_inputValue" (change)="onChange($event)"  (keyup)="onChange($event)" appUpper >
+  
+    <a *ngIf="modalName==='app-elig-profile-grouplist-pg1-modal'" (click)="openVerticallyCentered(content)">
+      <span class="material-icons iconLookup">search</span>
+    </a>
+    <a  *ngIf="modalName==='app-elig-profile-grouplist-pg1-modal'" class="lookup" (click)="openVerticallyCentered(content)">Lookup</a>
+  
+  
+    <a *ngIf="modalName==='app-elig-profile-add-modal'" (click)="openVerticallyCentered(addModal)">
+      <span class="material-icons iconLookup">search</span>
+    </a>
+    <a *ngIf="modalName==='app-elig-profile-add-modal'" class="lookup" (click)="openVerticallyCentered(addModal)">Lookup</a>
+  
+  <br>
+  
+  <ng-template #content>
+    <app-elig-profile-grouplist-pg1-modal (closeModal)="closeModal($event)"></app-elig-profile-grouplist-pg1-modal>
+  </ng-template>
+  <ng-template #addModal>
+      <app-elig-profile-add-modal (closeModal)="closeModal($event)"></app-elig-profile-add-modal>
+  </ng-template>
+  

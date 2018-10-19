@@ -1,0 +1,99 @@
+.btn1 {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0px;
+    background: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: inline-block;
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 1em;
+    line-height: 1;
+    margin-bottom: 16px;
+    margin-right: 16px;
+    outline: none;
+    overflow: hidden;
+    padding: 10px 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;        
+    top: 0;
+    transition-duration: 0.3s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    vertical-align: middle;
+    zoom: 1;
+    white-space: normal;
+    -webkit-tap-highlight-color: transparent; 
+}
+
+.btn1:hover,  .btn1:focus {
+    box-shadow: 0 2px #00396C;
+    color: #00396C;
+    outline: none;
+    top: -2px;
+    transition-duration: 0.1s; 
+}
+
+.btn1:active {
+    outline: none;
+    top: 0; 
+}
+
+.btn1:before {
+    content: "";
+    font-family: "Optum-Micro-interaction-16";
+    font-size: 1.5em;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: rtl;
+    transform: rotate(-180deg);
+    -webkit-font-feature-settings: 'liga';
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+    display: inline-block;
+    font-size: 0.75em;
+    font-weight: bold;
+    padding-left: 5px;
+    vertical-align: middle;
+    text-decoration: none; 
+}
+.btn1:hover,  .btn1:focus {
+    box-shadow: 0 2px #00396C;
+    color: #00396C;
+    outline: none;
+    top: -2px;
+    transition-duration: 0.1s; 
+}
+
+
+.form-button-container {
+    height: 74px;
+    margin-left: 16px;
+    margin-right: 16px
+}
+
+
+.nextButtonSytle {
+    text-align: right;
+    float: right;
+}
+
+.saveCancelAlignment{
+    width: 195px;
+}
+

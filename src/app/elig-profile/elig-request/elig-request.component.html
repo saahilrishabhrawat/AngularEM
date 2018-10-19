@@ -1,0 +1,153 @@
+<a id="top"></a>
+<div class="title">
+    <div id="end_of_global_nav" tabindex="-1"></div>
+    <section class="area no-padding trim--white ">
+        <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+            <div class="ogn__title__left">
+                <h1 class="h1">Eligibility Request</h1>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+
+    <div>
+        <app-form-links></app-form-links>
+    </div>
+   
+    <div class="form_background">
+        <div>
+            <app-form-menu></app-form-menu>
+            <section class="area no-padding trim--white">
+                <div class="ogn__secondary-form ogn-container">
+                    <div class="content"></div>
+                </div>
+            </section>
+        </div>
+        <div [hidden]="loadingData">
+                <form-controls
+                  [recordSessionStorageId]="'eligibilityRequest'"
+                  [showSave]="false"
+                  [showCancel]="true"
+                  [onCancelRoute]="'/s-active-eligibility-profile'"
+                >
+                </form-controls>
+                <!-- End of the buttons and start of the form -->
+            
+            <pcag-info
+                [platformId]="platformId"
+                [carrierId]="carrierId"
+                [accountId]="accountId"
+                [groupId]="groupId"
+            >
+            </pcag-info>
+            <div>
+                <app-form-section-heading></app-form-section-heading>              
+            </div>
+
+            <div class="row filterQueueContainer">
+                <div [ngClass]="isView() ? 'col-12' : 'col-12'">
+                  <app-filter-panel
+                    filterGroup="eligRequest"
+                    [filterPanelData]="[
+                              {filterListName: 'Filter by tracking ID', placeHolderText: 'Filter by tracking ID', filterType: 'search', filterDefault: true, displayOrder: '1'},
+                              {filterListName: 'Filter by date (start)', placeHolderText: 'Filter by date (start)', filterType: 'date', filterDefault: true, displayOrder: '2'},
+                              {filterListName: 'Filter by date (end)', placeHolderText: 'Filter by date (end)', filterType: 'date', filterDefault: true, displayOrder: '3'}                              
+                      ]"
+                  >
+                  </app-filter-panel>
+                </div>
+            </div>
+
+            <div class="datatable">
+                    <!-- ****************** data table begin  ****************** -->
+                    <mat-table #table [dataSource]="dataSource" matSort>
+
+                      <ng-container matColumnDef="gear">
+                        <mat-header-cell *matHeaderCellDef>
+                            <span></span>
+                          </mat-header-cell>
+                        <mat-cell *matCellDef="let row"></mat-cell>                        
+                      </ng-container>
+        
+                      <div class="toprow">
+                        <ng-container matColumnDef="erdTrackingId">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header >Tracking ID </mat-header-cell>
+                          <mat-cell *matCellDef="let element">                                                     
+                            <a class="dtlink" [routerLink]="['../eligibility-request-detail',{ cid: element.carCarrierId,aid:element.accountId,gid:element.groupId,pid:this.platformId,trackingId:element.erdTrackingId,mode:'view'}]">{{element.erdTrackingId}}</a>
+                          </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="erdLoadType">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header class="text-left">Load Type</mat-header-cell>
+                          <mat-cell *matCellDef="let element" class="text-left">{{element.erdLoadType}}</mat-cell>
+                        </ng-container>
+        
+                        <ng-container matColumnDef="erdStatus">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                          <mat-cell *matCellDef="let element">{{element.erdStatus}}</mat-cell>
+                        </ng-container>
+        
+                        <ng-container matColumnDef="chgDate">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-align-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Changed Date</mat-header-cell>
+                          <mat-cell *matCellDef="let element" class="mat-column-align-center">{{element.chgDate | date:'MM/dd/yyyy'}} </mat-cell>
+                        </ng-container>
+        
+                        <ng-container matColumnDef="chgUserName" >
+                          <mat-header-cell *matHeaderCellDef mat-sort-header > <div class="align-column-header">User</div></mat-header-cell>
+                          <mat-cell *matCellDef="let element" > <div class="align-column">{{element.chgUserName }}</div></mat-cell>
+                        </ng-container>
+        
+                        
+        
+        
+                      </div>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                    <div class="no-records-message" *ngIf="(dataSource.data.length === 0 || dataSource.filteredData.length === 0) && !loadingData">
+                      No records found
+                    </div>
+                  </div>
+                  <!-- ******************  data table end   ****************** -->
+                <!-- ****************** pagination begin  ****************** -->
+                <mat-paginator [pageSize]="10" [hidePageSize]="true" [showFirstLastButtons]="true">
+                </mat-paginator>
+                <!-- ****************** pagination end    ****************** -->
+                <!--First section of C/A/G closed here-->
+                <form-controls
+                  [recordSessionStorageId]="'eligibilityRequest'"
+                  [showSave]="false"
+                  [showCancel]="true"
+                  [onCancelRoute]="'/s-active-eligibility-profile'"
+                >
+                </form-controls>
+            </div>
+            <div *ngIf="loadingData">
+                    <app-loading-indicator></app-loading-indicator>
+            </div>
+
+            </div>
+        </div>
+        <div class="dateUserStampStyle">
+          <br>&nbsp;
+        </div>
+
+<style>
+@font-face {
+font-family: 'frutiger-bold';
+src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+}
+
+@font-face {
+font-family: 'frutiger-roman';
+font-style: normal;
+font-weight: 400;
+src: url('../../assets/fonts/optum/frutiger-roman.eot');
+/* IE9 Compat Modes */
+src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+}
+</style>

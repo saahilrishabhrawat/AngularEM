@@ -1,0 +1,176 @@
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+</style>
+
+<div style="background-color:white">
+
+  <div class="title">
+    <div id="end_of_global_nav" tabindex="-1"></div>
+    <section class="area no-padding trim--white ">
+      <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+        <div class="ogn__title__left">
+          <h1 class="h1">Required Member Fields</h1>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="example-container mat-elevation-z8" style="background-color:white">
+    <div *ngIf="loadingData" class="loading-indicator-container">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+
+    <div [hidden]="loadingData">
+
+      <div>
+        <div class="ogn__secondary-header-formlink ogn-container">
+          <div class="topright">
+            <a [routerLink]="['/req-mbr-fields',{ cid:'',aid:'',pid:'',mode:'add'}]"class="btn--icon add-entry-link">
+              <i class="material-icons addcircle">add_circle</i>Add new entry
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <app-filter-panel
+        [filterPanelData]="[ 
+          {filterListName: 'Filter by Carrier ID', placeHolderText: 'Filter by Carrier ID', filterType: 'search', filterDefault: true, displayOrder: '1'},
+          {filterListName: 'Filter by Account ID', placeHolderText: 'Filter by Account ID', filterType: 'search', filterDefault: true, displayOrder: '2'},
+          {filterListName: 'Filter by Platform', placeHolderText: 'Filter by Platform', filterType: 'select', filterDefault: true, displayOrder: '3'},
+          {filterListName: 'Filter by Carrier List', placeHolderText: 'Filter by Carrier List', filterType: 'select', filterDefault: true, displayOrder: '4'},
+          {filterListName: 'Filter by Group ID', placeHolderText: 'Filter by Group ID', filterType: 'search', filterDefault: false, displayOrder: '5' }
+        ]"
+      >
+      </app-filter-panel>
+
+      <div style="height:10px;"></div>
+
+      <div class="datatable">
+          <mat-table #table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="gear">
+                  <mat-header-cell *matHeaderCellDef>
+                      <span></span>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <ng-template #popTemplate>
+                      <div>
+                        <div>
+                          <a class="popoverlink" [routerLink]="['/req-mbr-fields',{ cid: row.rmfCarrierId,aid:row.rmfAccountId,gid:row.rmfGroupId,pid:row.platformId,mode:'edit'}]">
+                            <i class="material-icons iconPopover">create</i>Edit...
+                          </a>
+                        </div>
+                        <div>
+                          <a class="popoverlink" [routerLink]="['/req-mbr-fields',{ cid: row.rmfCarrierId,aid:row.rmfAccountId,gid:row.rmfGroupId,pid:row.platformId,mode:'view'}]" >
+                            <i class="material-icons iconPopover">search</i>View...
+                          </a>
+                        </div>
+                        <div>
+                          <a class="popoverlink" [routerLink]="['/req-mbr-fields-note',{ cid: row.rmfCarrierId,aid:row.rmfAccountId,gid:row.rmfGroupId,pid:row.platformId,mode:'view'}]" >
+                            <i class="material-icons iconPopover">note</i>View Notes...
+                          </a>
+                        </div>
+                        <div>
+                          <a class="popoverlink" (click)="openModal(row, 'addNote')" (keyup.enter)="openModal(row, 'addNote')" href="javascript:void(0)">
+                            <i class="material-icons iconPopover">note_add</i>Add Note...
+                          </a>
+                        </div>
+                        <div>
+                          <a class="popoverlink" (click)="openModal(row, 'copy')" (keyup.enter)="openModal(row, 'copy')" href="javascript:void(0)" >
+                            <i class="material-icons iconPopover">content_copy</i>Copy...
+                          </a>
+                        </div>
+                        <div>
+                          <a class="popoverlink" (click)="openModal(row, 'delete')" (keyup.enter)="openModal(row, 'delete')" href="javascript:void(0)">
+                            <i class="material-icons iconPopover">delete</i>Delete...
+                          </a>
+                        </div>
+                      </div>
+                    </ng-template>
+                    <i class="material-icons gear" [ngbPopover]="popTemplate" placement="right" #p="ngbPopover" tabindex="0" popoverDirective>
+                      settings
+                    </i>
+                  </mat-cell>
+              </ng-container>
+
+              <div class="toprow">
+
+                <ng-container matColumnDef="rmfCarrierId">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header >Carrier ID</mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="carrier-id-font">
+                    <a class="dtlink" [routerLink]="['/req-mbr-fields',{ cid: element.rmfCarrierId,aid:element.rmfAccountId,gid:element.rmfGroupId,pid:element.platformId,mode:'edit'}]">{{element.rmfCarrierId}}</a>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="rmfAccountId">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Account ID</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.rmfAccountId}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="rmfGroupId">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Group ID</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.rmfGroupId}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="platformId">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Platform ID</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.platformId}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="addDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Added</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.addDate | date: 'MM/dd/yyyy'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="chgDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Changed</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.chgDate | date: 'MM/dd/yyyy'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="chgUserName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>User</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.chgUserName}}</mat-cell>
+                </ng-container>
+
+              </div>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <div class="no-records-message" *ngIf="(dataSource.data.length === 0 || dataSource.filteredData.length === 0) && !loadingData">
+            No records found
+          </div>
+      </div>
+
+      <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[10, 25, 50]" [showFirstLastButtons]="true">
+      </mat-paginator>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #addNoteRequiredMemberFieldsModal>
+  <app-add-note-required-member-fields-modal [selectedRow]="selectedRow" (closeModal)="closeModal($event, 'addNote')"></app-add-note-required-member-fields-modal>
+</ng-template>
+
+<ng-template #copyRequiredMemberFieldsModal>
+  <app-copy-required-member-fields-modal [selectedRow]="selectedRow" (closeModal)="closeModal($event, 'copy')"></app-copy-required-member-fields-modal>
+</ng-template>
+
+<ng-template #deleteRequiredMemberFieldsModal>
+  <app-delete-required-member-fields-modal [selectedRow]="selectedRow" (closeModal)="closeModal($event, 'delete')"></app-delete-required-member-fields-modal>
+</ng-template>

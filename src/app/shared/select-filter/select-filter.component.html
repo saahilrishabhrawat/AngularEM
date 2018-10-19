@@ -1,0 +1,31 @@
+<div class="filterBox select field-block" (mouseenter) ="mouseEnter() "  (mouseleave) ="mouseLeave()">  
+  <button  class="close-button"  [style.visibility]="showCloseBtn" (click)="removeFilter(this.placeHolderText)"></button>  
+  <select #selectFilter class="form-select-lg" (change)="filterTable(selectFilter)" tabindex="0" 
+     id="{{this.placeHolderText}}"  name="{{this.placeHolderText}}">      
+    <option value=""  selected disabled>{{this.placeHolderText}}</option>
+
+    <ng-container *ngIf="placeHolderText === 'Filter by Platform'">
+      <option class='option'  *ngFor='let option of platformOptions' [value]="option">{{option}}</option>
+    </ng-container>
+  
+    <ng-container *ngIf="placeHolderText === 'Filter by Carrier List'">
+      <option class='option'  value="Show all carriers" >Show all carriers</option>       
+      <option class='option'  *ngFor='let option of carrierListOptions' [value]="option">{{option}}</option>
+    </ng-container>
+
+    <ng-container *ngIf="placeHolderText === 'Filter by Status'">
+      <option class="option" value="A" [selected] = "filterDefaultStatusValue===0">Active</option>
+      <option class="option" value="I">Inactive</option>
+    </ng-container>
+
+    <ng-container *ngIf="placeHolderText === 'Filter by Qualifier'">
+        <option class="option" value="01" [selected]="filterDefaultStatusValue === 01">01</option>
+        <option class="option" value="02">02</option>
+    </ng-container>
+
+    <ng-container *ngIf="placeHolderText === 'Filter by Type'">
+        <option class="option" value="1" [selected]="filterDefaultStatusValue === 1">1</option>
+        <option class="option" value="2">2</option>
+    </ng-container>
+  </select>
+</div>

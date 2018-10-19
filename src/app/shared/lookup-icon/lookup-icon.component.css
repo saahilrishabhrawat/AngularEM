@@ -1,0 +1,32 @@
+.iconLookup {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 22px;
+    color: #316BBE;
+    margin-left:12px;
+    margin-right:8px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.iconLookup:hover {
+    text-decoration: none;
+}
+
+.lookup {
+    font-family: 'frutiger-bold';
+    font-size : 12px;
+    color: #316BBE ;
+    vertical-align: middle;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.lookup:hover {
+    font-family: 'frutiger-bold';
+    font-size : 12px;
+    color: #316BBE ;
+    vertical-align: middle;
+    text-decoration: underline;
+}

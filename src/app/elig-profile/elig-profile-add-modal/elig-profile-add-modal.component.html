@@ -1,0 +1,76 @@
+<div class="modal-window"> 
+  <!--**********  Begin modal header *********-->
+ <div class="modal-header">
+   <div class="h2">Add Eligibility Profile </div>
+   <a (click)="closeModalWindow()" class="btn btn--close">
+     <span class="sr-only">Close</span>
+   </a>
+ </div>
+ <!--********* Begin modal body **********-->
+ <div class="modal-body" id="add-modal-body">
+
+  <!-- filter --> 
+  <app-filter-panel 
+    [filterPanelData]="[ {filterListName: 'Filter by Account ID',placeHolderText: 'Filter by Account ID', filterType: 'search', filterDefault: true, displayOrder: '2'},          
+                      {filterListName: 'Filter by Carrier ID', placeHolderText: 'Filter by Carrier ID', filterType: 'search', filterDefault: true, displayOrder: '1'},          
+                      {filterListName: 'Filter by Group ID',placeHolderText: 'Filter by Group ID', filterType: 'search', filterDefault: false, displayOrder: '3' },          
+                      {filterListName: 'Filter by Platform',placeHolderText: 'Filter by Platform', filterType: 'select', filterDefault: true, displayOrder: '4'}          
+                      ]"                
+   >
+  </app-filter-panel>
+  <div class="example-container mat-elevation-z8" style="background-color:white">
+    <!-- data table -->
+    <div *ngIf="!dataSource.data.length" class="loading-indicator-container">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+ 
+    <div class="datatable" [hidden]="!dataSource.data.length">
+     <!-- ****************** data table begin  ****************** -->
+     <mat-table #table [dataSource]="dataSource" matSort>
+      <div>
+        <ng-container matColumnDef="carCarrierId">
+          <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header> Carrier ID </mat-header-cell>
+          <mat-cell tabindex="0" class="dtlink" *matCellDef="let element">{{element.carCarrierId}}  </mat-cell>
+        </ng-container>
+   
+        <ng-container matColumnDef="accountId">
+          <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header> Account ID </mat-header-cell>
+          <mat-cell class="modal-mat-cell" *matCellDef="let element" >{{element.accAccountId}}  </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="groupId">
+          <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header> Group ID </mat-header-cell>
+          <mat-cell class="modal-mat-cell" *matCellDef="let element" >{{element.grpGroupId}}  </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="groupName">
+          <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header> Group Name </mat-header-cell>
+          <mat-cell class="modal-mat-cell" *matCellDef="let element" >{{element.grpGroupName}}  </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="platformId">
+          <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header>Platform </mat-header-cell>
+          <mat-cell class="modal-mat-cell" *matCellDef="let element" >{{element.platformId}}  </mat-cell>
+        </ng-container>
+
+        <mat-header-row class="modal-mat-header-row" *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"
+                  class="modal-mat-row">
+         </mat-row>
+      </div> 
+        
+      </mat-table>  
+  </div>    
+
+  <!-- data table pagination -->
+  <div class="modal-footer">
+    <mat-paginator [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[10, 25, 50]" 
+       >
+    </mat-paginator>
+  </div>
+  </div>
+</div>
+<!--********* End modal body **********-->
+</div> 

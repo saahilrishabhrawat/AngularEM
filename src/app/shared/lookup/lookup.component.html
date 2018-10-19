@@ -1,0 +1,36 @@
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+</style>
+<!-- <div *ngIf="this.jumplinkFlag === 'CARE_ASSIGN'"  class="appLookup">
+  <input type="text" [attr.maxlength]="form_input_lookupMaxlength" id="form_input_lookup" class="textLookup" [value]="_inputValue" (change)="onChange($event)" (keyup)="onChange($event)" appAlphanumallspec >
+</div>
+<div *ngIf=" (this.appLookUpName==='EligPrfDtl')" class="appLookup" >
+  <input type="text" [attr.maxlength]="form_input_lookupMaxlength" id="form_input_lookup" class="textLookup" [value]="_inputValue" (change)="onChange($event)" (keyup)="onChange($event)" appAlphanumspec  >
+</div> -->
+<div *ngIf="this.appLookUpType === 'appAlphanumallspec'"  class="appLookup">
+  <input type="text" [attr.maxlength]="form_input_lookupMaxlength" [placeholder] = "placeholderText" id="form_input_lookup" [ngClass]="textFieldClass" class="textLookup" [value]="_inputValue" (change)="onChange($event)" (keyup)="onChange($event)" appAlphanumallspec >
+</div>
+<div *ngIf="this.appLookUpType === 'appNumeric'"  class="appLookup">
+  <input type="text" [attr.maxlength]="form_input_lookupMaxlength" [placeholder] = "placeholderText" id="form_input_lookup" [ngClass]="textFieldClass" class="textLookup" [value]="_inputValue" (change)="onChange($event)" (keyup)="onChange($event)" appNumeric >
+</div>
+<div *ngIf="this.appLookUpType === 'appAlphanumeric'"  class="appLookup">
+  <input type="text" [attr.maxlength]="form_input_lookupMaxlength" [placeholder] = "placeholderText" id="form_input_lookup" [ngClass]="textFieldClass" class="textLookup" [value]="_inputValue" (change)="onChange($event)" (keyup)="onChange($event)" appAlphanumeric >
+</div>
+<div *ngIf="this.appLookUpType === 'all'"  class="appLookup">
+  <input type="text" [attr.maxlength]="form_input_lookupMaxlength" [placeholder] = "placeholderText" id="form_input_lookup" [ngClass]="textFieldClass" class="textLookup" [value]="_inputValue" (change)="onChange($event)" (keyup)="onChange($event)" appUpper>
+</div>
+<div *ngIf="this.appLookUpType === 'appAlphanumspec' || this.appLookUpType === undefined"  class="appLookup">
+  <input type="text" [attr.maxlength]="form_input_lookupMaxlength" [placeholder] = "placeholderText" id="form_input_lookup" [ngClass]="textFieldClass" class="textLookup" [value]="_inputValue" (change)="onChange($event)" (keyup)="onChange($event)" appAlphanumspec >
+</div>
+<a (click)="openVerticallyCentered(content)">
+  <span class="material-icons iconLookup">search</span>
+</a>
+<a class="lookup" (click)="openVerticallyCentered(content)">Lookup</a>
+<br>
+<ng-template #content>
+  <app-sample-modal (closeModal)="closeModal($event)"></app-sample-modal>
+</ng-template>

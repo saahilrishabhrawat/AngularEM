@@ -1,0 +1,148 @@
+<div class="modal-window" > 
+  <!--**********  Begin modal header *********-->
+ <div class="modal-header">
+   <div class="h2">Copy Eligibility Profile </div>
+   <a (click)="closeModalWindow()" class="btn btn--close">
+     <span class="sr-only">Close</span>
+   </a>
+ </div>
+ <!--********* Begin modal body **********-->
+ <div *ngIf="isSaving">
+    <app-loading-indicator></app-loading-indicator>
+</div>
+ <form novalidate [formGroup]="copyForm" [hidden]="isSaving">
+  <div class="errorDiv" *ngIf="submitted && !isValid">
+    <p class="errorDiv_text">{{ errorMsg }}</p>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+        <div class="col-sm-6 has-no-padding h3">Copy this profile...</div>
+        <div class="col-sm-6 has-no-padding h3">Into this profile...</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2 col-font"><label>Platform</label></div>
+      <div class="col-sm-4 col-font-bold">{{ platformText }}</div>
+      <div class="vl"></div>
+      <div class="col-sm-2 col-font"><label>Platform <span class="required">*</span> </label></div>
+      <div class="col-sm-4 col-font-bold">
+          <div class="select form-select-s" [ngStyle]="{'border' : (submitted && this.copyForm.get('platformId').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+              <select required="required" tabindex="0" id="form_input_termMbmrRpt" class="form-select-s" formControlName="platformId">
+                 <option value="">Select one</option>
+                 <ng-container>
+                    <option class='option' *ngFor='let option of platformOptions' [value]="option">{{option}}</option>
+                  </ng-container>
+              </select>
+          </div>
+          <div *ngIf="submitted && this.copyForm.get('platformId').invalid">
+            <p class="bold_error" *ngIf="submitted && this.copyForm.get('platformId').errors.required">
+              This field is required.
+            </p>
+            <p class="bold_error" *ngIf="submitted && !this.copyForm.get('platformId').errors.required &&
+                this.copyForm.get('platformId').invalid">
+                {{ platformIdErrorMsg }}
+            </p>
+          </div>
+      </div>
+    </div>  
+    <div class="row">
+        <div class="col-sm-2 col-font"><label>Carrier</label></div>
+        <div class="col-sm-4 col-font">{{ carrierText }}</div>
+        <div class="col-sm-2 col-font"><label>Carrier  <span class="required">*</span></label></div>
+        <div class="col-sm-4 col-font">
+            <input type="text" id="carrierId" maxLength="9" formControlName="carrierId" class="textLookup"
+            [ngStyle]="{'border' : (submitted && this.copyForm.get('carrierId').invalid) ? '1px solid #E32315' : '1px solid #CC00FF'}" appUpper>
+            <a (click)="openVerticallyCentered(addModal)">
+            <span class="material-icons iconLookup">search</span>
+            </a>   
+            <a class="lookup" (click)="openVerticallyCentered(addModal)">Lookup</a>
+              <div *ngIf="submitted && this.copyForm.get('carrierId').invalid">
+              <p class="bold_error" *ngIf="submitted && this.copyForm.get('carrierId').errors.required">
+                This field is required.
+              </p>
+              <p class="bold_error" *ngIf="submitted && !this.copyForm.get('carrierId').errors.required &&
+                  this.copyForm.get('carrierId').invalid">
+                  {{ carrierIdErrorMsg }}
+              </p>
+            </div>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-sm-2 col-font"><label>Account</label></div>
+        <div class="col-sm-4 col-font">{{ accountText }}</div>
+        <div class="col-sm-2 col-font"><label>Account  <span class="required">*</span></label></div>
+        <div class="col-sm-4 col-font">
+            <input type="text" id="accountId" maxLength="15" formControlName="accountId" class="textLookup"  
+            [ngStyle]="{'border' : (submitted && this.copyForm.get('accountId').invalid) ? '1px solid #E32315' : '1px solid #CC00FF'}" appUpper>
+            <a (click)="openVerticallyCentered(addModal)">
+              <span class="material-icons iconLookup">search</span>
+            </a>
+            <a class="lookup" (click)="openVerticallyCentered(addModal)">Lookup</a>
+           
+          <div *ngIf="submitted && this.copyForm.get('accountId').invalid">
+              <p class="bold_error" *ngIf="submitted && this.copyForm.get('accountId').errors.required">
+                This field is required.
+              </p>
+              <p class="bold_error" *ngIf="submitted && !this.copyForm.get('accountId').errors.required &&
+                  this.copyForm.get('accountId').invalid">
+                  {{ accountIdErrorMsg }}
+              </p>
+          </div>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-sm-2 col-font"><label>Group</label></div>
+        <div class="col-sm-4 col-font">{{ groupText }}</div>
+        <div class="col-sm-2 col-font"><label>Group  <span class="required">*</span></label></div>
+        <div class="col-sm-4 col-font">
+          <input type="text" id="groupId" maxLength="15" formControlName="groupId" class="textLookup"
+          [ngStyle]="{'border' : (submitted && this.copyForm.get('groupId').invalid) ? '1px solid #E32315' : '1px solid #CC00FF'}" appUpper>
+          <a (click)="openVerticallyCentered(addModal)">
+            <span class="material-icons iconLookup">search</span>
+          </a>   
+          <a class="lookup" (click)="openVerticallyCentered(addModal)">Lookup</a>
+          <div *ngIf="submitted && this.copyForm.get('groupId').invalid ">
+              <p class="bold_error" *ngIf="submitted && this.copyForm.get('groupId').errors.required">
+                This field is required.
+              </p>
+              <p class="bold_error" *ngIf="submitted && !this.copyForm.get('groupId').errors.required &&
+                  this.copyForm.get('groupId').invalid">
+                  {{ groupIdErrorMsg }}
+              </p>
+          </div>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-sm-2 col-font"><label>Identifier</label></div>
+        <div class="col-sm-4 col-font" >{{ epfLoadIdentifierText }}</div>
+        <div class="col-sm-2 col-font"><label>Identifier  <span class="required">*</span></label></div>
+        <div class="col-sm-4 col-font">
+          <input id="epfLoadIdentifier" maxlength="9" class="form-input-sz" type="text" tabindex="0" 
+             formControlName="epfLoadIdentifier" appAlphanumeric [ngStyle]="{'border' : (submitted && this.copyForm.get('platformId').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}" 
+          >
+          <div *ngIf="submitted && this.copyForm.get('epfLoadIdentifier').invalid">
+              <p class="bold_error" *ngIf="submitted && this.copyForm.get('epfLoadIdentifier').errors.required">
+                This field is required.
+              </p>
+              <p class="bold_error" *ngIf="submitted && !this.copyForm.get('epfLoadIdentifier').errors.required &&
+                  this.copyForm.get('epfLoadIdentifier').invalid">
+                  {{ epfLoadIdentifierErrorMsg }}
+              </p>
+          </div>
+        </div>
+       
+    </div>  
+    <div align="center">
+      <a (click)="closeModalWindow()" class="btn btn--secondary spaceBetweenSaveCancel cancelAlignment"> Cancel</a>
+      <a class="btn btn--primary saveAlignment" (click)="submit()" tabindex="0" scrollTopOnClick>Create copy</a>
+    </div>
+</div>
+ <!--********* End modal body **********-->
+ 
+ 
+ </form> 
+ 
+</div>
+<ng-template #addModal>
+    <app-elig-profile-add-modal [cagData]=cagData (closeModal)="closeModal($event)"></app-elig-profile-add-modal>
+</ng-template>
+

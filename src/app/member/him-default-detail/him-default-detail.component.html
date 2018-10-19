@@ -1,0 +1,549 @@
+<a id="top"></a>
+<div class="title">
+    <div id="end_of_global_nav" tabindex="-1"></div>
+    <section class="area no-padding trim--white ">
+        <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+            <div class="ogn__title__left">
+                <h1 class="h1">HIM Default Override Detail</h1>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+    <div>
+        <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+    </div>
+    <div class="form_background">
+        <div class="">
+            <app-form-menu></app-form-menu>
+            <section class="area no-padding trim--white">
+                <div class="ogn__secondary-form ogn-container">
+                    <div class="content"></div>
+                </div>
+            </section>
+        </div>
+        <form novalidate [formGroup]="himDefaultOverrideDtlForm" [hidden]="isSaving">
+            <form-controls
+                [recordSessionStorageId]="'eligibilityProfile'"
+                [showCancel]="true"
+                [showSave]="!isView()"
+                (onSave)="submit()"
+                [onCancelRoute]="'/s-active-eligibility-profile'"
+            >
+            </form-controls>
+
+            <div class="errorDiv" *ngIf="submitted && this.himDefaultOverrideDtlForm.invalid">
+                <p class="errorDiv_text">The errors below must be corrected before saving.</p>
+            </div>
+            <div class="successDiv" *ngIf="submitted && !this.himDefaultOverrideDtlForm.invalid && isSuccess">
+                <p class="errorDiv_text">Your changes were successfully saved.</p>
+            </div>
+
+            <pcag-info
+                [platformId]="platformId"
+                [carrierId]="carrierId"
+                [accountId]="accountId"
+                [groupId]="groupId"
+            >
+            </pcag-info>
+
+
+
+            <div>
+                <app-form-section-heading></app-form-section-heading>
+                <div class="h2">HIM Override Indicators</div>
+            </div>
+            <!-- Start from here -->
+            <div class="typography form">
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhHimFromThruDateI').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_fromThruDateIndicator" id="form_label_fromThruDateIndicator">
+                                <span [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhHimFromThruDateI').invalid}">From/thru date</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                              Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.himDefaultOverrideDtlForm.get('emhHimFromThruDateI').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select tabindex="0" id="form_select_fromThruDateIndicator" class="form-select-xl" formControlName="emhHimFromThruDateI"
+                                        (change)="resetSuccessFlag()">
+
+                                        <option value="">Select one</option>
+                                        <option value="N">Field is not read or populated</option>
+                                        <option value="Y">Field must be present</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhHimFromThruDateI').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhHimFromThruDateI').errors.required">
+                                    This field is required.
+                                </p>
+                                <p class="bold_error" *ngIf="submitted && !this.himDefaultOverrideDtlForm.get('emhHimFromThruDateI').errors.required &&
+                      this.himDefaultOverrideDtlForm.get('emhHimFromThruDateI').invalid">
+                                    {{ emhHimFromThruDateIErrorMsg }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="himDefaultOverrideDtlForm.get('emhHimFromThruDateI') != null">{{ himDefaultOverrideDtlForm.get('emhHimFromThruDateI').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhHimFromThruDateR').invalid}">
+                        <div class="left-control-greyFields">
+                            <label>
+                                <span class="greyFields-label">Reprocess</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <input type="radio" required="" id="form_radio_fromThruDateReprocessY" aria-required="true" tabindex="0" formControlName="emhHimFromThruDateR"
+                                    value="Y" (change)="resetSuccessFlag()">
+                                <label class="field-label" for="form_radio_fromThruDateReprocessY">Yes</label>
+                            </div>
+                            <div class="field-block">
+                                <input type="radio" id="form_radio_fromThruDateReprocessN" tabindex="0" formControlName="emhHimFromThruDateR" value="N" (change)="resetSuccessFlag()">
+                                <label class="field-label" for="form_radio_fromThruDateReprocessN">No</label>
+                            </div>
+                            <div *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhHimFromThruDateR').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhHimFromThruDateR').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="himDefaultOverrideDtlForm.get('emhHimFromThruDateR') != null">{{ himDefaultOverrideDtlForm.get('emhHimFromThruDateR').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhQhpPlanIdInd').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_QHPPlanIdIndicator" id="form_label_QHPPlanIdIndicator">
+                                <span [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhQhpPlanIdInd').invalid}">QHP Plan ID</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.himDefaultOverrideDtlForm.get('emhQhpPlanIdInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select tabindex="0" id="form_select_QHPPlanIdIndicator" class="form-select-xl" formControlName="emhQhpPlanIdInd" (change)="resetSuccessFlag()">
+
+                                        <option value="">Select one</option>
+                                        <option value="N">Field is not read or populated</option>
+                                        <option value="V">Import and validate field</option>
+                                        <option value="Y">Import field, do not validate</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhQhpPlanIdInd').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhQhpPlanIdInd').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="himDefaultOverrideDtlForm.get('emhQhpPlanIdInd') != null">{{ himDefaultOverrideDtlForm.get('emhQhpPlanIdInd').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhQhpPlanIdRep').invalid}">
+                        <div class="left-control-greyFields">
+                            <label>
+                                <span class="greyFields-label">Reprocess</span>
+                            </label>
+                        </div>
+                        <div class="right-control">
+                            <p>
+                                <label>No</label>
+                                <!-- <label *ngIf="himDefaultOverrideDtlForm.get('emhQhpPlanIdRep') != null">{{ himDefaultOverrideDtlForm.get('emhQhpPlanIdRep').value }}</label> -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhCsrLevelInd').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_CSRLevelIndicator" id="form_label_CSRLevelIndicator">
+                                <span [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhCsrLevelInd').invalid}">CSR Level</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.himDefaultOverrideDtlForm.get('emhCsrLevelInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select tabindex="0" id="form_select_CSRLevelIndicator" class="form-select-xl" formControlName="emhCsrLevelInd" (change)="resetSuccessFlag()">
+
+                                        <option value="">Select one</option>
+                                        <option value="N">Field is not read or populated</option>
+                                        <option value="V">Import and validate field</option>
+                                        <option value="Y">Import field, do not validate</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhCsrLevelInd').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhCsrLevelInd').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="himDefaultOverrideDtlForm.get('emhCsrLevelInd') != null">{{ himDefaultOverrideDtlForm.get('emhCsrLevelInd').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhCsrLevelRep').invalid}">
+                        <div class="left-control-greyFields">
+                            <label>
+                                <span class="greyFields-label">Reprocess</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block" >
+                                <input type="radio" required="" id="form_radio_cSRLevelReprocessY" aria-required="true" tabindex="0" formControlName="emhCsrLevelRep"
+                                    value="Y" (change)="resetSuccessFlag()">
+                                <label class="field-label" for="form_radio_cSRLevelReprocessY">Yes</label>
+                            </div>
+                            <div class="field-block">
+                                <input type="radio" id="form_radio_cSRLevelReprocessN" tabindex="0" formControlName="emhCsrLevelRep" value="N" (change)="resetSuccessFlag()">
+                                <label class="field-label" for="form_radio_cSRLevelReprocessN">No</label>
+                            </div>
+                            <div *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhCsrLevelRep').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhCsrLevelRep').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="himDefaultOverrideDtlForm.get('emhCsrLevelRep') != null">{{ himDefaultOverrideDtlForm.get('emhCsrLevelRep').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhMetalLevelInd').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_MetalLevelIndicator" id="form_label_MetalLevelIndicator">
+                                <span [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhMetalLevelInd').invalid}">Metal level</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.himDefaultOverrideDtlForm.get('emhMetalLevelInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select tabindex="0" id="form_select_MetalLevelIndicator" class="form-select-xl" formControlName="emhMetalLevelInd" (change)="resetSuccessFlag()">
+
+                                        <option value="">Select one</option>
+                                        <option value="N">Field is not read or populated</option>
+                                        <option value="V">Import and validate field</option>
+                                        <option value="Y">Import field, do not validate</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhMetalLevelInd').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhMetalLevelInd').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="himDefaultOverrideDtlForm.get('emhMetalLevelInd') != null">{{ himDefaultOverrideDtlForm.get('emhMetalLevelInd').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhMetalLevelIndRep').invalid}">
+                        <div class="left-control-greyFields">
+                            <label>
+                                <span class="greyFields-label">Reprocess</span>
+                            </label>
+                        </div>
+                        <div class="right-control">
+                            <p>
+                                <label>No</label>
+                                <!-- <label *ngIf="himDefaultOverrideDtlForm.get('emhMetalLevelIndRep') != null">{{ himDefaultOverrideDtlForm.get('emhMetalLevelIndRep').value }}</label> -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhMemberEthnicityInd').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_MemberEthnicityIndicator" id="form_label_MemberEthnicityIndicator">
+                                <span [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhMemberEthnicityInd').invalid}">Member ethnicity</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.himDefaultOverrideDtlForm.get('emhMemberEthnicityInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select tabindex="0" id="form_select_MemberEthnicityIndicator" class="form-select-xl" formControlName="emhMemberEthnicityInd"
+                                        (change)="resetSuccessFlag()">
+
+                                        <option value="">Select one</option>
+                                        <option value="N">Field is not read or populated</option>
+                                        <option value="V">Import and validate field</option>
+                                        <option value="Y">Import field, do not validate</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhMemberEthnicityInd').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhMemberEthnicityInd').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="himDefaultOverrideDtlForm.get('emhMemberEthnicityInd') != null">{{ himDefaultOverrideDtlForm.get('emhMemberEthnicityInd').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhMemberEthnicityRep').invalid}">
+                        <div class="left-control-greyFields">
+                            <label>
+                                <span class="greyFields-label">Reprocess</span>
+                            </label>
+                        </div>
+                        <div class="right-control">
+                            <p>
+                                <label>No</label>
+                                <!-- <label *ngIf="himDefaultOverrideDtlForm.get('emhMemberEthnicityRep') != null">{{ himDefaultOverrideDtlForm.get('emhMemberEthnicityRep').value }}</label> -->
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhAptcIndicator').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_APTC" id="form_label_APTC">
+                                <span [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhAptcIndicator').invalid}">APTC</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.himDefaultOverrideDtlForm.get('emhAptcIndicator').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select tabindex="0" id="form_select_APTC" class="form-select-xl" formControlName="emhAptcIndicator" (change)="resetSuccessFlag()">
+
+                                        <option value="">Select one</option>
+                                        <option value="N">Field is not read or populated</option>
+                                        <option value="V">Import and validate field</option>
+                                        <option value="Y">Import field, do not validate</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhAptcIndicator').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhAptcIndicator').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="himDefaultOverrideDtlForm.get('emhAptcIndicator') != null">{{ himDefaultOverrideDtlForm.get('emhAptcIndicator').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhHimGraceStartEndI').invalid}">
+                        <div class="left-control">
+                            <label for="form_select_gracePeriodDateIndicator" id="form_label_gracePeriodDateIndicator">
+                                <span [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhHimGraceStartEndI').invalid}">Grace period date</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                                  Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <div class="select" [ngStyle]="{'border' : (submitted && this.himDefaultOverrideDtlForm.get('emhHimGraceStartEndI').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                    <select tabindex="0" id="form_select_gracePeriodDateIndicator" class="form-select-xl" formControlName="emhHimGraceStartEndI"
+                                        (change)="resetSuccessFlag()">
+                                        <option value="">Select one</option>
+                                        <option value="A">Period may overlap/be adj</option>
+                                        <option value="B">Period can’t be outside HIX</option>
+                                        <option value="N">Field is not read or populated</option>
+                                        <option value="V">Validate field in load</option>
+                                        <option value="Y">Import field, do not validate</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhHimGraceStartEndI').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhHimGraceStartEndI').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="himDefaultOverrideDtlForm.get('emhHimGraceStartEndI') != null">{{ himDefaultOverrideDtlForm.get('emhHimGraceStartEndI').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhHimGraceStartEndR').invalid}">
+                        <div class="left-control-greyFields">
+                            <label>
+                                <span class="greyFields-label">Reprocess</span>
+                            </label>
+                        </div>
+                        <div class="right-control">
+                            <p>
+                                <label>No</label>
+
+                                <!-- <label *ngIf="himDefaultOverrideDtlForm.get('emhHimGraceStartEndR') != null">{{ himDefaultOverrideDtlForm.get('emhHimGraceStartEndR').value }}</label> -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'error': submitted && this.himDefaultOverrideDtlForm.get('emhFamilyIdReproc').invalid}">
+                        <div class="left-control">
+                            <label>
+                                <span>Family Id reprocess</span>
+                                <span class="required">*</span>
+                            </label>
+                            <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications.">
+                            </a>
+                        </div>
+                        <div class="right-control error_message" *ngIf="!isView()">
+                            <div class="field-block">
+                                <input type="radio" required="" id="form_radio_familyIdReprocessY" aria-required="true" tabindex="0" formControlName="emhFamilyIdReproc"
+                                    value="Y" (change)="resetSuccessFlag()">
+                                <label class="field-label" for="form_radio_familyIdReprocessY">Yes</label>
+                            </div>
+                            <div class="field-block">
+                                <input type="radio" id="form_radio_familyIdReprocessN" tabindex="0" formControlName="emhFamilyIdReproc" value="N" (change)="resetSuccessFlag()">
+                                <label class="field-label" for="form_radio_familyIdReprocessN">No</label>
+                            </div>
+                            <div *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhFamilyIdReproc').invalid">
+                                <p class="bold_error" *ngIf="submitted && this.himDefaultOverrideDtlForm.get('emhFamilyIdReproc').errors.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right-control view_message" *ngIf="isView()">
+                            <p>
+                                <label class="view_message" *ngIf="himDefaultOverrideDtlForm.get('emhFamilyIdReproc') != null">{{ himDefaultOverrideDtlForm.get('emhFamilyIdReproc').value }}</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+                </div>
+                <!-- End here-->
+                <form-controls
+                    [recordSessionStorageId]="'eligibilityProfile'"
+                    [showCancel]="true"
+                    [showSave]="!isView()"
+                    (onSave)="submit()"
+                    [onCancelRoute]="'/s-active-eligibility-profile'"
+                >
+                </form-controls>
+            </div>
+            <div class="spacer"></div>
+
+        </form>
+        <div *ngIf="isSaving">
+            <app-loading-indicator></app-loading-indicator>
+        </div>
+    </div>
+    <div class="dateUserStampStyle">
+        Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+        <br>&nbsp;
+    </div>
+</div>
+
+<style>
+    @font-face {
+        font-family: 'frutiger-bold';
+        src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+        url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+    }
+
+    @font-face {
+        font-family: 'frutiger-roman';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../../assets/fonts/optum/frutiger-roman.eot');
+        /* IE9 Compat Modes */
+        src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+        url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+    }
+</style>

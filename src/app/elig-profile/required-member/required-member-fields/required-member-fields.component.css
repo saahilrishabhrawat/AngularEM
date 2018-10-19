@@ -1,0 +1,296 @@
+/* CSS FOR Form Links*/
+.ogn__secondary-header-formlink {
+    -ms-flex-align: center;
+    align-items: center;    
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: end;
+    justify-content: flex-end;  
+    padding: 12px 0px; 
+    max-width:1170px;
+    height:48px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.topright {
+    position: absolute;
+    top: 8px;
+    right: 0px;  
+    font-size: 16px;
+}
+
+.formlinksection {
+    height:48px;
+    border-top: 1px solid #E0E0E0;
+}
+
+.btn--icon {
+    padding-left: 0px;
+}
+
+.btn--icon:hover {
+    text-decoration: underline;
+
+}
+
+.addcircle {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 21px;  /* Preferred icon size */
+    display: inline-block;
+    color: #316BBE;
+    margin-right:8px;
+    margin-top: -2px;
+}
+
+.add-entry-link {
+    text-decoration: none !important;
+}
+
+.add-entry-link:hover {
+    text-decoration: underline !important;
+}
+
+.topTextStyle:hover {
+    text-decoration: underline;
+}
+  /* CSS END FOR Form Links*/
+
+.title { 
+    border-bottom: solid 1px #E0E0E0;
+}
+
+  /** CSS FOR DATA TABLE (Columns,Rows and Styling) STARTS FROM HERE **/  
+a {
+    text-decoration: none;
+}
+
+.mat-table {
+    width: 1170px;
+    margin:auto;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.mat-cell {
+    margin: 0px 10px;
+    min-height:40px;
+    padding: 10px 0px;
+    display: inline-block;
+}
+
+.mat-header-cell {
+    color: black;
+    font-family: 'frutiger-bold';
+    font-size: 12px;
+    align-items: center;
+    min-height:40px;
+    margin:0px 10px;
+    padding-top: 20px;
+}
+
+.mat-checkbox {
+    position:relative;
+    float:left;
+    bottom: 12px;
+    vertical-align: middle;
+    height: 40px;
+    margin: 0px 12px;
+}
+
+
+.mat-column-select {
+    overflow: visible;
+    height: 40px;
+}
+
+i {
+    vertical-align: middle;
+    font-size: 24px;
+}
+
+.gear {
+    float:right;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;   
+    color: #316BBE;
+    vertical-align: middle;
+    margin:0px 7px;
+    cursor: pointer;
+}
+
+a:focus {
+    color: #316BBE;
+}
+
+a:hover {
+    color: #316BBE;
+}
+
+.dtlink {
+    color: #316BBE;
+    font-family: 'frutiger-bold';
+    font-size: 14px;
+}
+.dtlink:hover {
+    color: #316BBE;
+    text-decoration: underline;
+}
+
+.dtlink:focus {
+    color: #316BBE;
+}
+
+mat-row ng-star-inserted {
+    height:40px;
+}
+
+mat-row {
+    width:1170px;
+    height: 40px;
+    padding:0px;
+    border-bottom: 1px solid #E0E0E0;
+    border-right: 1px solid #E0E0E0;
+    border-left: 1px solid #E0E0E0;
+    font-family: 'frutiger-roman';
+    font-size : 12px;
+}
+
+.highlight{
+    background-color:  #FBF8D0;
+    border: 1px solid #FFCD19;
+    margin-top: -1px;
+    margin-bottom: -1px;
+}
+
+.carrier-id-font{
+    font-size: 14px;
+}
+
+.mat-row:hover:not(.highlight) {
+    background-color:  #CCEBF6;
+    border: 1px solid #61C6E5;
+    margin-top: -1px;
+}
+
+mat-header-row {
+    padding-left: 0px;
+    padding-right: 0px;
+    width:1170px;
+    height: 40px;
+    border-bottom: 1px solid #B3B3B3;
+}
+
+.highlight{
+    background-color:  #FBF8D0;
+    border: 1px solid #FFCD19;
+    margin-top: -1px;
+    margin-bottom: -1px;
+}
+
+.mat-sort-header.arrow{
+    margin:0px;
+    position: absolute;
+}
+
+.loading-indicator-container {
+    padding: 10px;
+}
+
+.mat-column-gear {
+    flex: 0 0 40px !important;
+}
+
+
+  /** CSS FOR DATA TABLE ENDS HERE **/  
+  
+  
+  /** CSS FOR Paginator Starts HERE **/  
+  :host /deep/ mat-paginator .mat-paginator-container {
+    max-width: 1170px;
+    margin: auto;
+    justify-content: inherit;
+}
+
+:host /deep/ mat-paginator .mat-paginator-range-actions {
+    padding-left: 772px;
+}
+
+:host /deep/ mat-paginator .mat-paginator-page-size-label{
+    padding: 0px 15px 0px 0px;
+    margin: 0 0px;
+    color: black;
+    font-family: 'frutiger-bold';
+    font-size: 12px;
+}
+
+:host /deep/ mat-paginator .mat-paginator-range-label {
+    color: black;
+    font-family: 'frutiger-bold';
+    font-size: 12px;
+    margin: 0 -247px 0 194px;
+}
+/** CSS FOR Paginator Ends HERE **/
+
+:host >>>  .popover{
+    padding: 16px;
+    border-bottom: 3px solid #B3B3B3;
+    border-left: 1px solid #B3B3B3;
+    border-top: 1px solid #B3B3B3;
+    border-right: 1px solid #B3B3B3;
+    margin-left: 10px;
+    border-radius: 1px;
+    width:auto;
+}
+
+:host >>>  .popover-body{
+    padding:0px;
+    line-height: 25px;
+}
+.popoverlink {
+    font-family: 'frutiger-bold';
+    font-size : 12px;
+    color: #316BBE ;
+}
+
+.popoverlink:hover {
+    text-decoration: underline;
+    color: #316BBE ;
+}
+
+.popoverheading {
+    font-family: 'frutiger-roman';
+    font-size : 12px;
+    color: #636363 ;
+}
+
+a.popoverlink {
+    font-family: 'frutiger-bold';
+    font-size : 12px;
+    color: #316BBE ;
+}
+
+a.popoverlink:hover {
+    text-decoration: underline;
+    color: #316BBE ;
+}
+
+.iconPopover{
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 16px;  /* Preferred icon size */
+    display: inline-block;
+    color: #316BBE;
+    margin-right:6px;
+    cursor:pointer;
+}
+
+
+.no-records-message {
+    text-align: center;
+    margin: 40px 0;
+}

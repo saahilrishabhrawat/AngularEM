@@ -1,0 +1,684 @@
+<a id="top"></a>
+<div class="title">
+    <div id="end_of_global_nav" tabindex="-1"></div>
+    <section class="area no-padding trim--white ">
+        <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+            <div class="ogn__title__left">
+                <h1 class="h1">Health Default Detail</h1>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+    <div>
+        <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+    </div>
+    <div class="form_background">
+        <div class="">
+            <app-form-menu></app-form-menu>
+            <section class="area no-padding trim--white">
+                <div class="ogn__secondary-form ogn-container">
+                    <div class="content"></div>
+                </div>
+            </section>
+        </div>
+        <form novalidate [formGroup]="healthDefaultDetailForm" [hidden]="isLoading">
+            <form-controls
+                [recordSessionStorageId]="'eligibilityProfile'"
+                [showCancel]="true"
+                [showSave]="!isView()"
+                (onSave)="submit()"
+                [onCancelRoute]="'/s-active-eligibility-profile'"
+            >
+            </form-controls>
+            <div class="errorDiv" *ngIf="submitted && this.healthDefaultDetailForm.invalid">
+                <p class="errorDiv_text">{{errorDivMessage}}</p>
+            </div>
+            <div class="successDiv" *ngIf="isSuccess && !this.healthDefaultDetailForm.invalid">
+                <p class="errorDiv_text">{{saveMsg}}</p>
+            </div>
+
+            <div class="form">
+                <pcag-info
+                    [platformId]="platformId"
+                    [carrierId]="carrierId"
+                    [accountId]="accountId"
+                    [groupId]="groupId"
+                >
+                </pcag-info>
+            </div>
+
+            <!-- Start from here -->
+            <div class="typography form">
+                <div id="diagnosis-codes">
+                    <app-form-section-heading></app-form-section-heading>
+                    <div class="h2">Diagnosis Code Indicators</div>
+                    <div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdUseIcdValidation').invalid}">
+                                <div class="left-control">
+                                    <label for="ehdUseIcdValidation">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdUseIcdValidation').invalid}">Use ICD</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdUseIcdValidation').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                        <select tabindex="0" class="form-select-md" id="ehdUseIcdValidation" formControlName="ehdUseIcdValidation" (change)="resetDiagCodeValidations()">
+                                            <option value="">Select one</option>
+                                            <option [value]="key" *ngFor="let key of Object.keys(useICDSelectOptions)">{{useICDSelectOptions[key]}}</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdUseIcdValidation').invalid">
+                                        <p class="bold_error">
+                                            {{fieldErrorMessages['ehdUseIcdValidation'] || fieldRequiredMessage}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{ (useICDSelectOptions[healthDefaultDetailForm.get('ehdUseIcdValidation').value] || '') }}</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" *ngFor="let diagnosisCode of arrayOfNSize(numOfDiagnosisCodes)">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdDiagCode' + diagnosisCode + 'Ind').invalid || (itemInArray(defaultOrReplaceFields, ('ehdDiagCode' + diagnosisCode + 'Ind')) && this.healthDefaultDetailForm.get('ehdDiagCode' + diagnosisCode).invalid )))}">
+                                <div class="left-control">
+                                    <label [attr.for]="('ehdDiagCode' + diagnosisCode + 'Ind')">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdDiagCode' + diagnosisCode + 'Ind').invalid}">Diagnosis code {{diagnosisCode}}</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, ('ehdDiagCode' + diagnosisCode + 'Ind')))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdDiagCode' + diagnosisCode + 'Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" [attr.id]="('ehdDiagCode' + diagnosisCode + 'Ind')" [formControlName]="('ehdDiagCode' + diagnosisCode + 'Ind')" (change)="showHideSelectFields(('ehdDiagCode' + diagnosisCode + 'Ind'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdDiagCode' + diagnosisCode + 'Ind'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <div>
+                                                    <input type="text" maxlength="20" class="form-input-md" [formControlName]="('ehdDiagCode' + diagnosisCode)" (change)="onDiagCodeChange(diagnosisCode)" appMask="upper" (keyup.enter)="openDiagnosisCodeModal(diagnosisCode)" readonly>
+                                                    <app-lookup-icon (onClick)="openDiagnosisCodeModal(diagnosisCode)"></app-lookup-icon>
+                                                </div>
+                                                <div class="code-qualifier-container" *ngIf="healthDefaultDetailForm.get(('ehdDiagQual' + diagnosisCode)).value && healthDefaultDetailForm.get(('ehdDiagType' + diagnosisCode)).value">
+                                                    <legend class="secondary-input-legend">Qual: {{(healthDefaultDetailForm.get(('ehdDiagQual' + diagnosisCode)).value || '')}}&nbsp;&nbsp;&nbsp;&nbsp;Type: {{(healthDefaultDetailForm.get(('ehdDiagType' + diagnosisCode)).value || '')}}</legend>
+                                                </div>
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdDiagCode' + diagnosisCode).invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdDiagCode' + diagnosisCode] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                        <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdDiagCode' + diagnosisCode + 'Ind').invalid">
+                                            <p class="bold_error">
+                                                {{fieldErrorMessages['ehdDiagCode' + diagnosisCode + 'Ind'] || fieldRequiredMessage}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdDiagCode' + diagnosisCode + 'Ind')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, ('ehdDiagCode' + diagnosisCode + 'Ind'))">
+                                        <label>{{(healthDefaultDetailForm.get(('ehdDiagCode' + diagnosisCode)).value || '')}}</label>
+                                        <br/>
+                                        <label *ngIf="healthDefaultDetailForm.get(('ehdDiagQual' + diagnosisCode)).value || healthDefaultDetailForm.get(('ehdDiagType' + diagnosisCode)).value">Qual: {{(healthDefaultDetailForm.get(('ehdDiagQual' + diagnosisCode)).value || '')}}&nbsp;&nbsp;&nbsp;&nbsp;Type: {{(healthDefaultDetailForm.get(('ehdDiagType' + diagnosisCode)).value || '')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div id="allergy-codes">
+                    <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+                    <div class="h2" >Allergy Code Indicators</div>
+                    <div>
+                        <div class="row" *ngFor="let allergyCode of arrayOfNSize(numOfAllergyCodes)">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdAllergyCode' + allergyCode + 'Ind').invalid || (itemInArray(defaultOrReplaceFields, ('ehdAllergyCode' + allergyCode + 'Ind')) && this.healthDefaultDetailForm.get('ehdAllergyCode' + allergyCode).invalid)))}">
+                                <div class="left-control">
+                                    <label [attr.for]="('ehdAllergyCode' + allergyCode + 'Ind')">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdAllergyCode' + allergyCode + 'Ind').invalid}">Allergy code {{allergyCode}}</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, ('ehdAllergyCode' + allergyCode + 'Ind')))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdAllergyCode' + allergyCode + 'Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" [attr.id]="('ehdAllergyCode' + allergyCode + 'Ind')" [formControlName]="('ehdAllergyCode' + allergyCode + 'Ind')" (change)="showHideSelectFields(('ehdAllergyCode' + allergyCode + 'Ind'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdAllergyCode' + allergyCode + 'Ind'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <app-lookup [formControlName]="('ehdAllergyCode' + allergyCode)" appLookUpLength="3" appLookUpType="appAlphanumeric"></app-lookup>
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdAllergyCode' + allergyCode).invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdAllergyCode' + allergyCode] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                            <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdAllergyCode' + allergyCode + 'Ind').invalid">
+                                                <p class="bold_error">
+                                                    {{fieldErrorMessages['ehdAllergyCode' + allergyCode + 'Ind'] || fieldRequiredMessage}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdAllergyCode' + allergyCode + 'Ind')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, ('ehdAllergyCode' + allergyCode + 'Ind')) && healthDefaultDetailForm.get(('ehdAllergyCode' + allergyCode)).value">
+                                        <label>{{(healthDefaultDetailForm.get(('ehdAllergyCode' + allergyCode)).value || '')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div id="misc-codes">
+                    <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+                    <div class="h2" >Misc Code Indicators</div>
+                    <div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdHeightInd').invalid || (itemInArray(defaultOrReplaceFields, 'ehdHeightInd') && this.healthDefaultDetailForm.get('ehdHeight').invalid)))}">
+                                <div class="left-control">
+                                    <label for="ehdHeightInd">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdHeightInd').invalid}">Height</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, 'ehdHeightInd'))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdHeightInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" id="ehdHeightInd" formControlName="ehdHeightInd" (change)="showHideSelectFields(('ehdHeightInd'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdHeightInd'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <input type="text" placeholder="Inches" formControlName="ehdHeight" maxlength="6" appMask="decimalThreePlaces" class="form-input-xs">
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdHeight').invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdHeight'] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                            <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdHeightInd').invalid">
+                                                <p class="bold_error">
+                                                    {{fieldErrorMessages['ehdHeightInd'] || fieldRequiredMessage}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdHeightInd')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, 'ehdHeightInd') && healthDefaultDetailForm.get('ehdHeight').value">
+                                        <label>{{(healthDefaultDetailForm.get('ehdHeight').value || '')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdWeightInd').invalid || (itemInArray(defaultOrReplaceFields, 'ehdWeightInd') && this.healthDefaultDetailForm.get('ehdWeight').invalid)))}">
+                                <div class="left-control">
+                                    <label for="ehdWeightInd">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdWeightInd').invalid}">Weight</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, 'ehdWeightInd'))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdWeightInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" id="ehdWeightInd" formControlName="ehdWeightInd" (change)="showHideSelectFields(('ehdWeightInd'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdWeightInd'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <input type="text" placeholder="lbs" formControlName="ehdWeight" maxlength="6" appMask="decimalThreePlaces" class="form-input-xs">
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdWeight').invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdWeight'] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                            <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdWeightInd').invalid">
+                                                <p class="bold_error">
+                                                    {{fieldErrorMessages['ehdWeightInd'] || fieldRequiredMessage}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdWeightInd')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, 'ehdWeightInd')">
+                                        <label>{{(healthDefaultDetailForm.get('ehdWeight').value || '')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdBloodTypeInd').invalid || (itemInArray(defaultOrReplaceFields, 'ehdBloodTypeInd') && this.healthDefaultDetailForm.get('ehdBloodType').invalid)))}">
+                                <div class="left-control">
+                                    <label for="ehdBloodTypeInd">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdBloodTypeInd').invalid}">Blood Type</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, 'ehdBloodTypeInd'))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdBloodTypeInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" id="ehdBloodTypeInd" formControlName="ehdBloodTypeInd" (change)="showHideSelectFields(('ehdBloodTypeInd'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdBloodTypeInd'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdBloodType').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                    <select tabindex="0" class="form-select-s" id="ehdBloodType" formControlName="ehdBloodType">
+                                                        <option value="">Select one</option>
+                                                        <option *ngFor="let key of Object.keys(bloodTypeReplacementOptions)" [value]="key">{{bloodTypeReplacementOptions[key]}}</option>
+                                                    </select>
+                                                </div>
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdBloodType').invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdBloodType'] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                            <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdBloodTypeInd').invalid">
+                                                <p class="bold_error">
+                                                    {{fieldErrorMessages['ehdBloodTypeInd'] || fieldRequiredMessage}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdBloodTypeInd')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, 'ehdBloodTypeInd')">
+                                        <label>{{(bloodTypeReplacementOptions[healthDefaultDetailForm.get('ehdBloodType').value] || '')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdSmokingInd').invalid || (itemInArray(defaultOrReplaceFields, 'ehdSmokingInd') && this.healthDefaultDetailForm.get('ehdSmokingCode').invalid)))}">
+                                <div class="left-control">
+                                    <label for="ehdSmokingInd">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdSmokingInd').invalid}">Smoking</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, 'ehdSmokingInd'))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdSmokingInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" id="ehdSmokingInd" formControlName="ehdSmokingInd" (change)="showHideSelectFields(('ehdSmokingInd'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdSmokingInd'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdSmokingCode').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                    <select tabindex="0" class="form-select-md" id="ehdSmokingCode" formControlName="ehdSmokingCode">
+                                                        <option value="">Select one</option>
+                                                        <option *ngFor="let key of Object.keys(smokingReplacementOptions)" [value]="key">{{smokingReplacementOptions[key]}}</option>
+                                                    </select>
+                                                </div>
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdSmokingCode').invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdSmokingCode'] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                            <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdSmokingInd').invalid">
+                                                <p class="bold_error">
+                                                    {{fieldErrorMessages['ehdSmokingInd'] || fieldRequiredMessage}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdSmokingInd')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, 'ehdSmokingInd')">
+                                        <label>{{(smokingReplacementOptions[healthDefaultDetailForm.get('ehdSmokingCode').value] || '')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdAlcoholInd').invalid || (itemInArray(defaultOrReplaceFields, 'ehdAlcoholInd') && this.healthDefaultDetailForm.get('ehdAlcoholCode').invalid)))}">
+                                <div class="left-control">
+                                    <label for="ehdAlcoholInd">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdAlcoholInd').invalid}">Alcohol</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, 'ehdAlcoholInd'))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdAlcoholInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" id="ehdAlcoholInd')" formControlName="ehdAlcoholInd" (change)="showHideSelectFields(('ehdAlcoholInd'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdAlcoholInd'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdAlcoholCode').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                    <select tabindex="0" class="form-select-md" id="ehdAlcoholCode" formControlName="ehdAlcoholCode">
+                                                        <option value="">Select one</option>
+                                                        <option *ngFor="let key of Object.keys(alcoholReplacementOptions)" [value]="key">{{alcoholReplacementOptions[key]}}</option>
+                                                    </select>
+                                                </div>
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdAlcoholCode').invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdAlcoholCode'] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                            <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdAlcoholInd').invalid">
+                                                <p class="bold_error">
+                                                    {{fieldErrorMessages['ehdAlcoholInd'] || fieldRequiredMessage}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdAlcoholInd')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, 'ehdAlcoholInd')">
+                                        <label>{{(alcoholReplacementOptions[healthDefaultDetailForm.get('ehdAlcoholCode').value] || '')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdPregnancyInd').invalid || (itemInArray(defaultOrReplaceFields, 'ehdPregnancyInd') && this.healthDefaultDetailForm.get('ehdPregnantCode').invalid)))}">
+                                <div class="left-control">
+                                    <label for="ehdPregnancyInd">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdPregnancyInd').invalid}">Pregnancy</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, 'ehdPregnancyInd'))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdPregnancyInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" id="ehdPregnancyInd" formControlName="ehdPregnancyInd" (change)="showHideSelectFields(('ehdPregnancyInd'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdPregnancyInd'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <div>
+                                                    <div class="field-block">
+                                                        <input type="radio" aria-required="true" tabindex="0" id ="ehdPregnantCodeY" name="ehdPregnantCode" formControlName="ehdPregnantCode"
+                                                            value="Y">    
+                                                        <label class="field-label" for="ehdPregnantCodeY">Yes</label>
+                                                    </div>
+                                                    <div class="field-block">
+                                                        <input type="radio" aria-required="true" tabindex="0" id ="ehdPregnantCodeN" name="ehdPregnantCode" formControlName="ehdPregnantCode"
+                                                            value="N">
+                                                        <label class="field-label" for="ehdPregnantCodeN">No</label>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdPregnantCode').invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdPregnantCode'] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                            <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdPregnancyInd').invalid">
+                                                <p class="bold_error">
+                                                    {{fieldErrorMessages['ehdPregnancyInd'] || fieldRequiredMessage}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdPregnancyInd')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, 'ehdPregnancyInd')">
+                                        <label>{{(healthDefaultDetailForm.get('ehdPregnantCode').value === 'Y' ? 'Yes' : 'No')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdContactLensInd').invalid || (itemInArray(defaultOrReplaceFields, 'ehdContactLensInd') && this.healthDefaultDetailForm.get('ehdContactLensCode').invalid)))}">
+                                <div class="left-control">
+                                    <label for="ehdContactLensInd">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdContactLensInd').invalid}">Contact lens</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, 'ehdContactLensInd'))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdContactLensInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" id="ehdContactLensInd" formControlName="ehdContactLensInd" (change)="showHideSelectFields(('ehdContactLensInd'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdContactLensInd'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <div>
+                                                    <div class="field-block">
+                                                        <input type="radio" aria-required="true" tabindex="0" id ="ehdContactLensCodeY" name="ehdContactLensCode" formControlName="ehdContactLensCode"
+                                                            value="Y">    
+                                                        <label class="field-label" for="ehdContactLensCodeY">Yes</label>
+                                                    </div>
+                                                    <div class="field-block">
+                                                        <input type="radio" aria-required="true" tabindex="0" id ="ehdContactLensCodeN" name="ehdContactLensCode" formControlName="ehdContactLensCode"
+                                                            value="N">
+                                                        <label class="field-label" for="ehdContactLensCodeN">No</label>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdContactLensCode').invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdContactLensCode'] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                            <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdContactLensInd').invalid">
+                                                <p class="bold_error">
+                                                    {{fieldErrorMessages['ehdContactLensInd'] || fieldRequiredMessage}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdContactLensInd')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, 'ehdContactLensInd')">
+                                        <label>{{(healthDefaultDetailForm.get('ehdContactLensCode').value === 'Y' ? 'Yes' : 'No')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdMiscCode1Ind').invalid || (itemInArray(defaultOrReplaceFields, 'ehdMiscCode1Ind') && this.healthDefaultDetailForm.get('ehdMiscCode1').invalid)))}">
+                                <div class="left-control">
+                                    <label for="ehdMiscCode1Ind">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdMiscCode1Ind').invalid}">Misc Code 1</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, 'ehdMiscCode1Ind'))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdMiscCode1Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" id="ehdMiscCode1Ind" formControlName="ehdMiscCode1Ind" (change)="showHideSelectFields(('ehdMiscCode1Ind'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdMiscCode1Ind'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <input type="text" placeholder="" formControlName="ehdMiscCode1" maxlength="1" appUpper class="form-input-xxs">
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdMiscCode1').invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdMiscCode1'] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                            <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdMiscCode1Ind').invalid">
+                                                <p class="bold_error">
+                                                    {{fieldErrorMessages['ehdMiscCode1Ind'] || fieldRequiredMessage}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdMiscCode1Ind')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, 'ehdMiscCode1Ind')">
+                                        <label>{{(healthDefaultDetailForm.get('ehdMiscCode1').value || '')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" [ngClass]="{'error': (submitted && (this.healthDefaultDetailForm.get('ehdMiscCode2Ind').invalid || (itemInArray(defaultOrReplaceFields, 'ehdMiscCode2Ind') && this.healthDefaultDetailForm.get('ehdMiscCode2').invalid)))}">
+                                <div class="left-control">
+                                    <label for="ehdMiscCode2Ind">
+                                        <span [ngClass]="{'error': submitted && this.healthDefaultDetailForm.get('ehdMiscCode2Ind').invalid}">Print option</span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                    Imagery may or may not reflect your current medications."></a>
+                                </div>
+                                <div class="right-control error_message" *ngIf="!isView()">
+                                    <div class="field-block">
+                                        <div [ngClass]="{'multi-line-inputs': (itemInArray(defaultOrReplaceFields, 'ehdMiscCode2Ind'))}">
+                                            <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdMiscCode2Ind').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                <select tabindex="0" class="form-select-lg" id="ehdMiscCode2Ind" formControlName="ehdMiscCode2Ind" (change)="showHideSelectFields(('ehdMiscCode2Ind'))">
+                                                    <option value="">Select one</option>
+                                                    <option *ngFor="let key of Object.keys(defaultSelectOptions)" [value]="key">{{defaultSelectOptions[key]}}</option>
+                                                </select>
+                                            </div>
+                                            <ng-container *ngIf="itemInArray(defaultOrReplaceFields, ('ehdMiscCode2Ind'))">
+                                                <legend class="secondary-input-legend">Default/replacement value</legend>
+                                                <div class="select" [ngStyle]="{'border' : (submitted && this.healthDefaultDetailForm.get('ehdMiscCode2').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                                                    <select tabindex="0" class="form-select-md" id="ehdMiscCode2" formControlName="ehdMiscCode2">
+                                                        <option value="">Select one</option>
+                                                        <option *ngFor="let key of Object.keys(printOptionReplacementOptions)" [value]="key">{{printOptionReplacementOptions[key]}}</option>
+                                                    </select>
+                                                </div>
+                                                <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdMiscCode2').invalid">
+                                                    <p class="bold_error">
+                                                        {{fieldErrorMessages['ehdMiscCode2'] || fieldRequiredMessage}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                            <div *ngIf="submitted && this.healthDefaultDetailForm.get('ehdMiscCode2Ind').invalid">
+                                                <p class="bold_error">
+                                                    {{fieldErrorMessages['ehdMiscCode2Ind'] || fieldRequiredMessage}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" *ngIf="isView()">
+                                    <label>{{(defaultSelectOptions[healthDefaultDetailForm.get(('ehdMiscCode2Ind')).value] || '')}}</label>
+                                    <div *ngIf="itemInArray(defaultOrReplaceFields, 'ehdMiscCode2Ind')">
+                                        <label>{{(printOptionReplacementOptions[healthDefaultDetailForm.get('ehdMiscCode2').value] || '')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+                </div>
+            </div>
+            <form-controls
+                [recordSessionStorageId]="'eligibilityProfile'"
+                [showCancel]="true"
+                [showSave]="!isView()"
+                (onSave)="submit()"
+                [onCancelRoute]="'/s-active-eligibility-profile'"
+            >
+            </form-controls>
+        </form>
+        <div *ngIf="isLoading">
+            <app-loading-indicator></app-loading-indicator>
+        </div>
+    </div>
+    <div class="dateUserStampStyle">
+        Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+        <br>&nbsp;
+    </div>
+</div>
+
+
+<ng-template #diagnosisCodeModal>
+    <app-diagnosis-code-lookup-modal [diagnosisCodeNumber]="diagnosisCodeLookupSelection" [platformId]="platformId" [modalRef]="diagnosisCodeModalRef" (closeModal)="closeDiagnosisCodeModal($event)"></app-diagnosis-code-lookup-modal>
+</ng-template>
+
+<style>
+    @font-face {
+        font-family: 'frutiger-bold';
+        src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+        url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+    }
+
+    @font-face {
+        font-family: 'frutiger-roman';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../../assets/fonts/optum/frutiger-roman.eot');
+        /* IE9 Compat Modes */
+        src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+        url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+    }
+</style>

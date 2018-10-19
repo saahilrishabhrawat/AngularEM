@@ -1,0 +1,82 @@
+<div class="modal-window" > 
+  <div class="modal-header">
+    <div class="h2">Diagnosis Code Lookup</div>
+    <a (click)="closeModalWindow()" (keyup.enter)="closeModalWindow()" tabindex="0" class="btn btn--close">
+      <span class="sr-only">Close</span>
+    </a>
+  </div>
+
+  <div class="modal-body">
+      <app-filter-panel
+        [filterPanelData]="[
+          {filterListName: 'Filter by Code', placeHolderText: 'Filter by Code', filterType: 'search', filterDefault: true, displayOrder: '1'},
+          {filterListName: 'Filter by Description', placeHolderText: 'Filter by Description', filterType: 'search', filterDefault: true, displayOrder: '2'},
+          {filterListName: 'Filter by Qualifier', placeHolderText: 'Filter by Qualifier', filterType: 'select', filterDefault: true, displayOrder: '3' },
+          {filterListName: 'Filter by Type', placeHolderText: 'Filter by Type', filterType: 'select', filterDefault: true, displayOrder: '4' }
+        ]" 
+      >
+    </app-filter-panel>
+
+    <div class="example-container mat-elevation-z8" style="background-color:white">
+      
+      <div class="datatable">
+        <mat-table #table [dataSource]="diagnosisCodeDataSource" matSort matSortActive="diagnosisCode" matSortDirection="asc">
+
+          <ng-container matColumnDef="diagnosisCode">
+            <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header>Diagnosis Code</mat-header-cell>
+            <mat-cell tabindex="0" class="dtlink" *matCellDef="let element">{{element.diagnosisCode}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="diagnosisDescription">
+            <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.diagnosisDescription}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="qualifier">
+            <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header>Qualifier</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.qualifier}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="typeCode">
+            <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.typeCode}}</mat-cell>
+          </ng-container>
+
+          <mat-header-row class="modal-mat-header-row" *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)" (keyup.enter)="onRowClicked(row)" class="modal-mat-row" [hidden]="diagnosisCodeDataSource.loading$ | async"></mat-row>
+
+        </mat-table>
+
+        <div *ngIf="diagnosisCodeDataSource.loading$ | async" class="loading-indicator-container">
+          <app-loading-indicator></app-loading-indicator>
+        </div>
+
+        <div class="no-records-message" *ngIf="(diagnosisCodeDataSource.totalCount$ | async) === 0 && !(diagnosisCodeDataSource.loading$ | async)">
+          No records found
+        </div>
+
+
+
+        <mat-paginator 
+          [pageSize]="diagnosisCodeQueryParams.pageSize"
+          [length]="(diagnosisCodeDataSource.totalCount$ | async)"
+          [hidePageSize]="true"
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  
+  </div>
+
+  <div class="modal-footer">
+    <div align="center">
+      <a class="btn btn--secondary spaceBetweenSaveCancel cancelAlignment" (click)="closeModalWindow()" (keyup.enter)="closeModalWindow()" tabindex="0"> Cancel</a>
+    </div>
+  </div>
+
+</div>
+
+  
+
+
+  

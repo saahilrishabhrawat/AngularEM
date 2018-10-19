@@ -1,0 +1,29 @@
+<div class="modal-window" > 
+    <div class="modal-header">
+      <div class="h2">Add Note</div>
+      <a (click)="closeModalWindow()" (keyup.enter)="closeModalWindow()" tabindex="0" class="btn btn--close">
+        <span class="sr-only">Close</span>
+      </a>
+    </div>
+  
+    <div class="modal-body">
+      <div class="row">
+          <div class="col-sm-2 col-font">Carrier</div>
+          <div class="col-sm-10 col-font-bold">{{selectedRow.rmfCarrierId}}</div>
+      </div>
+      <div class="row">
+          <div class="col-sm-2 col-font">Account</div>
+          <div class="col-sm-10 col-font-bold">{{selectedRow.rmfAccountId}}</div>
+      </div>
+      <div class="row">
+          <div class="col-sm-2 col-font">Group</div>
+          <div class="col-sm-10 col-font-bold">{{selectedRow.rmfGroupId}}</div>
+      </div>
+    </div>
+  
+    <div align="center">
+      <a class="btn btn--secondary spaceBetweenSaveCancel cancelAlignment" (click)="closeModalWindow()" (keyup.enter)="closeModalWindow()" tabindex="0"> Cancel</a>
+      <a class="btn btn--primary saveAlignment" (click)="addNote()" (keyup.enter)="addNote()" tabindex="0">Add Note</a>
+    </div>
+  
+  </div>

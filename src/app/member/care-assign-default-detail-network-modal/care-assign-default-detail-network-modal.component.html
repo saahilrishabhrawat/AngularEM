@@ -1,0 +1,60 @@
+<div class="modal-window">
+  <!--**********  Begin modal header *********-->
+  <div class="modal-header">
+    <div class="h2">Care Network</div>
+    <a (click)="closeModalWindow()" class="btn btn--close">
+      <span class="sr-only">Close</span>
+    </a>
+  </div>
+  <!--********* Begin modal body **********-->
+  <div class="modal-body">
+    <!-- filter -->
+    <app-filter-panel [filterPanelData]="[
+                        {filterListName: 'Filter by network ID...', placeHolderText: 'Filter by network ID...', filterType: 'search', filterDefault: true, displayOrder: '1'}
+                ]">
+    </app-filter-panel>
+
+    <!-- data table -->
+    <div class="datatable">
+      <!-- ****************** data table begin  ****************** -->
+      <mat-table #table [dataSource]="dataSource" matSort>
+
+        <div>
+          <ng-container matColumnDef="networkId">
+            <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header> Network ID </mat-header-cell>
+            <mat-cell class="dtlink" *matCellDef="let element">
+              <a (click)="onRowClicked(element.networkId)">{{element.networkId}}</a>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="networkName">
+            <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+            <mat-cell class="modal-mat-cell" *matCellDef="let element">{{element.networkName}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="accountId">
+            <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header> Account ID </mat-header-cell>
+            <mat-cell class="modal-mat-cell" *matCellDef="let element">{{element.accountId}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="groupId">
+            <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header> Group ID </mat-header-cell>
+            <mat-cell class="modal-mat-cell" *matCellDef="let element">{{element.groupId}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row class="modal-mat-header-row" *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" class="modal-mat-row">
+          </mat-row>
+        </div>
+      </mat-table>
+      <div *ngIf="dataSource.data.length === 0 && !inProcess">No records found</div>
+    </div>
+
+    <!-- data table pagination -->
+    <div class="modal-footer">
+      <mat-paginator [length]="100" [pageSize]="5">
+      </mat-paginator>
+    </div>
+  </div>
+  <!--********* End modal body **********-->
+</div>

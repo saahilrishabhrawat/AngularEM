@@ -1,0 +1,5 @@
+<div class="ogn__secondary-header-formlink ogn-container">
+	<div class="topright" *ngIf="hideAddProfile">
+		<a [routerLink]="['../eligibility-profile-detail',{ cid: '',aid:'',gid:'',pid:'',mode:'add' }]"  routerLinkActive="routerLink" class="btn--icon"><i class="material-icons addcircle">add_circle</i>Add new profile</a>
+	</div>
+</div>

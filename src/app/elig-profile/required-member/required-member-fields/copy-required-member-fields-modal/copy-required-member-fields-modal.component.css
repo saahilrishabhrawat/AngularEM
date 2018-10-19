@@ -1,0 +1,47 @@
+.dark-modal .modal-content {
+    background-color: #292b2c;
+    color: white;
+}
+
+.dark-modal .close {
+    color: white;
+}
+
+.light-blue-backdrop {
+    background-color: #5cb3fd;
+}
+
+.longBar {
+  width: 550px;
+  border-top: 1px solid  #959595;
+  margin-top: 20px;
+  margin-bottom: 20px;
+ }
+
+ .shortBar {
+  width: 550px;
+  border-top: 1px solid  #959595;
+  margin-top: 20px;
+  margin-bottom: 20px;
+ }
+
+ .h2 {
+  font-style: "Frutiger Roman"!important;
+  font-size: 26px!important;
+  margin-left:50px auto!important;
+  margin-right:50px auto!important;
+  color:#222!important;
+}
+
+.modal-window {
+  background-color: white;
+  width:786px;
+  height:500px;  
+}
+
+.modal-header {
+  margin-bottom: 1px!important;
+  margin-top: 1px!important; 
+  border-bottom:1px solid #E0E0E0!important;
+}
+

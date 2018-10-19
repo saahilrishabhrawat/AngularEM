@@ -1,0 +1,20 @@
+<div class="outer-scrollable">
+  <div class="scrollable-filter-list">
+
+  <div #filters >
+  </div>
+  
+   <div *ngIf="filterButtonEnableFlag"><button class="btn btn--primary addFilterButtonStyle "   [ngbPopover]="addFilter" placement="bottom" #p="ngbPopover" popoverDirective>+Add Filter</button></div>
+   <div *ngIf="!filterButtonEnableFlag"><button class="btn btn--primary is-disabled addFilterButtonStyle ">+Add Filter</button></div>
+   
+   <!-- add filter dropdown list -->
+   <ng-template #addFilter>
+      <div *ngFor="let f of filterPopupArray | orderBy: 'filterListName'">
+        <a *ngIf="f.filterType==='search' && f.filterListName!==''" class="popoverlink" href="javascript:void(0)" (click)="addComponentAndReload(searchFilterComponentClass,f.filterListName, f.placeHolderText)">{{ f.filterListName }}</a> 
+        <a *ngIf="f.filterType==='select' && f.filterListName!==''" class="popoverlink" href="javascript:void(0)" (click)="addComponentAndReload(selectFilterComponentClass,f.filterListName, f.placeHolderText)">{{ f.filterListName }}</a> 
+        <a *ngIf="f.filterType==='date' && f.filterListName!==''" class="popoverlink" href="javascript:void(0)" (click)="addComponentAndReload(dateFilterComponentClass,f.filterListName, f.placeHolderText)">{{ f.filterListName }}</a> 
+      </div>
+    </ng-template>
+ 
+  </div>
+</div>

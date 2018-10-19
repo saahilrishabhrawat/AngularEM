@@ -1,0 +1,75 @@
+<div class="modal-window"> 
+    <!--**********  Begin modal header *********-->
+   <div class="modal-header">
+     <div class="h2">Group List </div>
+     <a (click)="closeModalWindow()" class="btn btn--close">
+       <span class="sr-only">Close</span>
+     </a>
+   </div>
+   <!--********* Begin modal body **********-->
+   <div class="modal-body">
+    
+    <!-- filter --> 
+    <app-filter-panel 
+      [filterPanelData]="[{filterListName: 'Add by List ID', placeHolderText: 'Filter by list ID', filterType: 'search', filterDefault: true, displayOrder: '1'},
+                          {filterListName: 'Add by List Description',placeHolderText: 'Filter by description', filterType: 'search', filterDefault: true, displayOrder: '2'}]"         
+    >
+    </app-filter-panel>
+    
+    <!-- data table -->
+    <div class="datatable">
+       <!-- ****************** data table begin  ****************** -->
+       <mat-table #table [dataSource]="dataSource" matSort>
+          
+          <div>
+              <ng-container matColumnDef="select" class="firstcolumn">
+                  <mat-header-cell *matHeaderCellDef class="modal-mat-header-cell" [ngClass]="mat-col-select">
+                   
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row" class="modal-mat-cell" [ngClass]="modal-mat-col-select">
+                      <ng-template #popTemplate >
+                          <div *ngIf="!selection.isSelected(row)">
+                            <i class="material-icons iconPopover">search</i>
+                            <a class="popoverlink" (click)="openVerticallyCentered(groupListPg2Modal, row)">View Groups</a><br>
+                          </div>
+                      </ng-template>
+                      <i  class="material-icons modal-gear" [ngbPopover]="popTemplate" placement="right" #p="ngbPopover"
+                           popoverDirective>settings</i>
+                  </mat-cell>
+              </ng-container>
+  
+              <ng-container matColumnDef="grlGroupListName">
+                <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header> List </mat-header-cell>
+                  <mat-cell class="dtlink" *matCellDef="let element">   
+                    <a  (click)="onRowClicked(element.grlGroupListName)">{{element.grlGroupListName}}</a> </mat-cell>
+              </ng-container>
+         
+              <ng-container matColumnDef="grlGroupListDescriptn">
+                <mat-header-cell class="modal-mat-header-cell" *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+                <mat-cell class="modal-mat-cell" *matCellDef="let element" >{{element.grlGroupListDescriptn}}  </mat-cell>
+              </ng-container>
+  
+              <mat-header-row class="modal-mat-header-row" *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"
+                        class="modal-mat-row">
+               </mat-row>
+          </div> 
+  
+        </mat-table>  
+    </div>    
+  
+    <!-- data table pagination -->
+    <div class="modal-footer">
+      <mat-paginator [length]="100"
+        [pageSize]="5"
+       >
+      </mat-paginator>
+    </div>
+  
+  </div>
+  <!--********* End modal body **********-->
+  </div> 
+  <ng-template #groupListPg2Modal>
+    <app-elig-profile-grouplist-pg2-modal groupListName={{selectedGroupListName}} (closeModal)="closeGrouplistPg2Modal($event)"></app-elig-profile-grouplist-pg2-modal>
+</ng-template>
+  

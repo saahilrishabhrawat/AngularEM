@@ -1,0 +1,16 @@
+#Jenkins QA build environment properties
+DOCK_REPO=rxclaim_modernization/rxc-eligibility-angular
+DOCK_LABEL=qa
+
+# Oso QA
+CLOUD_APP=eligibility-qa
+CLOUD_PROJECT=rxclaim-modernization
+OSE_SERVER=https://ocp-ctc-core-nonprod.optum.com
+PLATFORM=Openshift
+PROFILE=oso-qa,docker
+
+# Mesos QA
+MESOS_PROJECT=cloudsdk-nodejs
+MESOS_SERVER=http://dbslp1728/marathon/v2/apps
+#PLATFORM=Mesos
+#PROFILE=mesos-QA,docker

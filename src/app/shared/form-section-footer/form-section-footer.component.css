@@ -1,0 +1,116 @@
+.longBar {
+width: 550px;
+float: left;
+border-top: 1px solid  #959595;
+margin-top: 32px;
+margin-bottom: 12px;}
+
+.jumplinkColumn{
+width: 450px;}
+
+.backToTopColumn{
+width: 100px;}
+
+.topTextStyle{
+    font-size: 12px;
+}
+
+.topAlignment   {
+text-align: right;
+float: right; }
+
+.spacerAfterColumns{
+    padding-bottom: 32px;
+}
+
+.ogn__secondary-header-formlink {
+-ms-flex-align: center;
+align-items: center;
+background-color: #FFFFFF;  
+max-width:1138px;
+margin-left: auto;
+margin-right: auto;
+}
+
+@media screen and (min-width: 960px)
+{
+.ogn-container {
+    padding: 0 0px;
+}
+}
+
+.content{
+    margin-left: 16px; 
+    margin-right: 16px
+}
+
+btn--back-to-top-container__btn1 {
+background-color: #ffffff;
+border-top: 0;}
+
+.btn--back-to-top-container__btn1 {
+transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+background-clip: content-box;
+background-color: #FFFFFF;
+border-radius: 4px;
+color: #316BBE;
+display: block;
+height: 46px;
+line-height: 44px;
+margin: 0 auto;
+text-align: right;
+float: right;
+top: 0px;
+}
+
+.btn--back-to-top-container__btn1:after {
+    text-align: right;
+    float: right;
+    top: 0 px;
+    content: "arrow_upward";
+    font-family: "Material Icons";
+    font-size: 1.5em;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    
+    -webkit-font-feature-settings: 'liga';
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    -webkit-font-feature-settings: 'liga';
+            font-feature-settings: 'liga'; }
+
+.jumplink-header-style
+{
+font-style: "Frutiger Roman";
+font-size: 11px;
+color:#222;
+}
+.jumplink-style
+{
+text-decoration:none;
+font-style: "Frutiger Bold";
+font-size: 11px;
+color: #316BBE;
+font-weight: bold;
+}
+.jumplink-div-style
+{
+padding: 0px 8px;
+}
+.jumplink-style:hover{
+    text-decoration: underline;
+}
+.topTextStyle:hover
+{
+    text-decoration: underline;
+}

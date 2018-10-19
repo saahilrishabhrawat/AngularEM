@@ -1,0 +1,648 @@
+<style>
+  @font-face {
+    font-family: 'frutiger-bold';
+    src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'frutiger-roman';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/optum/frutiger-roman.eot');
+    /* IE9 Compat Modes */
+    src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+  }
+</style>
+<a id="top"></a>
+<div class="title">
+  <div id="end_of_global_nav" tabindex="-1"></div>
+  <section class="area no-padding trim--white ">
+    <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+      <div class="ogn__title__left">
+        <h1 class="h1">Incident Default Detail</h1>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+  <div>
+    <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+  </div>
+  <div class="form_background">
+    <div class="">
+      <app-form-menu></app-form-menu>
+      <section class="area no-padding trim--white">
+        <div class="ogn__secondary-form ogn-container">
+          <div class="content"></div>
+        </div>
+      </section>
+    </div>
+    <!--Form starts-->
+    <form [formGroup]="incidentForm" [hidden]="inProcess">
+      <form-controls
+        [recordSessionStorageId]="'eligibilityProfile'"
+        [showCancel]="true"
+        [showSave]="!isView()"
+        (onSave)="submit()"
+        [onCancelRoute]="'/s-active-eligibility-profile'"
+      >
+      </form-controls>
+
+      <div class="errorDiv" *ngIf="submitted && this.incidentForm.invalid ">
+        <p class="errorDiv_text">The errors below must be corrected before saving.</p>
+      </div>
+      <div class="successDiv" *ngIf="submitted && !this.incidentForm.invalid && isSuccess">
+        <p class="errorDiv_text">Your changes were successfully saved.</p>
+      </div>
+
+      <pcag-info
+        [platformId]="platformId"
+        [carrierId]="carrierId"
+        [accountId]="accountId"
+        [groupId]="groupId"
+      >
+      </pcag-info>
+
+      <div>
+        <app-form-section-heading></app-form-section-heading>
+        <div class="h2">Incident Indicators</div>
+      </div>
+      <div class="typography form">
+        <!--Input Field Starts-->
+
+
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': (submitted && (this.incidentForm.get('ewdPlanInd').invalid))}">
+            <div class="left-control">
+              <label for="ewdPlanInd">
+                <span [ngClass]="{'error': submitted && this.incidentForm.get('ewdPlanInd').invalid}">Plan/effective date</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf=" !isView()" >
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEWDPlanInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && (this.incidentForm.get('ewdPlanInd').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="ewdPlanInd" (change)="selectType($event,'ewdPlanInd')" class="form-select-lg" formControlName="ewdPlanInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="L">Load and output report</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="showEWDPlanInd" [ngClass]="{'error':submitted && this.incidentForm.get('planCode').invalid}">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <app-lookup formControlName="planCode" [appLookUpType]=appAlphanumallspec></app-lookup>
+                    <div *ngIf="submitted && this.incidentForm.get('planCode').invalid">
+                      <p class="bold_error" *ngIf="submitted && this.incidentForm.get('planCode').errors.required" >
+                        {{ planCodeErrorMsg }}
+                      </p>
+                      <p class="bold_error" *ngIf="submitted && !this.incidentForm.get('planCode').errors.required && this.incidentForm.get('planCode').invalid">
+                        {{ planCodeErrorMsg }}
+                      </p>
+                    </div>
+                  </div>
+                  <p *ngIf="showEWDPlanInd">{{planEffDateValue}}</p>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.incidentForm.get('ewdPlanInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.incidentForm.get('ewdPlanInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+
+            </div>
+            <!-- view only -->
+            <div class="right-control view_message" *ngIf="isView()">
+
+              <label class="view_message" *ngIf="this.incidentForm.get('ewdPlanInd') != null">{{ this.incidentForm.get('ewdPlanInd').value }}</label>
+              <label class="view_message" >{{ this.incidentForm.get('planCode').value }}</label>
+
+              <label class="view_message" *ngIf="showEWDPlanInd">{{ planEffDateValue }}</label>
+
+            </div>
+            <!-- view only -->
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': (submitted && (this.incidentForm.get('ewdInjuryFromDateInd').invalid))}">
+            <div class="left-control">
+              <label for="ewdInjuryFromDateInd">
+                <span [ngClass]="{'error': submitted && this.incidentForm.get('ewdInjuryFromDateInd').invalid}">Injury from date</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf=" !isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEWDInjuryFromDateInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && (this.incidentForm.get('ewdInjuryFromDateInd').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="ewdInjuryFromDateInd" (change)="selectType($event,'ewdInjuryFromDateInd')" class="form-select-lg"
+                      formControlName="ewdInjuryFromDateInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="L">Load and output report</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="showEWDInjuryFromDateInd" [ngClass]="{'error':submitted && (this.incidentForm.get('ewdInjuryFromDate').invalid)}">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <app-datepicker
+                      formControlName="ewdInjuryFromDate"
+                      (change)="refreshMessage()"
+                    >
+                    </app-datepicker>
+                    <div *ngIf="submitted && this.incidentForm.get('ewdInjuryFromDate').invalid">
+                      <p class="bold_error" *ngIf="submitted && !this.incidentForm.get('ewdInjuryFromDate').errors.required && this.incidentForm.get('ewdInjuryFromDate').invalid">
+                        {{ ewdInjuryFromDateErrorMsg }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.incidentForm.get('ewdInjuryFromDateInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.incidentForm.get('ewdInjuryFromDateInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+            <!-- View Only -->
+            <div class="right-control view_message" *ngIf="isView()">
+
+              <label class="view_message" *ngIf="this.incidentForm.get('ewdInjuryFromDateInd') != null">{{ this.incidentForm.get('ewdInjuryFromDateInd').value }}</label>
+              <label class="view_message" *ngIf="showEWDInjuryFromDateInd">{{ this.incidentForm.get('ewdInjuryFromDate').value }}</label>
+
+            </div>
+            <!-- End -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': (submitted && (this.incidentForm.get('ewdInjuryThruDateInd').invalid))}">
+            <div class="left-control">
+              <label for="ewdInjuryThruDateInd">
+                <span [ngClass]="{'error': submitted && this.incidentForm.get('ewdInjuryThruDateInd').invalid}">Injury thru date</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf=" !isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEWDInjuryThruDateInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && (this.incidentForm.get('ewdInjuryThruDateInd').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="ewdInjuryThruDateInd" (change)="selectType($event,'ewdInjuryThruDateInd')" class="form-select-lg"
+                      formControlName="ewdInjuryThruDateInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="L">Load and output report</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="showEWDInjuryThruDateInd" [ngClass]="{'error':submitted && this.incidentForm.get('ewdInjuryThruDate').invalid}">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <app-datepicker
+                      formControlName="ewdInjuryThruDate"
+                      (change)="refreshMessage()"
+                    >
+                    </app-datepicker>
+                    <!-- end of date picker -->
+                    <div *ngIf="submitted && this.incidentForm.get('ewdInjuryThruDate').invalid">
+                      <p class="bold_error" *ngIf="submitted && !this.incidentForm.get('ewdInjuryThruDate').errors.required && this.incidentForm.get('ewdInjuryThruDate').invalid">
+                        {{ ewdInjuryThruDateErrorMsg }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.incidentForm.get('ewdInjuryThruDateInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.incidentForm.get('ewdInjuryThruDateInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+            <!-- View Only -->
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="this.incidentForm.get('ewdInjuryThruDateInd') != null">{{ this.incidentForm.get('ewdInjuryThruDateInd').value }}</label>
+              <label class="view_message" *ngIf="showEWDInjuryThruDateInd">{{ this.incidentForm.get('ewdInjuryThruDate').value }}</label>
+            </div>
+            <!-- End View -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': (submitted && (this.incidentForm.get('ewdClaimReferenceInd').invalid))}">
+            <div class="left-control">
+              <label for="ewdClaimReferenceInd">
+                <span [ngClass]="{'error': submitted && this.incidentForm.get('ewdClaimReferenceInd').invalid}">Claim reference</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf=" !isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEWDClaimReferenceInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && (this.incidentForm.get('ewdClaimReferenceInd').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="ewdClaimReferenceInd" (change)="selectType($event,'ewdClaimReferenceInd')" class="form-select-lg"
+                      formControlName="ewdClaimReferenceInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="showEWDClaimReferenceInd" [ngClass]="{'error':submitted && this.incidentForm.get('ewdClaimReference').invalid}">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <input id="ewdClaimReference" type="text" tabindex="0" class="form-input-md" formControlName="ewdClaimReference" maxlength="14"
+                      placeholder="Reference" appUpper>
+                    <div *ngIf="submitted && this.incidentForm.get('ewdClaimReference').invalid">
+                      <p class="bold_error" *ngIf="submitted && !this.incidentForm.get('ewdClaimReference').errors.required && this.incidentForm.get('ewdClaimReference').invalid">
+                        {{ ewdClaimReferenceErrorMsg }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.incidentForm.get('ewdClaimReferenceInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.incidentForm.get('ewdClaimReferenceInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+            <!-- View Only -->
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="this.incidentForm.get('ewdClaimReferenceInd') != null">{{ this.incidentForm.get('ewdClaimReferenceInd').value }}</label>
+              <label class="view_message" *ngIf="showEWDClaimReferenceInd">{{ this.incidentForm.get('ewdClaimReference').value }}</label>
+            </div>
+            <!-- End View -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.incidentForm.get('ewdWcIncidentIdInd').invalid}">
+            <div class="left-control">
+              <label for="ewdWcIncidentIdInd">
+                <span [ngClass]="{'error': submitted && this.incidentForm.get('ewdWcIncidentIdInd').invalid}">WC incident ID </span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf=" !isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.incidentForm.get('ewdWcIncidentIdInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="ewdWcIncidentIdInd" (change)="selectType($event,'ewdWcIncidentIdInd')" class="form-select-lg" formControlName="ewdWcIncidentIdInd">
+                    <option value="">Select one</option>
+                    <option value="I">Injury from date</option>
+                    <option value="M">Member ID</option>
+                    <option value="N">No, not in input file</option>
+                    <option value="Q">Required</option>
+                    <option value="W">Claim reference</option>
+                    <option value="Y">Yes, in input file</option>
+                  </select>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.incidentForm.get('ewdWcIncidentIdInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.incidentForm.get('ewdWcIncidentIdInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+            <!-- View Only -->
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="this.incidentForm.get('ewdWcIncidentIdInd') != null">{{ this.incidentForm.get('ewdWcIncidentIdInd').value }}</label>
+            </div>
+            <!-- End View -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.incidentForm.get('ewdIdCardInd').invalid}">
+            <div class="left-control">
+              <label for="ewdIdCardInd">
+                <span [ngClass]="{'error': submitted && this.incidentForm.get('ewdIdCardInd').invalid}">ID card</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message"  *ngIf=" !isView()">
+              <div class="field-block">
+                <div class="select" [ngStyle]="{'border' : (submitted && this.incidentForm.get('ewdIdCardInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                  <select tabindex="0" id="ewdIdCardInd" (change)="selectType($event,'ewdIdCardInd')" class="form-select-lg" formControlName="ewdIdCardInd">
+                    <option value="">Select one</option>
+                    <option value="N">No, not in input file</option>
+                    <option value="Y">Yes, in input file</option>
+                  </select>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.incidentForm.get('ewdIdCardInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.incidentForm.get('ewdIdCardInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+            <!-- View Only -->
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="this.incidentForm.get('ewdIdCardInd') != null">{{ this.incidentForm.get('ewdIdCardInd').value }}</label>
+            </div>
+            <!-- End View -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': (submitted && (this.incidentForm.get('ewdPriceScheduleInd').invalid))}">
+            <div class="left-control">
+              <label for="ewdPriceScheduleInd">
+                <span [ngClass]="{'error': submitted && this.incidentForm.get('ewdPriceScheduleInd').invalid}">Pharmacy price schedule</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf=" !isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEWDPriceScheduleInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && (this.incidentForm.get('ewdPriceScheduleInd').invalid)) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="ewdPriceScheduleInd" (change)="selectType($event,'ewdPriceScheduleInd')" class="form-select-lg"
+                      formControlName="ewdPriceScheduleInd">
+                      <option value="">Select one</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="L">Load and output report</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="R">Replace input value</option>
+                      <option value="V">Validate</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="showEWDPriceScheduleInd" [ngClass]="{'error':submitted && this.incidentForm.get('prcPriceScheduleName').invalid}">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <app-lookup formControlName="prcPriceScheduleName" [appLookUpType]=appAlphanumallspec></app-lookup>
+                    <div *ngIf="submitted && this.incidentForm.get('prcPriceScheduleName').invalid">
+                      <p class="bold_error" *ngIf="submitted && !this.incidentForm.get('prcPriceScheduleName').errors.required && this.incidentForm.get('prcPriceScheduleName').invalid">
+                        {{ prcPriceScheduleNameErrorMsg }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.incidentForm.get('ewdPriceScheduleInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.incidentForm.get('ewdPriceScheduleInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+            <!-- View Only -->
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="this.incidentForm.get('ewdPriceScheduleInd') != null">{{ this.incidentForm.get('ewdPriceScheduleInd').value }}</label>
+              <label class="view_message" *ngIf="showEWDPriceScheduleInd">{{ this.incidentForm.get('prcPriceScheduleName').value }}</label>
+            </div>
+            <!-- End View -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.incidentForm.get('ewdPharmPatientPayInd').invalid}">
+            <div class="left-control">
+              <label for="ewdPharmPatientPayInd">
+                <span [ngClass]="{'error': submitted && this.incidentForm.get('ewdPharmPatientPayInd').invalid}">Pharmacy patient pay</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf=" !isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEWDPharmPatientPayInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.incidentForm.get('ewdPharmPatientPayInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="ewdPharmPatientPayInd" (change)="selectType($event,'ewdPharmPatientPayInd')" class="form-select-lg"
+                      formControlName="ewdPharmPatientPayInd">
+                      <option value="">Select one</option>
+                      <option value="A">Append person code</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="C">Create Family ID</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="I">Injury from date</option>
+                      <option value="L">Load and output report</option>
+                      <option value="M">Member ID</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="O">Allow for blanks or spaces</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="S">Soft reject</option>
+                      <option value="V">Validate</option>
+                      <option value="W">Claim reference</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="showEWDPharmPatientPayInd" [ngClass]="{'error':submitted && this.incidentForm.get('ewdPharmPatientPay').invalid}">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <app-lookup formControlName="ewdPharmPatientPay" [appLookUpType]=appAlphanumallspec></app-lookup>
+                    <div *ngIf="submitted && this.incidentForm.get('ewdPharmPatientPay').invalid">
+                      <p class="bold_error" *ngIf="submitted && !this.incidentForm.get('ewdPharmPatientPay').errors.required && this.incidentForm.get('ewdPharmPatientPay').invalid">
+                        {{ ewdPharmPatientPayErrorMsg }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.incidentForm.get('ewdPharmPatientPayInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.incidentForm.get('ewdPharmPatientPayInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+            <!-- View Only -->
+            <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="this.incidentForm.get('ewdPharmPatientPayInd') != null">{{ this.incidentForm.get('ewdPharmPatientPayInd').value }}</label>
+              <label class="view_message" *ngIf="showEWDPharmPatientPayInd">{{ this.incidentForm.get('ewdPharmPatientPay').value }}</label>
+            </div>
+            <!-- End View -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.incidentForm.get('ewdClientPriceSchdInd').invalid}">
+            <div class="left-control">
+              <label for="ewdClientPriceSchdInd">
+                <span [ngClass]="{'error': submitted && this.incidentForm.get('ewdClientPriceSchdInd').invalid}">Client price schedule</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message"  *ngIf=" !isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showEWDClientPriceSchdInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.incidentForm.get('ewdClientPriceSchdInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="ewdClientPriceSchdInd" (change)="selectType($event,'ewdClientPriceSchdInd')" class="form-select-lg"
+                      formControlName="ewdClientPriceSchdInd">
+                      <option value="">Select one</option>
+                      <option value="A">Append person code</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="C">Create Family ID</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="I">Injury from date</option>
+                      <option value="L">Load and output report</option>
+                      <option value="M">Member ID</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="O">Allow for blanks or spaces</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="S">Soft reject</option>
+                      <option value="V">Validate</option>
+                      <option value="W">Claim reference</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="showEWDClientPriceSchdInd" [ngClass]="{'error':submitted && this.incidentForm.get('ewdClientPriceSchedule').invalid}">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <app-lookup formControlName="ewdClientPriceSchedule" [appLookUpType]=appAlphanumallspec></app-lookup>
+                    <div *ngIf="submitted && this.incidentForm.get('ewdClientPriceSchedule').invalid">
+                      <p class="bold_error" *ngIf="submitted && !this.incidentForm.get('ewdClientPriceSchedule').errors.required && this.incidentForm.get('ewdClientPriceSchedule').invalid">
+                        {{ ewdClientPriceScheduleErrorMsg }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.incidentForm.get('ewdClientPriceSchdInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.incidentForm.get('ewdClientPriceSchdInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+                        <!-- View Only -->
+	          <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="this.incidentForm.get('ewdClientPriceSchdInd') != null">{{ this.incidentForm.get('ewdClientPriceSchdInd').value }}</label>
+              <label class="view_message" *ngIf="showEWDClientPriceSchdInd">{{ this.incidentForm.get('ewdClientPriceSchedule').value }}</label>
+            </div>
+            <!-- End View -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="{'error': submitted && this.incidentForm.get('ewdClientPatientpayInd').invalid}">
+            <div class="left-control">
+              <label for="ewdClientPatientpayInd">
+                <span [ngClass]="{'error': submitted && this.incidentForm.get('ewdClientPatientpayInd').invalid}">Client patient pay</span>
+                <span class="required">*</span>
+              </label>
+              <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                              Imagery may or may not reflect your current medications.">
+              </a>
+            </div>
+            <div class="right-control error_message" *ngIf=" !isView()">
+              <div class="field-block">
+                <div [ngClass]="{'ssn':showewdClientPatientpayInd}">
+                  <div class="select" [ngStyle]="{'border' : (submitted && this.incidentForm.get('ewdClientPatientpayInd').invalid) ? '1px solid #E32315' : '1px solid #E0E0E0'}">
+                    <select tabindex="0" id="ewdClientPatientpayInd" (change)="selectType($event,'ewdClientPatientpayInd')" class="form-select-lg"
+                      formControlName="ewdClientPatientpayInd">
+                      <option value="">Select one</option>
+                      <option value="A">Append person code</option>
+                      <option value="B">Blank or zero field</option>
+                      <option value="C">Create Family ID</option>
+                      <option value="D">Default, if no input value</option>
+                      <option value="I">Injury from date</option>
+                      <option value="L">Load and output report</option>
+                      <option value="M">Member ID</option>
+                      <option value="N">No, not in input file</option>
+                      <option value="O">Allow for blanks or spaces</option>
+                      <option value="Q">Required</option>
+                      <option value="R">Replace input value</option>
+                      <option value="S">Soft reject</option>
+                      <option value="V">Validate</option>
+                      <option value="W">Claim reference</option>
+                      <option value="Y">Yes, in input file</option>
+                      <option value="Z">Input zero or blank = No Edit</option>
+                    </select>
+                  </div>
+                  <div *ngIf="showewdClientPatientpayInd" [ngClass]="{'error':submitted && this.incidentForm.get('ewdClientPatientPay').invalid}">
+                    <legend class="ssn_legend">Default/replacement value</legend>
+                    <app-lookup formControlName="ewdClientPatientPay" [appLookUpType]=appAlphanumallspec></app-lookup>
+                    <div *ngIf="submitted && this.incidentForm.get('ewdClientPatientPay').invalid">
+                      <p class="bold_error" *ngIf="submitted && !this.incidentForm.get('ewdClientPatientPay').errors.required && this.incidentForm.get('ewdClientPatientPay').invalid">
+                        {{ ewdClientPatientPayErrorMsg }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && this.incidentForm.get('ewdClientPatientpayInd').invalid">
+                <p class="bold_error" *ngIf="submitted && this.incidentForm.get('ewdClientPatientpayInd').errors?.required">
+                  This field is required.
+                </p>
+              </div>
+            </div>
+            <!-- View Only -->
+	          <div class="right-control view_message" *ngIf="isView()">
+              <label class="view_message" *ngIf="this.incidentForm.get('ewdClientPatientpayInd') != null">{{ this.incidentForm.get('ewdClientPatientpayInd').value }}</label>
+              <label class="view_message" *ngIf="showewdClientPatientpayInd">{{ this.incidentForm.get('ewdClientPatientPay').value }}</label>
+            </div>
+            <!-- End View -->
+          </div>
+        </div>
+        <!--Input Field Ends-->
+        <div>
+          <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+        </div>
+        <form-controls
+          [recordSessionStorageId]="'eligibilityProfile'"
+          [showCancel]="true"
+          [showSave]="!isView()"
+          (onSave)="submit()"
+          [onCancelRoute]="'/s-active-eligibility-profile'"
+        >
+        </form-controls>
+      </div>
+      <div class="spacer"></div>
+    </form>
+    <div *ngIf="inProcess">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+    <!--Form ends-->
+  </div>
+  <div class="dateUserStampStyle" *ngIf="!(inProcess)">
+    Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp;
+    Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp;
+    User:&nbsp;&nbsp;{{changeUser}}
+    <br>&nbsp;
+  </div>
+</div>

@@ -1,0 +1,1330 @@
+<a id="top"></a>
+<div class="title">
+    <div id="end_of_global_nav" tabindex="-1"></div>
+    <section class="area no-padding trim--white ">
+        <div class="ogn__secondary-header ogn-container has-breadcrumbs">
+            <div class="ogn__title__left">
+                <h1 class="h1">Quality Default Detail</h1>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="end_of_global_nav" tabindex="-1"></div>
+<div class="form_outer">
+    <div>
+        <app-form-links [hideAddProfile]="!isView()"></app-form-links>
+    </div>
+    <div class="form_background">
+        <div class="">
+            <app-form-menu></app-form-menu>
+            <section class="area no-padding trim--white">
+                <div class="ogn__secondary-form ogn-container">
+                    <div class="content"></div>
+                </div>
+            </section>
+        </div>
+        <form novalidate [formGroup]="qualityDefaultDetailForm" [hidden]="isSaving">
+            <form-controls
+                [recordSessionStorageId]="'eligibilityProfile'"
+                [showCancel]="true"
+                [showSave]="!isView()"
+                (onSave)="submit()"
+                [onCancelRoute]="'/s-active-eligibility-profile'"
+            >
+            </form-controls>
+
+            <div class="errorDiv" *ngIf="submitted && this.qualityDefaultDetailForm.invalid">
+                <p class="errorDiv_text">The errors below must be corrected before saving.</p>
+            </div>
+            <div class="successDiv" *ngIf="submitted && !this.qualityDefaultDetailForm.invalid && isSuccess">
+                <p class="errorDiv_text">Your changes were successfully saved.</p>
+            </div>
+
+            <pcag-info
+                [platformId]="platformId"
+                [carrierId]="carrierId"
+                [accountId]="accountId"
+                [groupId]="groupId"
+            >
+            </pcag-info>
+
+
+
+            <div>
+                <app-form-section-heading></app-form-section-heading>
+                <div class="h2">Quality Indicators</div>
+            </div>
+            <!-- Start from here -->
+            <div class="typography form">
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdePersonCodeInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Person Code</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_personCodeIndY" aria-required="true" tabindex="0" formControlName="qdePersonCodeInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_personCodeIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_personCodeIndN" tabindex="0" formControlName="qdePersonCodeInd" value="N" >
+                            <label class="field-label" for="form_radio_personCodeIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdePersonCodeInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdePersonCodeInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdePersonCodeInd') != null">{{ qualityDefaultDetailForm.get('qdePersonCodeInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeGenderInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Gender</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_genderIndY" aria-required="true" tabindex="0" formControlName="qdeGenderInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_genderIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_genderIndN" tabindex="0" formControlName="qdeGenderInd" value="N" >
+                            <label class="field-label" for="form_radio_genderIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeGenderInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeGenderInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeGenderInd') != null">{{ qualityDefaultDetailForm.get('qdeGenderInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeDateOfBirthInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Date of Birth</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_dateOfBirthIndY" aria-required="true" tabindex="0" formControlName="qdeDateOfBirthInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_dateOfBirthIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_dateOfBirthIndN" tabindex="0" formControlName="qdeDateOfBirthInd" value="N" >
+                            <label class="field-label" for="form_radio_dateOfBirthIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeDateOfBirthInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeDateOfBirthInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeDateOfBirthInd') != null">{{ qualityDefaultDetailForm.get('qdeDateOfBirthInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeDurKeyInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>DUR Key</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_durKeyIndY" aria-required="true" tabindex="0" formControlName="qdeDurKeyInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_durKeyIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_durKeyIndN" tabindex="0" formControlName="qdeDurKeyInd" value="N" >
+                            <label class="field-label" for="form_radio_durKeyIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeDurKeyInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeDurKeyInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeDurKeyInd') != null">{{ qualityDefaultDetailForm.get('qdeDurKeyInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeSocSecNbrInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Social Security Nbr</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_socSecNbrIndY" aria-required="true" tabindex="0" formControlName="qdeSocSecNbrInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_socSecNbrIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_socSecNbrIndN" tabindex="0" formControlName="qdeSocSecNbrInd" value="N" >
+                            <label class="field-label" for="form_radio_socSecNbrIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeSocSecNbrInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeSocSecNbrInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeSocSecNbrInd') != null">{{ qualityDefaultDetailForm.get('qdeSocSecNbrInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeAddress1Ind').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Address1</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_address1IndY" aria-required="true" tabindex="0" formControlName="qdeAddress1Ind"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_address1IndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_address1IndN" tabindex="0" formControlName="qdeAddress1Ind" value="N" >
+                            <label class="field-label" for="form_radio_address1IndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeAddress1Ind').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeAddress1Ind').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeAddress1Ind') != null">{{ qualityDefaultDetailForm.get('qdeAddress1Ind').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeAddress2Ind').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Address2</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_address2IndY" aria-required="true" tabindex="0" formControlName="qdeAddress2Ind"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_address2IndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_address2IndN" tabindex="0" formControlName="qdeAddress2Ind" value="N" >
+                            <label class="field-label" for="form_radio_address2IndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeAddress2Ind').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeAddress2Ind').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeAddress2Ind') != null">{{ qualityDefaultDetailForm.get('qdeAddress2Ind').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeAddress3Ind').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Address3</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_address3IndY" aria-required="true" tabindex="0" formControlName="qdeAddress3Ind"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_address3IndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_address3IndN" tabindex="0" formControlName="qdeAddress3Ind" value="N" >
+                            <label class="field-label" for="form_radio_address3IndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeAddress3Ind').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeAddress3Ind').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeAddress3Ind') != null">{{ qualityDefaultDetailForm.get('qdeAddress3Ind').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeCityInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>City</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_cityIndY" aria-required="true" tabindex="0" formControlName="qdeCityInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_cityIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_cityIndN" tabindex="0" formControlName="qdeCityInd" value="N" >
+                            <label class="field-label" for="form_radio_cityIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeCityInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeCityInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeCityInd') != null">{{ qualityDefaultDetailForm.get('qdeCityInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeStateInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>State</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_stateIndY" aria-required="true" tabindex="0" formControlName="qdeStateInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_stateIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_stateIndN" tabindex="0" formControlName="qdeStateInd" value="N" >
+                            <label class="field-label" for="form_radio_stateIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeStateInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeStateInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeStateInd') != null">{{ qualityDefaultDetailForm.get('qdeStateInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeZipInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Zip1</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_zipIndY" aria-required="true" tabindex="0" formControlName="qdeZipInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_zipIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_zipIndN" tabindex="0" formControlName="qdeZipInd" value="N" >
+                            <label class="field-label" for="form_radio_zipIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeZipInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeZipInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeZipInd') != null">{{ qualityDefaultDetailForm.get('qdeZipInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeZip2Ind').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Zip2</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_zip2IndY" aria-required="true" tabindex="0" formControlName="qdeZip2Ind"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_zip2IndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_zip2IndN" tabindex="0" formControlName="qdeZip2Ind" value="N" >
+                            <label class="field-label" for="form_radio_zip2IndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeZip2Ind').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeZip2Ind').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeZip2Ind') != null">{{ qualityDefaultDetailForm.get('qdeZip2Ind').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeZip3Ind').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Zip3</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_zip3IndY" aria-required="true" tabindex="0" formControlName="qdeZip3Ind"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_zip3IndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_zip3IndN" tabindex="0" formControlName="qdeZip3Ind" value="N" >
+                            <label class="field-label" for="form_radio_zip3IndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeZip3Ind').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeZip3Ind').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeZip3Ind') != null">{{ qualityDefaultDetailForm.get('qdeZip3Ind').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeFamilyFlagInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Family Flag</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_familyFlagIndY" aria-required="true" tabindex="0" formControlName="qdeFamilyFlagInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_familyFlagIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_familyFlagIndN" tabindex="0" formControlName="qdeFamilyFlagInd" value="N" >
+                            <label class="field-label" for="form_radio_familyFlagIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeFamilyFlagInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeFamilyFlagInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeFamilyFlagInd') != null">{{ qualityDefaultDetailForm.get('qdeFamilyFlagInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeFamilyTypeInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Family Type</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_familyTypeIndY" aria-required="true" tabindex="0" formControlName="qdeFamilyTypeInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_familyTypeIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_familyTypeIndN" tabindex="0" formControlName="qdeFamilyTypeInd" value="N" >
+                            <label class="field-label" for="form_radio_familyTypeIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeFamilyTypeInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeFamilyTypeInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeFamilyTypeInd') != null">{{ qualityDefaultDetailForm.get('qdeFamilyTypeInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeFamilyIdInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Family ID</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_familyIdIndY" aria-required="true" tabindex="0" formControlName="qdeFamilyIdInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_familyIdIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_familyIdIndN" tabindex="0" formControlName="qdeFamilyIdInd" value="N" >
+                            <label class="field-label" for="form_radio_familyIdIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeFamilyIdInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeFamilyIdInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeFamilyIdInd') != null">{{ qualityDefaultDetailForm.get('qdeFamilyIdInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdePlanCodeInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Plan</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_planCodeIndY" aria-required="true" tabindex="0" formControlName="qdePlanCodeInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_planCodeIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_planCodeIndN" tabindex="0" formControlName="qdePlanCodeInd" value="N" >
+                            <label class="field-label" for="form_radio_planCodeIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdePlanCodeInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdePlanCodeInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdePlanCodeInd') != null">{{ qualityDefaultDetailForm.get('qdePlanCodeInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdePlanEffDateInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Plan Effective Date</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_planEffDateIndY" aria-required="true" tabindex="0" formControlName="qdePlanEffDateInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_planEffDateIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_planEffDateIndN" tabindex="0" formControlName="qdePlanEffDateInd" value="N" >
+                            <label class="field-label" for="form_radio_planEffDateIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdePlanEffDateInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdePlanEffDateInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdePlanEffDateInd') != null">{{ qualityDefaultDetailForm.get('qdePlanEffDateInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeClientProdCodeInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Client Product Code</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_clientProdCodeIndY" aria-required="true" tabindex="0" formControlName="qdeClientProdCodeInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_clientProdCodeIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_clientProdCodeIndN" tabindex="0" formControlName="qdeClientProdCodeInd" value="N" >
+                            <label class="field-label" for="form_radio_clientProdCodeIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeClientProdCodeInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeClientProdCodeInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeClientProdCodeInd') != null">{{ qualityDefaultDetailForm.get('qdeClientProdCodeInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeClientRiderCodeInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Client Rider Code</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_clientRiderCodeIndY" aria-required="true" tabindex="0" formControlName="qdeClientRiderCodeInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_clientRiderCodeIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_clientRiderCodeIndN" tabindex="0" formControlName="qdeClientRiderCodeInd" value="N" >
+                            <label class="field-label" for="form_radio_clientRiderCodeIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeClientRiderCodeInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeClientRiderCodeInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeClientRiderCodeInd') != null">{{ qualityDefaultDetailForm.get('qdeClientRiderCodeInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeMedPartdCntNbrInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Medicare Part-D Contract Nbr</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_medPartdCntNbrIndY" aria-required="true" tabindex="0" formControlName="qdeMedPartdCntNbrInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_medPartdCntNbrIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_medPartdCntNbrIndN" tabindex="0" formControlName="qdeMedPartdCntNbrInd" value="N" >
+                            <label class="field-label" for="form_radio_medPartdCntNbrIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMedPartdCntNbrInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMedPartdCntNbrInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeMedPartdCntNbrInd') != null">{{ qualityDefaultDetailForm.get('qdeMedPartdCntNbrInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeMedicareHicInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Medicare HIC</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_medicareHicIndY" aria-required="true" tabindex="0" formControlName="qdeMedicareHicInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_medicareHicIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_medicareHicIndN" tabindex="0" formControlName="qdeMedicareHicInd" value="N" >
+                            <label class="field-label" for="form_radio_medicareHicIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMedicareHicInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMedicareHicInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeMedicareHicInd') != null">{{ qualityDefaultDetailForm.get('qdeMedicareHicInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdePbpInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>PBP Number</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_pbpIndY" aria-required="true" tabindex="0" formControlName="qdePbpInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_pbpIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_pbpIndN" tabindex="0" formControlName="qdePbpInd" value="N" >
+                            <label class="field-label" for="form_radio_pbpIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdePbpInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdePbpInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdePbpInd') != null">{{ qualityDefaultDetailForm.get('qdePbpInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeSubsidyLevelInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Subsidy Level</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_subsidyLevelIndY" aria-required="true" tabindex="0" formControlName="qdeSubsidyLevelInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_subsidyLevelIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_subsidyLevelIndN" tabindex="0" formControlName="qdeSubsidyLevelInd" value="N" >
+                            <label class="field-label" for="form_radio_subsidyLevelIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeSubsidyLevelInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeSubsidyLevelInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeSubsidyLevelInd') != null">{{ qualityDefaultDetailForm.get('qdeSubsidyLevelInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeCopayCategoryInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Co-Pay Category</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_copayCategoryIndY" aria-required="true" tabindex="0" formControlName="qdeCopayCategoryInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_copayCategoryIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_copayCategoryIndN" tabindex="0" formControlName="qdeCopayCategoryInd" value="N" >
+                            <label class="field-label" for="form_radio_copayCategoryIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeCopayCategoryInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeCopayCategoryInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeCopayCategoryInd') != null">{{ qualityDefaultDetailForm.get('qdeCopayCategoryInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeMbrCddEffDateInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>MBR Client Defined Data Effective Date</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_mbrCddEffDateIndY" aria-required="true" tabindex="0" formControlName="qdeMbrCddEffDateInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_mbrCddEffDateIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_mbrCddEffDateIndN" tabindex="0" formControlName="qdeMbrCddEffDateInd" value="N" >
+                            <label class="field-label" for="form_radio_mbrCddEffDateIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMbrCddEffDateInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMbrCddEffDateInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeMbrCddEffDateInd') != null">{{ qualityDefaultDetailForm.get('qdeMbrCddEffDateInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeMbrCddThruDateInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>MBR Client Defined Data Thru Date</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_mbrCddThruDateIndY" aria-required="true" tabindex="0" formControlName="qdeMbrCddThruDateInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_mbrCddThruDateIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_mbrCddThruDateIndN" tabindex="0" formControlName="qdeMbrCddThruDateInd" value="N" >
+                            <label class="field-label" for="form_radio_mbrCddThruDateIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMbrCddThruDateInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMbrCddThruDateInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeMbrCddThruDateInd') != null">{{ qualityDefaultDetailForm.get('qdeMbrCddThruDateInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeMbrCddInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>MBR Client Defined Data</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_mbrCddIndY" aria-required="true" tabindex="0" formControlName="qdeMbrCddInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_mbrCddIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_mbrCddIndN" tabindex="0" formControlName="qdeMbrCddInd" value="N" >
+                            <label class="field-label" for="form_radio_mbrCddIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMbrCddInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMbrCddInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeMbrCddInd') != null">{{ qualityDefaultDetailForm.get('qdeMbrCddInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeMpartdEffDateInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Medicare Part D From Date</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_qdeMpartdEffDateIndY" aria-required="true" tabindex="0" formControlName="qdeMpartdEffDateInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_qdeMpartdEffDateIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_qdeMpartdEffDateIndN" tabindex="0" formControlName="qdeMpartdEffDateInd" value="N" >
+                            <label class="field-label" for="form_radio_qdeMpartdEffDateIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMpartdEffDateInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMpartdEffDateInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeMpartdEffDateInd') != null">{{ qualityDefaultDetailForm.get('qdeMpartdEffDateInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeMpartdThruDateInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Medicare Part D Thru Date</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_mpartdThruDateIndY" aria-required="true" tabindex="0" formControlName="qdeMpartdThruDateInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_mpartdThruDateIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_mpartdThruDateIndN" tabindex="0" formControlName="qdeMpartdThruDateInd" value="N" >
+                            <label class="field-label" for="form_radio_mpartdThruDateIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMpartdThruDateInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMpartdThruDateInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeMpartdThruDateInd') != null">{{ qualityDefaultDetailForm.get('qdeMpartdThruDateInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeMsiAltIdInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>MSI Alternate ID</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_msiAltIdIndY" aria-required="true" tabindex="0" formControlName="qdeMsiAltIdInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_msiAltIdIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_msiAltIdIndN" tabindex="0" formControlName="qdeMsiAltIdInd" value="N" >
+                            <label class="field-label" for="form_radio_msiAltIdIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMsiAltIdInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMsiAltIdInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeMsiAltIdInd') != null">{{ qualityDefaultDetailForm.get('qdeMsiAltIdInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeAltInsTypeInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>Alternate Insurance Type</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_altInsTypeIndY" aria-required="true" tabindex="0" formControlName="qdeAltInsTypeInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_altInsTypeIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_altInsTypeIndN" tabindex="0" formControlName="qdeAltInsTypeInd" value="N" >
+                            <label class="field-label" for="form_radio_altInsTypeIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeAltInsTypeInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeAltInsTypeInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeAltInsTypeInd') != null">{{ qualityDefaultDetailForm.get('qdeAltInsTypeInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeMbrAptcIndInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>MBR APTC Indicator</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_mbrAptcIndIndY" aria-required="true" tabindex="0" formControlName="qdeMbrAptcIndInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_mbrAptcIndIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_mbrAptcIndIndN" tabindex="0" formControlName="qdeMbrAptcIndInd" value="N" >
+                            <label class="field-label" for="form_radio_mbrAptcIndIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMbrAptcIndInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeMbrAptcIndInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeMbrAptcIndInd') != null">{{ qualityDefaultDetailForm.get('qdeMbrAptcIndInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeHimGpEffDateInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>HIM Grace Period Effective Date</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_himGpEffDateIndY" aria-required="true" tabindex="0" formControlName="qdeHimGpEffDateInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_himGpEffDateIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_himGpEffDateIndN" tabindex="0" formControlName="qdeHimGpEffDateInd" value="N" >
+                            <label class="field-label" for="form_radio_himGpEffDateIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeHimGpEffDateInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeHimGpEffDateInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeHimGpEffDateInd') != null">{{ qualityDefaultDetailForm.get('qdeHimGpEffDateInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group" [ngClass]="{'error': submitted && this.qualityDefaultDetailForm.get('qdeHimGpThruDateInd').invalid}">
+                    <div class="left-control">
+                        <label>
+                            <span>HIM Grace Period Termination Date</span>
+                            <span class="required">*</span>
+                        </label>
+                        <a placement="right" tabindex="0" class="notification--tool-tip tool-tip" ngbTooltip="Tooltip
+                                Imagery may or may not reflect your current medications.">
+                        </a>
+                    </div>
+                    <div class="right-control error_message" *ngIf="!isView()">
+                        <div class="field-block">
+                            <input type="radio" required="" id="form_radio_himGpThruDateIndY" aria-required="true" tabindex="0" formControlName="qdeHimGpThruDateInd"
+                                value="Y" >
+                            <label class="field-label" for="form_radio_himGpThruDateIndY">Yes</label>
+                        </div>
+                        <div class="field-block">
+                            <input type="radio" id="form_radio_himGpThruDateIndN" tabindex="0" formControlName="qdeHimGpThruDateInd" value="N" >
+                            <label class="field-label" for="form_radio_himGpThruDateIndN">No</label>
+                        </div>
+                        <div *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeHimGpThruDateInd').invalid">
+                            <p class="bold_error" *ngIf="submitted && this.qualityDefaultDetailForm.get('qdeHimGpThruDateInd').errors.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-control view_message" *ngIf="isView()">
+                        <p>
+                            <label class="view_message" *ngIf="qualityDefaultDetailForm.get('qdeHimGpThruDateInd') != null">{{ qualityDefaultDetailForm.get('qdeHimGpThruDateInd').value }}</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+<div>
+    <app-form-section-footer [jumplinkFlag]=jumplinkFlag></app-form-section-footer>
+</div>
+
+    <form-controls
+        [recordSessionStorageId]="'eligibilityProfile'"
+        [showCancel]="true"
+        [showSave]="!isView()"
+        (onSave)="submit()"
+        [onCancelRoute]="'/s-active-eligibility-profile'"
+    >
+    </form-controls>
+</div>
+<div class="spacer"></div>
+
+</form>
+<div *ngIf="isSaving">
+<app-loading-indicator></app-loading-indicator>
+</div>
+</div>
+<div class="dateUserStampStyle">
+Added:&nbsp;&nbsp;{{addDateTime}} &nbsp;&nbsp;&nbsp; Changed:&nbsp;&nbsp;{{changeDateTime}} &nbsp;&nbsp;&nbsp; User:&nbsp;&nbsp;{{changeUser}}
+<br>&nbsp;
+</div>
+</div>
+
+<style>
+@font-face {
+font-family: 'frutiger-bold';
+src: url('../../assets/fonts/optum/frutiger-bold.woff') format('woff'), /* Pretty Modern Browsers */
+url('../../assets/fonts/optum/frutiger-bold.ttf') format('truetype');
+}
+
+@font-face {
+font-family: 'frutiger-roman';
+font-style: normal;
+font-weight: 400;
+src: url('../../assets/fonts/optum/frutiger-roman.eot');
+/* IE9 Compat Modes */
+src: url('../../assets/fonts/optum/frutiger-roman.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+url('../../assets/fonts/optum/frutiger-roman.woff') format('woff'), /* Pretty Modern Browsers */
+url('../../assets/fonts/optum/frutiger-roman.ttf') format('truetype');
+}
+</style>

@@ -1,0 +1,378 @@
+/* Validation */
+
+
+/* validation */
+
+
+.typography{
+
+  max-width:1138px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+textarea{
+  border:none;
+}
+
+.textLookup{
+  border: 1px solid #CC00FF;
+}
+
+.ogn__secondary-header-formlink {
+  -ms-flex-align: center;
+      align-items: center;
+
+width:1138px;
+padding: 0px 16px;
+}
+
+.content{
+  height: 48px;
+}
+.ogn__secondary-form
+{
+  -ms-flex-align: center;
+      align-items: center;
+width:1138px;
+padding: 0px 0px;
+}
+.form_out{
+  max-width:1138px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+
+.form_background{
+  background-color: #fff;
+  max-width:1138px;
+
+
+}
+.title{
+  border-bottom: solid 1px #E0E0E0;
+}
+
+.spacer{
+  height: 100px;
+}
+
+
+/* Tool Tip Starts*/
+.notification--tool-tip{
+  margin-left:12px;
+}
+
+:host >>> .tooltip-inner {
+    width: 232px;
+    background-color: white;
+    border: 1px solid #B3B3B3;
+    visibility: visible;
+    font-style: "frutiger-roman.woff";
+    font-size: 12px;
+    text-align: left;
+    color:black;
+    border-bottom: 3px solid #B3B3B3;
+     line-height: 20px;
+  }
+     :host >>> .bs-tooltip-right .arrow, .bs-tooltip-auto[x-placement^="right"] .arrow {
+      right: 0;
+      width: 0.4rem;
+      height: 0.8rem;
+
+     }
+
+    :host >>> .bs-tooltip-right .arrow::before {
+      right: 0;
+      border-top: 0.4rem solid transparent;
+      border-bottom: 0.4rem solid transparent;
+      border-right: 0.4rem solid #B3B3B3;
+
+     }
+
+     /*ToolTip Ends here*/
+/**  Add profile start here */
+/* Error Div */
+
+
+
+.errorDiv{
+  background-color: #E32315;
+  margin: 20px 16px 20px 16px;
+}
+
+
+.errorDiv_text{
+  color: #fff;
+  font-family: 'frutiger-bold';
+  font-size: 16px;
+  margin-left:40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+
+/*Error Message css ends */
+
+
+/* Everything should be in this Form */
+
+
+.h2{
+  margin-bottom: 16px!important;
+  margin-left: 16px!important;
+}
+
+
+
+/* CSS FOR SUBMIT BUTTON */
+
+.btn1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0px;
+  background: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-block;
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 1em;
+  line-height: 1;
+  margin-bottom: 16px;
+  margin-right: 16px;
+  outline: none;
+  overflow: hidden;
+  padding: 10px 0;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  top: 0;
+  transition-duration: 0.3s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  vertical-align: middle;
+  zoom: 1;
+  white-space: normal;
+  -webkit-tap-highlight-color: transparent; }
+   .btn1:hover,  .btn1:focus {
+    box-shadow: 0 2px #00396C;
+    color: #00396C;
+    outline: none;
+    top: -2px;
+    transition-duration: 0.1s; }
+   .btn1:active {
+    outline: none;
+    top: 0; }
+
+.btn1:before {
+  content: "";
+  font-family: "Optum-Micro-interaction-16";
+  font-size: 1.5em;
+  font-weight: bold;
+  font-style: normal;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: rtl;
+  transform: rotate(-180deg);
+  -webkit-font-feature-settings: 'liga';
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  -webkit-font-feature-settings: 'liga';
+          font-feature-settings: 'liga';
+  display: inline-block;
+  font-size: 0.75em;
+  font-weight: bold;
+  padding-left: 5px;
+  vertical-align: middle;
+  text-decoration: none; }
+.btn1:hover,  .btn1:focus {
+      box-shadow: 0 2px #00396C;
+      color: #00396C;
+      outline: none;
+      top: -2px;
+      transition-duration: 0.1s; }
+
+
+.ogn__secondary-header-formlink {
+-ms-flex-align: center;
+  align-items: center;
+background-color: #FFFFFF;
+max-width:1138px;
+margin-left: auto;
+margin-right: auto;
+}
+
+@media screen and (min-width: 960px)
+{
+.ogn-container {
+  padding: 0 0px;
+}
+}
+
+.content{
+height: 74px; margin-left: 16px; margin-right: 16px
+}
+
+
+.nextButtonSytle {
+text-align: right;
+float: right;
+}
+
+.saveAlignment{
+width: 195px;
+}
+
+.cancelAlignment{
+margin-left: 195px;
+width: 195px;
+}
+
+.spaceBetweenSaveCancel{
+margin-right:20px;
+}
+
+.container{
+   margin-left: 40px;
+  padding-left: 0px;
+  padding-right: 0px;
+  border : 1px solid #222;
+  width: 600px;
+}
+.table-row {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-grow: 0;
+  -webkit-flex-grow: 0;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+
+}
+.text {
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-right: 8px;
+  padding-left: 8px;
+  width: 80px;
+  text-align: left;
+}
+.num {
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 80px;
+  padding-right: 8px;
+  padding-left: 8px;
+  text-align: center
+}
+
+.table-row {
+  border-bottom: 1px solid #E0E0E0;
+  font-size: 12px;
+  font-family: 'frutiger-roman';
+  color: #222;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.table-row.header {
+  border-bottom: 1px solid #222;
+  font-size: 12px;
+  font-family: 'frutiger-bold';
+  color: #222;
+  padding-top: 20px;
+  padding-bottom: 4px;
+}
+.table-row:last-of-type{
+    border-bottom: none;
+}
+
+.right-control input:read-only{
+  border: transparent;
+}
+
+.input-wthout-outline{
+  outline: 0px solid white!important ;
+}
+
+.form-control-error {
+  border: 1px solid red!important;
+}
+
+.form-field-error {
+  display: inline-block;
+  color: red;
+}
+.successDiv{
+  background-color: #627D32;
+  margin: 20px 16px 20px 16px;
+}
+.dateUserStampStyle{
+  text-align: left;
+}
+.ssn_input  {
+  margin-top: 5px!important;
+  border-color: #61c6e5 !important;;
+}
+legend {
+  margin-top: 10px!important;
+  margin-bottom: 0px!important;
+  font-size: 12px!important;
+  font-style: normal!important;
+  color: #636363!important;
+  font-family: 'frutiger-roman' !important;
+}
+.ssn{
+background-color: #CCEBF6;
+padding:8px;
+}
+
+a.lookup {
+  font-family: 'frutiger-bold';
+  font-size: 12px;
+  color: #316BBE;
+  vertical-align: middle;
+}
+
+.iconLookup {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 22px;
+  /* Preferred icon size */
+  color: #316BBE;
+  margin-left: 12px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+a.lookup:hover {
+  font-family: 'frutiger-bold';
+  font-size: 12px;
+  color: #316BBE;
+  vertical-align: middle;
+  text-decoration: underline;
+}
+
+a {
+  text-decoration: none;
+}
